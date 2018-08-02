@@ -32,5 +32,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
 server:
-  port: 8080
+  port: 8081
   max-http-header-size: 1048576
