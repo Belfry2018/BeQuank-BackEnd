@@ -13,9 +13,9 @@ spring:
       max-request-size: 10240MB
 
   datasource:
-    url: jdbc:mysql://localhost:3306/letsDo?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 31415926
+    url: jdbc:mysql://localhost:3306/beQuank?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: citi
+    password: citi
 
     driver-class-name: com.mysql.jdbc.Driver
 
