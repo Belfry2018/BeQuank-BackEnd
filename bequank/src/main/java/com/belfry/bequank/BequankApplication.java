@@ -1,19 +1,14 @@
-package com.belfry;
+package com.belfry.bequank;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.cache.annotation.EnableCaching;
 
-@EnableAutoConfiguration
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.belfry.bequank.repository")
-
+@EnableCaching
 public class BequankApplication {
 
     public static void main(String[] args) {
-
-
         SpringApplication.run(BequankApplication.class, args);
     }
 }

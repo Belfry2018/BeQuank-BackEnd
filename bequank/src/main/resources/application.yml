@@ -1,36 +1,31 @@
 spring:
-
-  resources:
-    chain:
-      strategy:
-        content:
-          enabled: true
-          paths: /**
-
-  servlet:
-    multipart:
-      max-file-size: 10240MB
-      max-request-size: 10240MB
-
   datasource:
     url: jdbc:mysql://localhost:3306/beQuank?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: citi
-    password: citi
-
+    username: root
+    password: 31415926
     driver-class-name: com.mysql.jdbc.Driver
-
   jpa:
-    database: MYSQL
+    database: mysql
     show-sql: false
     hibernate:
       ddl-auto: update
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+  cache:
+    type: redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-idle: 0
+        max-active: 0
 
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
-
-server:
-  port: 8081
-  max-http-header-size: 1048576
+belfry:
+  expiration_time: 10800000
+  secret: "belfry2018"
+  token_prefix: "Bearer "
+  header_string: "Authorization"
+  cache_name: "loginList"
+  key_prefix: "loginList::"
