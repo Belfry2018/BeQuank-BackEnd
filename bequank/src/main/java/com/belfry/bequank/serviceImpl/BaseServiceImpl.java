@@ -88,7 +88,7 @@ public class BaseServiceImpl implements BaseService {
             return object;
         }
 
-        String token = jwtUtil.generateToken(user);
+        String token = jwtUtil.generateToken(user1);
         String role = user1.getRole();
         object.put("status", Message.MSG_SUCCESS);
         object.put("token", token);

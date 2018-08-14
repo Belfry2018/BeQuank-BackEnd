@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.security.GeneralSecurityException;
 
 @RestController
@@ -63,5 +64,15 @@ public class BaseController {
     @PostMapping("/logout")
     public void logout(@RequestBody User user) {
         baseService.logout(user);
+    }
+
+    @GetMapping("/test1")
+    public String protectedRequest(HttpServletRequest request) {
+        return "this is protected request";
+    }
+
+    @GetMapping("/test2")
+    public String unprotectedRequest() {
+        return "this is unprotected request";
     }
 }

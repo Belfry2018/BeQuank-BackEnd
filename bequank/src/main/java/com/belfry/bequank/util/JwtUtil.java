@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -41,4 +42,10 @@ public class JwtUtil {
 
         return  jwt;
     }
+
+    @Cacheable(value = "loginList", key = "#user.userName")
+    public String getToken(User user) {
+        return null;
+    }
+
 }

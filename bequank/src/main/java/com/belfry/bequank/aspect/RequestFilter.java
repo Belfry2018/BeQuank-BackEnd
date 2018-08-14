@@ -41,39 +41,35 @@ public class RequestFilter {
     @Before(value = "invokeMethod(request)", argNames = "request")
     public void validateRequest(HttpServletRequest request) {
         String uri = request.getRequestURI();
-        if (matcher.match("/api/**", request.getServletPath())) {
-            //protected request
-            logger.info("protected request : {}", uri);
-            String token = request.getHeader(header);
-            if (token != null) {
-                Map<String, Object> map = Jwts.parser()
-                        .setSigningKey(secret)
-                        .parseClaimsJws(token.replace(token_prefix, ""))
-                        .getBody();
 
-                String userName = ((String) map.get("userName"));
-                int time = ((int) map.get("exp"));
-                String val = template.opsForValue().get(key_prefix + userName);
+        logger.info("protected request : {}", uri);
+        String token = request.getHeader(header);
+        if (token != null) {
+            Map<String, Object> map = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token.replace(token_prefix, ""))
+                    .getBody();
 
-                if (val == null) {
-                    throw new RuntimeException("Unauthorized");
-                }
-                if (!val.equals(token)) {
-                    logger.info("val = {}", val);
-                    logger.info("token = {}", token);
-                    throw new RuntimeException("Token incorrect");
-                }
-                if (time < System.currentTimeMillis() / 1000) {    //÷1000是为了单位对齐……
-                    logger.info("expire time = {}", time);
-                    logger.info("current time = {}", System.currentTimeMillis() / 1000);
-                    throw new RuntimeException("Token expired");
-                }
+            String userName = ((String) map.get("userName"));
+            int time = ((int) map.get("exp"));
+            String val = template.opsForValue().get(key_prefix + userName);
 
-            } else {
-                throw new RuntimeException("Missing token");
+            if (val == null) {
+                throw new RuntimeException("Unauthorized");
+            }
+            if (!val.equals(token)) {
+                logger.info("val = {}", val);
+                logger.info("token = {}", token);
+                throw new RuntimeException("Token incorrect");
+            }
+            if (time < System.currentTimeMillis() / 1000) {    //÷1000是为了单位对齐……
+                logger.info("expire time = {}", time);
+                logger.info("current time = {}", System.currentTimeMillis() / 1000);
+                throw new RuntimeException("Token expired");
             }
         } else {
-            logger.info("unprotected request : {}", uri);
+            throw new RuntimeException("Missing token");
         }
+
     }
 }
