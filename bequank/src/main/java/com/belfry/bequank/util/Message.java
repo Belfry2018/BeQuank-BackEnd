@@ -9,4 +9,5 @@ public class Message {
 
     public static final int MSG_WRONG_PASSWORD  = 420 ; //密码错误
     public static final int MSG_USER_NOTEXIST   = 421 ; //用户不存在
+    
 }
