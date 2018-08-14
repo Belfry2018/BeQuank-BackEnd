@@ -12,19 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthorityManager {
 
     //普通用户api的切点
-    @Pointcut("execution(* com.belfry.bequank.service.NormalUserService.*(request,..))&&args(request)")
+    @Pointcut("execution(* com.belfry.bequank.service.NormalUserService.*())&&args(request,..)")
     public void systemUser(HttpServletRequest request){}
 
     //系统用户api的切点
-    @Pointcut("execution(* com.belfry.bequank.service.SystemUserService.*(request,..))&&args(request)")
+    @Pointcut("execution(* com.belfry.bequank.service.SystemUserService.*())&&args(request,..)")
     public void normalUser(HttpServletRequest request){}
 
-    @Before("normalUser(request)")
+    @Before(value = "normalUser(request)",argNames = "request")
     public void authorizeNormalUser(HttpServletRequest request) {
 
     }
 
-    @Before("systemUser(request)")
+    @Before(value = "systemUser(request)",argNames = "request")
     public void authorizeSystemUser(HttpServletRequest request) {
 
     }
