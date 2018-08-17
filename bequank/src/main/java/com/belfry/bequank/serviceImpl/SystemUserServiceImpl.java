@@ -4,12 +4,14 @@ import com.belfry.bequank.entity.Tutorial;
 import com.belfry.bequank.repository.TutorialRepository;
 import com.belfry.bequank.repository.UserRepository;
 import com.belfry.bequank.service.SystemUserService;
+import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.Message;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 /**
@@ -24,10 +26,12 @@ public class SystemUserServiceImpl implements SystemUserService {
     TutorialRepository tutorialRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
     Message message=new Message();
 
     @Override
-    public JSONObject postTutorial(String nickname, Long userid, String title, String discription, JSONArray keywords, String content, String time) {
+    public JSONObject postTutorial(HttpServletRequest request, String nickname, Long userid, String title, String discription, JSONArray keywords, String content, String time) {
         /**
          * @author: Yang Yuqing
          * @description:

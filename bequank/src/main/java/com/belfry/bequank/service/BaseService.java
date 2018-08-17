@@ -4,6 +4,7 @@ import com.belfry.bequank.entity.User;
 import net.sf.json.JSONObject;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.security.GeneralSecurityException;
 
 public interface BaseService {
@@ -13,5 +14,5 @@ public interface BaseService {
 
     public void logout(User user);
 
-    public JSONObject sendVerificationCode(String email) throws GeneralSecurityException, MessagingException;
+    public JSONObject sendVerificationCode(HttpServletRequest request, String email) throws GeneralSecurityException, MessagingException;
 }

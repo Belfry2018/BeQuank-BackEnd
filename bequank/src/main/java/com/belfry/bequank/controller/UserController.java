@@ -8,6 +8,8 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author: Yang Yuqing
  * @Description:
@@ -20,7 +22,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/tutorials")
-    public JSONArray filterTutorials(@RequestBody JSONObject jsonObject){
+    public JSONArray filterTutorials(HttpServletRequest request, @RequestBody JSONObject jsonObject){
         return userService.filterTutorials(
                 jsonObject.getLong("userid"),
                 jsonObject.getString("time"),
@@ -29,11 +31,11 @@ public class UserController {
                 jsonObject.getString("keywords").split(" "));
     }
     @GetMapping("/tutorial")
-    Tutorial getTutorial(@RequestBody JSONObject jsonObject){
+    Tutorial getTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.getTutorial(jsonObject.getLong("id"));
     }
     @PostMapping("/comment")
-    JSONObject postComment(@RequestBody JSONObject jsonObject){
+    JSONObject postComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.postComment(
                 jsonObject.getLong("tutorialid"),
                 jsonObject.getString("content"),
@@ -44,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/reply")
-    JSONObject reply(@RequestBody JSONObject jsonObject){
+    JSONObject reply(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.postComment(
                 jsonObject.getLong("commentid"),
                 jsonObject.getString("content"),
@@ -54,14 +56,14 @@ public class UserController {
         );
     }
     @PostMapping("/like/tutorial")
-    JSONObject likeTutorial(@RequestBody JSONObject jsonObject){
+    JSONObject likeTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeTutorial(
                 jsonObject.getLong("tutorialid"),
                 jsonObject.getLong("likerid")
         );
     }
     @PostMapping("/like/comment")
-    JSONObject likeComment(@RequestBody JSONObject jsonObject){
+    JSONObject likeComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeComment(
                 jsonObject.getLong("commentid"),
                 jsonObject.getLong("likerid")

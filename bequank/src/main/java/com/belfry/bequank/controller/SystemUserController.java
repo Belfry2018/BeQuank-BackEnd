@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author: Yang Yuqing
  * @Description:
@@ -18,7 +20,7 @@ public class SystemUserController {
     @Autowired
     SystemUserService systemUserService;
     @PostMapping("/tutorial")
-    public JSONObject postTutorial(@RequestBody JSONObject jsonObject){
+    public JSONObject postTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return systemUserService.postTutorial(
                     jsonObject.getString("nickname"),
                     jsonObject.getLong("userid"),
