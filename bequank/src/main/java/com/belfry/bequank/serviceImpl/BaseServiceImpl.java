@@ -15,14 +15,12 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Address;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
@@ -102,14 +100,14 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public JSONObject sendVerificationCode(String email) throws GeneralSecurityException, MessagingException {
+    public JSONObject sendVerificationCode(HttpServletRequest request, String email) throws GeneralSecurityException, MessagingException {
         Properties props = new Properties();
 
         //同一个bean的内部方法调用不会触发cache！因此要显式使用cache
         int code=(int)(Math.random()*900000+100000);
         template.opsForValue().set("codeList::" + email, Integer.toString(code));
 
-        // 发送服务器需要身份验证
+    // 发送服务器需要身份验证
         props.setProperty("mail.smtp.auth", "true");
         // 设置邮件服务器主机名
         props.setProperty("mail.host", "smtp.qq.com");
@@ -124,13 +122,13 @@ public class BaseServiceImpl implements BaseService {
         Session session = Session.getInstance(props);
 
         MimeMessage message = new MimeMessage(session);
-        message.setSubject("您的GeekMark众包网站验证码");
-        message.setFrom(new InternetAddress("2320468069@qq.com"));
+        message.setSubject("您的beQuank金融平台验证码");
+        message.setFrom(new InternetAddress("498924217@qq.com"));
 
 
-        String pre = "<p>您请求的beQuant注册服务验证码为：<font size=\"5\" color=\"red\"><b>";
+        String pre = "<p>您请求的beQuank金融平台邮箱验证服务验证码为：<font size=\"5\" color=\"red\"><b>";
         String suf = "</b></font>，如非本人操作，请忽视本信息，并尽快修改您的密码。</p>" +
-                "<p>请勿将此验证码告知他人。</p><p>GeekMark团队</p>";
+                "<p>请勿将此验证码告知他人。</p><p>belfry团队</p>";
 
         MimeMultipart all = new MimeMultipart("related");
         MimeBodyPart text = new MimeBodyPart();
@@ -138,12 +136,12 @@ public class BaseServiceImpl implements BaseService {
         all.addBodyPart(text);
 
         message.setContent(all);
+
         Transport transport = session.getTransport();
-        transport.connect("smtp.qq.com", "2320468069@qq.com", "mohrzsktikvyebbe");
+        transport.connect("smtp.qq.com", "498924217@qq.com", "bmtdvhahtfcebjfj");
 
         transport.sendMessage(message, new Address[] { new InternetAddress(email) });
         transport.close();
-
         JSONObject object = new JSONObject();
         object.put("status", Message.MSG_SUCCESS);
         object.put("message", "发送成功");
