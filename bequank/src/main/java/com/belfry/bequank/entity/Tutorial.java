@@ -24,10 +24,10 @@ public class Tutorial implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    private Long userid;
+    private Long userid;        //准备换成User对象
     private int likecount;
     private String nickname,title,discription,content,time;
     private JSONArray keywords;
-    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private List<Comment> comments;
 }
