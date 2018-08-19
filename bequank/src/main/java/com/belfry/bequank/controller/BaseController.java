@@ -33,8 +33,9 @@ public class BaseController {
         return expiration_time + token_prefix;
     }
 
+
     @PostMapping("/identify")
-    public JSONObject sendVerificationCode(@RequestBody JSONObject object) {
+    public JSONObject sendVerificationCode(HttpServletRequest request,@RequestBody JSONObject object) {
         String email = object.getString("email");
         logger.info("email = {}",email);
         JSONObject object1 = new JSONObject();

@@ -20,6 +20,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
@@ -99,7 +100,7 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public JSONObject sendVerificationCode(String email) throws GeneralSecurityException, MessagingException {
+    public JSONObject sendVerificationCode(HttpServletRequest request, String email) throws GeneralSecurityException, MessagingException {
         Properties props = new Properties();
 
         //同一个bean的内部方法调用不会触发cache！因此要显式使用cache
