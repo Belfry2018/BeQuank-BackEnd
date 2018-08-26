@@ -52,7 +52,7 @@ public class UserServiceImplTest {
         String[] tags={"intro","bequank","first"};
         JSONArray array=JSONArray.fromObject(tags);
 
-        systemUserService.postTutorial(u.getNickName(),
+        systemUserService.postTutorial(null,u.getNickName(),
                 u.getId(),
                 "bequank introduction",
                 "describes bequank intro",

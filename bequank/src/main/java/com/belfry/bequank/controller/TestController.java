@@ -71,10 +71,10 @@ public class TestController {
     @GetMapping("newTutorial")
     public JSONObject newTutorial(){
         String[] keywords={"bequank","first"};
-        return systemUserService.postTutorial("jjj",(long)1,"bequank",
-                "bequank introduction",JSONArray.fromObject(keywords),
+        return systemUserService.postTutorial(null,"bequank",
+                (long)1,"title"   ,
                 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-                "2018-7-15"
+                JSONArray.fromObject(null)  ,"content","2018-08-24"
                 );
     }
     @GetMapping("tftutorials")

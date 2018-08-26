@@ -14,5 +14,6 @@ public interface BaseService {
 
     public void logout(User user);
 
-    public JSONObject sendVerificationCode(HttpServletRequest request, String email) throws GeneralSecurityException, MessagingException;
+    public JSONObject sendVerificationCode(String email) throws GeneralSecurityException, MessagingException;
+
 }
