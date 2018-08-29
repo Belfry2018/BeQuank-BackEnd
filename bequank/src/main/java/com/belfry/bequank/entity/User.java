@@ -26,6 +26,7 @@ public class User implements Serializable {
     private String birthday;//生日
     private String moneyLevel;//……
     private String bio;//自我介绍
+    private String registerTime;//注册时间
     private double expectedProfit;
     private double riskAbility;
 

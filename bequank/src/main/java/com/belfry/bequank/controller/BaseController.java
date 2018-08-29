@@ -74,4 +74,9 @@ public class BaseController {
     public String unprotectedRequest() {
         return "this is unprotected request";
     }
+
+    @GetMapping("/user/profile")
+    public JSONObject getProfile(@RequestBody User user){
+        return baseService.getProfile(user);
+    }
 }
