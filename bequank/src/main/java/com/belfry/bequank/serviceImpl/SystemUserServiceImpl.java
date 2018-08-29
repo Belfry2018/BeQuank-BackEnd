@@ -53,7 +53,7 @@ public class SystemUserServiceImpl implements SystemUserService {
         tutorial.setUserid(userid);
         tutorial.setTitle(title);
         tutorial.setTime(time);
-        tutorial.setDiscription(discription);
+        tutorial.setDescription(discription);
         tutorial.setKeywords(keywords);
         tutorial.setContent(content);
         if(userRepository.findById(userid)==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
