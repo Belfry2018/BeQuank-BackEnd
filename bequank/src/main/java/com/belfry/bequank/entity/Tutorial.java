@@ -26,8 +26,20 @@ public class Tutorial implements Serializable {
     private Long id;
     private Long userid;        //准备换成User对象
     private int likecount;
-    private String nickname,title,discription,content,time;
+    private String nickname,title,description,content,time;
     private JSONArray keywords;
-    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER,mappedBy = "tutorial")
     private List<Comment> comments;
+
+    public Tutorial(Long userid, int likecount, String nickname, String title, String description, String content, String time, JSONArray keywords) {
+        this.userid = userid;
+        this.likecount = likecount;
+        this.nickname = nickname;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.time = time;
+        this.keywords = keywords;
+        this.comments = new ArrayList<>();
+    }
 }

@@ -27,12 +27,23 @@ public class Comment implements Serializable {
     private String content,time,nickname;
     private int likecount;
 
-    @ManyToOne(targetEntity = Tutorial.class,cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(targetEntity = Tutorial.class, cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
     private Tutorial tutorial;
 
-    @ManyToOne(targetEntity = Comment.class,cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(targetEntity = Comment.class, cascade = {CascadeType.MERGE})
     private Comment replyTarget;
-    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE},mappedBy = "replyTarget")
     private List<Comment> comments;
+
+    public Comment(Long writerid, String content, String time, String nickname, int likecount, Tutorial tutorial, Comment replyTarget) {
+        this.writerid = writerid;
+        this.content = content;
+        this.time = time;
+        this.nickname = nickname;
+        this.likecount = likecount;
+        this.tutorial = tutorial;
+        this.replyTarget = replyTarget;
+        this.comments = new ArrayList<>();
+    }
 }
 

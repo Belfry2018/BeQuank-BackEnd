@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
                 iter.remove();
             else if(title!=null&&!t.getTitle().equals(title))
                 iter.remove();
-            else if(description!=null&&!t.getDiscription().equals(description)){
+            else if(description!=null&&!t.getDescription().equals(description)){
                 iter.remove();
             }
             // TODO: 8/17/18 optimize keyword filter, making the results sorted by number of hits
