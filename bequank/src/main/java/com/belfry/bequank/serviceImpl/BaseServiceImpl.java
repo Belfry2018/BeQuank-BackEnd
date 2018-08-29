@@ -20,7 +20,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.servlet.http.HttpServletRequest;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
@@ -158,15 +157,27 @@ public class BaseServiceImpl implements BaseService {
             return res;
         }
 
-        res.put("nickname",user.getNickname());
-        res.put("avatar",user.getAvatar());
-        res.put("phone",user.getPhone());
-        res.put("email",user.getEmail());
-        res.put("gender",user.getGender());
-        res.put("birthday",user.getBirthday());
-        res.put("moneyLevel",user.getMoneyLevel());
-        res.put("bio",user.getBio());
-        res.put("registerTime",user.getRegisterTime());
+        res.put("nickname", user.getNickname());
+        res.put("avatar", user.getAvatar());
+        res.put("phone", user.getPhone());
+        res.put("email", user.getEmail());
+        res.put("gender", user.getGender());
+        res.put("birthday", user.getBirthday());
+        res.put("moneyLevel", user.getMoneyLevel());
+        res.put("bio", user.getBio());
+        res.put("registerTime", user.getRegisterTime());
+
+        return res;
+    }
+
+    @Override
+    public JSONObject setProfile(User user, JSONObject object) {
+        JSONObject res = new JSONObject();
+
+        // TODO: 18-8-29 Response Code, how to check if revision is successful?
+        res.put("status", Message.MSG_SUCCESS);
+
+        repository.setProfile(user.getUserName(), user.getNickname(), user.getAvatar(), user.getPhone(), user.getEmail(), user.getGender(), user.getBirthday(), user.getMoneyLevel(), user.getBio());
 
         return res;
     }

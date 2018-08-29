@@ -29,7 +29,7 @@ public class BaseController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/hello")
-    public String hello(){
+    public String hello() {
         return expiration_time + token_prefix;
     }
 
@@ -37,7 +37,7 @@ public class BaseController {
     @PostMapping("/identify")
     public JSONObject sendVerificationCode(@RequestBody JSONObject object) {
         String email = object.getString("email");
-        logger.info("email = {}",email);
+        logger.info("email = {}", email);
         JSONObject object1 = new JSONObject();
         try {
             object1 = baseService.sendVerificationCode(email);
@@ -76,7 +76,12 @@ public class BaseController {
     }
 
     @GetMapping("/user/profile")
-    public JSONObject getProfile(@RequestBody User user){
+    public JSONObject getProfile(@RequestBody User user) {
         return baseService.getProfile(user);
+    }
+
+    @PostMapping("/user/profile")
+    public JSONObject setProfile(@RequestBody User user, @RequestBody JSONObject object) {
+        return baseService.setProfile(user, object);
     }
 }
