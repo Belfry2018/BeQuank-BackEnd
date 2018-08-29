@@ -19,4 +19,6 @@ public interface BaseService {
     public JSONObject getProfile(User user);
 
     public JSONObject setProfile(User user, JSONObject object);
+
+    public JSONObject setPassword(User user, JSONObject object);
 }

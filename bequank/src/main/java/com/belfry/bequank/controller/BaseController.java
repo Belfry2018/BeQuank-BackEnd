@@ -84,4 +84,9 @@ public class BaseController {
     public JSONObject setProfile(@RequestBody User user, @RequestBody JSONObject object) {
         return baseService.setProfile(user, object);
     }
+
+    @PostMapping("/user/password")
+    public JSONObject setPassword(@RequestBody User user, @RequestBody JSONObject object){
+        return baseService.setPassword(user,object);
+    }
 }
