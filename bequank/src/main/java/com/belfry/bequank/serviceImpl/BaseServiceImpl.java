@@ -177,7 +177,24 @@ public class BaseServiceImpl implements BaseService {
         // TODO: 18-8-29 Response Code, how to check if revision is successful?
         res.put("status", Message.MSG_SUCCESS);
 
-        repository.setProfile(user.getUserName(), user.getNickname(), user.getAvatar(), user.getPhone(), user.getEmail(), user.getGender(), user.getBirthday(), user.getMoneyLevel(), user.getBio());
+        repository.setProfile(user.getUserName(), object.getString("nickname"), object.getString("avatar"), object.getString("phone"), object.getString("email"), object.getString("gender"), object.getString("birthday"), object.getString("moneyLevel"), object.getString("bio"));
+
+        return res;
+    }
+
+    @Override
+    public JSONObject setPassword(User user, JSONObject object) {
+        JSONObject res = new JSONObject();
+
+        // TODO: 18-8-29 Response Code, how to check if revision is successful?
+        res.put("status", Message.MSG_SUCCESS);
+        User u = repository.findByUserName(user.getUserName());
+        if (!u.getPassword().equals(object.getString("oriPassword"))){
+            res.put("status",Message.MSG_WRONG_PASSWORD);
+            return res;
+        }
+
+        repository.setPassword(user.getUserName(), object.getString("newPassword"));
 
         return res;
     }
