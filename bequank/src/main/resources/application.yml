@@ -33,5 +33,11 @@ belfry:
   header_string: "Authorization"
   cache_name: "loginList"
   key_prefix: "loginList::"
+  oss_endpoint: "http://oss-cn-beijing.aliyuncs.com"
+  oss_id: "LTAI4rfUrxA3Z83r"
+  oss_key: "O5dhvXDdDKxU4nsUKt444UdQ6RXYKq"
+  oss_prefix: "http://bequank.oss-cn-beijing.aliyuncs.com/avatars/"
+  oss_dir: "avatars/"
+
 server:
   port: 9000
