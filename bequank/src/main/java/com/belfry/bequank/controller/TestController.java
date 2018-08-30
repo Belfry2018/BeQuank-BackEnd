@@ -49,7 +49,7 @@ public class TestController {
     JSONObject testLogin(){
         User u=new User();
         u.setRole(Role.NORMAL);
-        u.setNickName("hayaku");
+        u.setNickname("hayaku");
         u.setPassword("666");
         u.setUserName("bequank@qq.com");
         return baseService.register(JSONObject.fromObject(u));
