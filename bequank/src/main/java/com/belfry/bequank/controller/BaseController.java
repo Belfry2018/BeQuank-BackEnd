@@ -2,8 +2,11 @@ package com.belfry.bequank.controller;
 
 import com.belfry.bequank.entity.User;
 import com.belfry.bequank.service.BaseService;
+import com.belfry.bequank.service.SystemUserService;
 import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Message;
+import com.belfry.bequank.util.OSSHandler;
+import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.Map;
 
 @RestController
@@ -30,6 +35,9 @@ public class BaseController {
 
     @Autowired
     BaseService baseService;
+
+    @Autowired
+    OSSHandler ossHandler;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -102,5 +110,32 @@ public class BaseController {
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = ((long) map.get("userId"));
         return baseService.setPassword(userId, object);
+    }
+
+    @PostMapping("/user/avatar")
+    public JSONObject setAvatar(@RequestBody MultipartFile file) throws IOException {
+
+        long time = System.currentTimeMillis();
+        String path = time + file.getOriginalFilename().replaceAll(" ", "");
+        File temp = new File(path);
+        BufferedInputStream inputStream = new BufferedInputStream(file.getInputStream());
+        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(temp));
+
+        byte[] bf = new byte[2048];
+        int len = 0;
+        while ((len = inputStream.read(bf)) > 0) {
+            outputStream.write(bf, 0, len);
+        }
+        outputStream.flush();
+        inputStream.close();
+        outputStream.close();
+
+        JSONObject object = new JSONObject();
+        String url = ossHandler.upload(temp);
+        temp.delete();
+        object.put("url", url);
+        object.put("status", url == null ? Message.MSG_FAILED : Message.MSG_SUCCESS);
+        
+        return object;
     }
 }
