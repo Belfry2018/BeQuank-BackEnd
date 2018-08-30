@@ -38,7 +38,7 @@ public class UserServiceImplTest {
         User u=new User();
         u.setUserName("bequank@outlook.com");
         u.setPassword("citi@2018");
-        u.setNickName("bequank");
+        u.setNickname("bequank");
         u.setRole(Role.NORMAL);
         System.out.println(userRepository);
         userRepository.save(u);
@@ -46,13 +46,13 @@ public class UserServiceImplTest {
         User u1=new User();
         u1.setUserName("123@outlook.com");
         u1.setPassword("666");
-        u1.setNickName("user");
+        u1.setNickname("user");
         u1.setRole(Role.NORMAL);
         userRepository.save(u1);
         String[] tags={"intro","bequank","first"};
         JSONArray array=JSONArray.fromObject(tags);
 
-        systemUserService.postTutorial(null,u.getNickName(),
+        systemUserService.postTutorial(null,u.getNickname(),
                 u.getId(),
                 "bequank introduction",
                 "describes bequank intro",

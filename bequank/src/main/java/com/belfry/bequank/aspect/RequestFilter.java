@@ -46,11 +46,7 @@ public class RequestFilter {
     @Value("${belfry.key_prefix}")
     String key_prefix;
 
-    @Pointcut("execution(* com.belfry.bequank.controller.*.*(..))&&args(request,..)")
-    public void invokeMethod(HttpServletRequest request) {
-    }
 
-    //    @Before(value = "invokeMethod(request)", argNames = "request")
     @Around(value = "execution(* com.belfry.bequank.controller.*.*(..))&&args(request,..)")
     public Object validateRequest(ProceedingJoinPoint proceedingJoinPoint, HttpServletRequest request) throws Throwable {
         String uri = request.getRequestURI();
