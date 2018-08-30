@@ -26,11 +26,12 @@ public class User implements Serializable {
     private String birthday;//生日
     private String moneyLevel;//……
     private String bio;//自我介绍
+    private String role;//权限
     private String registerTime;//注册时间
-    private double expectedProfit;
-    private double riskAbility;
+    private double expectedProfit;//预期收益
+    private double riskAbility;//风险承受能力
 
-    public User(String userName, String password, String nickname, String avatar, String phone, String email, String gender, String birthday, String moneyLevel, String bio, double expectedProfit, double riskAbility) {
+    public User(String userName, String password, String nickname, String avatar, String phone, String email, String gender, String birthday, String moneyLevel, String bio, String role, String registerTime, double expectedProfit, double riskAbility) {
         this.userName = userName;
         this.password = password;
         this.nickname = nickname;
@@ -41,6 +42,8 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.moneyLevel = moneyLevel;
         this.bio = bio;
+        this.role = role;
+        this.registerTime = registerTime;
         this.expectedProfit = expectedProfit;
         this.riskAbility = riskAbility;
     }

@@ -12,4 +12,6 @@ public class Message {
     public static final int MSG_TOKEN_MISTAKE   = 401 ; //token相关的错误
     public static final int MSG_AUTHORITY_MISTAKE   = 403 ; //权限相关的错误
 
+    public static final int MSG_FAILED = 418;//出错就可以用这个
+
 }

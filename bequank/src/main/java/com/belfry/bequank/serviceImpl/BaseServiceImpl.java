@@ -21,6 +21,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.security.GeneralSecurityException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 @Service
@@ -57,9 +60,10 @@ public class BaseServiceImpl implements BaseService {
         }
 
         String password = object.getString("password");
-        String nickName = object.getString("nickName");
+        String nickName = object.getString("nickname");
 
-        User user = new User(userName, password, nickName, Role.NORMAL);
+        SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
+        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0);
         repository.saveAndFlush(user);
         res.put("status", Message.MSG_SUCCESS);
         res.put("message", "注册成功");
@@ -148,55 +152,89 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public JSONObject getProfile(User user) {
-        JSONObject res = new JSONObject();
-
-        if (repository.findByUserName(user.getUserName()) == null) {
-            res.put("status", Message.MSG_USER_NOTEXIST);
-            res.put("message", "用户不存在");
-            return res;
-        }
-
-        res.put("nickname", user.getNickname());
-        res.put("avatar", user.getAvatar());
-        res.put("phone", user.getPhone());
-        res.put("email", user.getEmail());
-        res.put("gender", user.getGender());
-        res.put("birthday", user.getBirthday());
-        res.put("moneyLevel", user.getMoneyLevel());
-        res.put("bio", user.getBio());
-        res.put("registerTime", user.getRegisterTime());
-
-        return res;
+    public User getProfile(long userId) {
+        return repository.getById(userId);
     }
 
     @Override
-    public JSONObject setProfile(User user, JSONObject object) {
-        JSONObject res = new JSONObject();
+    public JSONObject setProfile(long userId, User user) {
+        JSONObject object = new JSONObject();
+        User user1 = repository.getById(userId);
+        if (user1 == null) {
+            object.put("status", Message.MSG_FAILED);
+        } else {
+            user.setId(userId);
+            repository.saveAndFlush(user);
+            object.put("status", Message.MSG_SUCCESS);
+        }
 
-        // TODO: 18-8-29 Response Code, how to check if revision is successful?
-        res.put("status", Message.MSG_SUCCESS);
-
-        repository.setProfile(user.getUserName(), object.getString("nickname"), object.getString("avatar"), object.getString("phone"), object.getString("email"), object.getString("gender"), object.getString("birthday"), object.getString("moneyLevel"), object.getString("bio"));
-
-        return res;
+        return object ;
     }
 
     @Override
-    public JSONObject setPassword(User user, JSONObject object) {
+    public JSONObject setPassword(long userId, JSONObject object) {
+        User user = repository.getById(userId);
         JSONObject res = new JSONObject();
-
-        // TODO: 18-8-29 Response Code, how to check if revision is successful?
-        res.put("status", Message.MSG_SUCCESS);
-        User u = repository.findByUserName(user.getUserName());
-        if (!u.getPassword().equals(object.getString("oriPassword"))){
-            res.put("status",Message.MSG_WRONG_PASSWORD);
-            return res;
+        if (user == null||!user.getPassword().equals(object.getString("oriPassword"))) {
+            res.put("status", Message.MSG_FAILED);
+        } else {
+            user.setPassword(object.getString("newPassword"));
+            repository.saveAndFlush(user);
+            res.put("status", Message.MSG_SUCCESS);
         }
-
-        repository.setPassword(user.getUserName(), object.getString("newPassword"));
-
         return res;
     }
+
+//    @Override
+//    public JSONObject getProfile(User user) {
+//        JSONObject res = new JSONObject();
+//
+//        if (repository.findByUserName(user.getUserName()) == null) {
+//            res.put("status", Message.MSG_USER_NOTEXIST);
+//            res.put("message", "用户不存在");
+//            return res;
+//        }
+//
+//        res.put("nickname", user.getNickname());
+//        res.put("avatar", user.getAvatar());
+//        res.put("phone", user.getPhone());
+//        res.put("email", user.getEmail());
+//        res.put("gender", user.getGender());
+//        res.put("birthday", user.getBirthday());
+//        res.put("moneyLevel", user.getMoneyLevel());
+//        res.put("bio", user.getBio());
+//        res.put("registerTime", user.getRegisterTime());
+//
+//        return res;
+//    }
+
+//    @Override
+//    public JSONObject setProfile(User user, JSONObject object) {
+//        JSONObject res = new JSONObject();
+//
+//        // TODO: 18-8-29 Response Code, how to check if revision is successful?
+//        res.put("status", Message.MSG_SUCCESS);
+//
+//        repository.setProfile(user.getUserName(), object.getString("nickname"), object.getString("avatar"), object.getString("phone"), object.getString("email"), object.getString("gender"), object.getString("birthday"), object.getString("moneyLevel"), object.getString("bio"));
+//
+//        return res;
+//    }
+//
+//    @Override
+//    public JSONObject setPassword(User user, JSONObject object) {
+//        JSONObject res = new JSONObject();
+//
+//        // TODO: 18-8-29 Response Code, how to check if revision is successful?
+//        res.put("status", Message.MSG_SUCCESS);
+//        User u = repository.findByUserName(user.getUserName());
+//        if (!u.getPassword().equals(object.getString("oriPassword"))){
+//            res.put("status",Message.MSG_WRONG_PASSWORD);
+//            return res;
+//        }
+//
+//        repository.setPassword(user.getUserName(), object.getString("newPassword"));
+//
+//        return res;
+//    }
 
 }

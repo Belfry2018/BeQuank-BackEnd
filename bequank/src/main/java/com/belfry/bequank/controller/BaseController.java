@@ -2,6 +2,7 @@ package com.belfry.bequank.controller;
 
 import com.belfry.bequank.entity.User;
 import com.belfry.bequank.service.BaseService;
+import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Message;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 public class BaseController {
@@ -22,6 +24,9 @@ public class BaseController {
     long expiration_time;
     @Value("${belfry.token_prefix}")
     String token_prefix;
+
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Autowired
     BaseService baseService;
@@ -76,17 +81,26 @@ public class BaseController {
     }
 
     @GetMapping("/user/profile")
-    public JSONObject getProfile(@RequestBody User user) {
-        return baseService.getProfile(user);
+    public User getProfile(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = ((long) map.get("userId"));
+        return baseService.getProfile(userId);
     }
 
     @PostMapping("/user/profile")
-    public JSONObject setProfile(@RequestBody User user, @RequestBody JSONObject object) {
-        return baseService.setProfile(user, object);
+    public JSONObject setProfile(HttpServletRequest request, @RequestBody User user) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = ((long) map.get("userId"));
+        return baseService.setProfile(userId, user);
     }
 
     @PostMapping("/user/password")
-    public JSONObject setPassword(@RequestBody User user, @RequestBody JSONObject object){
-        return baseService.setPassword(user,object);
+    public JSONObject setPassword(HttpServletRequest request, @RequestBody JSONObject object){
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = ((long) map.get("userId"));
+        return baseService.setPassword(userId, object);
     }
 }
