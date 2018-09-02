@@ -1,8 +1,8 @@
 package com.belfry.bequank.serviceImpl;
 
-import com.belfry.bequank.entity.Tutorial;
-import com.belfry.bequank.repository.TutorialRepository;
-import com.belfry.bequank.repository.UserRepository;
+import com.belfry.bequank.entity.primary.Tutorial;
+import com.belfry.bequank.repository.primary.TutorialRepository;
+import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.SystemUserService;
 import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.Message;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 
 /**
  * @Author: Yang Yuqing
