@@ -1,10 +1,9 @@
 package com.belfry.bequank.serviceImpl;
 
-import com.belfry.bequank.entity.Tutorial;
-import com.belfry.bequank.entity.User;
-import com.belfry.bequank.repository.CommentRepository;
-import com.belfry.bequank.repository.TutorialRepository;
-import com.belfry.bequank.repository.UserRepository;
+import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.repository.primary.CommentRepository;
+import com.belfry.bequank.repository.primary.TutorialRepository;
+import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.SystemUserService;
 import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.Role;
@@ -12,8 +11,6 @@ import net.sf.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: Yang Yuqing

@@ -1,7 +1,9 @@
 package com.belfry.bequank.repository;
 
-import com.belfry.bequank.entity.Comment;
-import com.belfry.bequank.entity.Tutorial;
+import com.belfry.bequank.entity.primary.Comment;
+import com.belfry.bequank.entity.primary.Tutorial;
+import com.belfry.bequank.repository.primary.CommentRepository;
+import com.belfry.bequank.repository.primary.TutorialRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

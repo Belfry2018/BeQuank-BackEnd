@@ -1,11 +1,10 @@
 package com.belfry.bequank.controller;
 
-import com.belfry.bequank.entity.Comment;
-import com.belfry.bequank.entity.Tutorial;
-import com.belfry.bequank.entity.User;
-import com.belfry.bequank.repository.CommentRepository;
-import com.belfry.bequank.repository.TutorialRepository;
-import com.belfry.bequank.repository.UserRepository;
+import com.belfry.bequank.entity.primary.Tutorial;
+import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.repository.primary.CommentRepository;
+import com.belfry.bequank.repository.primary.TutorialRepository;
+import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.BaseService;
 import com.belfry.bequank.service.SystemUserService;
 import com.belfry.bequank.service.UserService;
@@ -13,11 +12,8 @@ import com.belfry.bequank.util.Message;
 import com.belfry.bequank.util.Role;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

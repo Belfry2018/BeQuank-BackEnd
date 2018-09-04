@@ -1,6 +1,6 @@
 package com.belfry.bequank.util;
 
-import com.belfry.bequank.entity.User;
+import com.belfry.bequank.entity.primary.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
