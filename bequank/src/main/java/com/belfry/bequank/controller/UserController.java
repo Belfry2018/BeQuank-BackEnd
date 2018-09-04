@@ -1,7 +1,6 @@
 package com.belfry.bequank.controller;
 
 import com.belfry.bequank.entity.primary.Tutorial;
-import com.belfry.bequank.repository.TutorialRepository;
 import com.belfry.bequank.service.NormalUserService;
 import com.belfry.bequank.service.UserService;
 import net.sf.json.JSONArray;
