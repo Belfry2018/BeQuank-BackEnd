@@ -1,12 +1,10 @@
 package com.belfry.bequank.controller;
 
-import com.belfry.bequank.entity.User;
+import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.service.BaseService;
-import com.belfry.bequank.service.SystemUserService;
 import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Message;
 import com.belfry.bequank.util.OSSHandler;
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

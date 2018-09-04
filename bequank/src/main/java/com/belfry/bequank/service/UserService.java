@@ -1,11 +1,8 @@
 package com.belfry.bequank.service;
 
-import com.belfry.bequank.entity.Tutorial;
+import com.belfry.bequank.entity.primary.Tutorial;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 /**
  * 用户的共同api

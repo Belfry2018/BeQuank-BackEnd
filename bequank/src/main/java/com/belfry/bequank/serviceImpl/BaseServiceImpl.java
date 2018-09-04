@@ -1,7 +1,7 @@
 package com.belfry.bequank.serviceImpl;
 
-import com.belfry.bequank.entity.User;
-import com.belfry.bequank.repository.UserRepository;
+import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.BaseService;
 import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Message;
@@ -21,7 +21,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.security.GeneralSecurityException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
