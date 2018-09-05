@@ -32,7 +32,7 @@ public class Comment implements Serializable {
 
     @ManyToOne(targetEntity = Comment.class, cascade = {CascadeType.MERGE})
     private Comment replyTarget;
-    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE},mappedBy = "replyTarget")
+    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE},mappedBy = "replyTarget")
     private List<Comment> comments;
 
     public Comment(Long writerid, String content, String time, String nickname, int likecount, Tutorial tutorial, Comment replyTarget) {
