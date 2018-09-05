@@ -25,11 +25,11 @@ public class Tutorial implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    private Long userid;        //准备换成User对象
+    private Long userid;        
     private int likecount;
     private String nickname,title,description,content,time;
     private JSONArray keywords;
-    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER,mappedBy = "tutorial")
+    @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE}, fetch = FetchType.EAGER,mappedBy = "tutorial")
     private List<Comment> comments;
 
     public Tutorial(Long userid, int likecount, String nickname, String title, String description, String content, String time, JSONArray keywords) {

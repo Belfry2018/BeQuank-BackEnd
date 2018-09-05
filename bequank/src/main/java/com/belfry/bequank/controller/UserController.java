@@ -1,15 +1,16 @@
 package com.belfry.bequank.controller;
 
+import com.belfry.bequank.entity.primary.Strategy;
 import com.belfry.bequank.entity.primary.Tutorial;
 import com.belfry.bequank.service.NormalUserService;
 import com.belfry.bequank.service.UserService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Author: Yang Yuqing
@@ -121,22 +122,22 @@ public class UserController {
     }
 
     @PostMapping("/strategy/record")
-    public JSONObject addStrategy(HttpServletRequest request, JSONObject strategy) {
-        return null;
+    public JSONObject addStrategy(HttpServletRequest request, Strategy strategy) {
+        return normalUserService.addStrategy(request, strategy);
     }
 
     @DeleteMapping("/strategy/record")
-    public JSONObject deleteStrategy(HttpServletRequest request, @PathVariable long recordId) {
-        return null;
+    public void deleteStrategy(HttpServletRequest request, @PathVariable long recordId) {
+        normalUserService.deleteStrategy(request, recordId);
     }
 
     @GetMapping("/strategy/records")
-    public JSONObject getStrategies(HttpServletRequest request) {
-        return null;
+    public List<Strategy> getStrategies(HttpServletRequest request) {
+        return normalUserService.getStrategies(request);
     }
 
     @GetMapping("/strategy/record")
-    public JSONObject getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
-        return null;
+    public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
+        return normalUserService.getAStrategy(request, recordId);
     }
 }
