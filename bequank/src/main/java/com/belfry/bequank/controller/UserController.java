@@ -24,11 +24,13 @@ public class UserController {
     @PostMapping("/tutorials")
     public JSONArray filterTutorials(HttpServletRequest request, @RequestBody JSONObject jsonObject){
         return userService.filterTutorials(
-                jsonObject.getLong("userid"),
-                jsonObject.getString("time"),
-                jsonObject.getString("title"),
-                jsonObject.getString("description"),
-                jsonObject.getString("keywords").split(" "));
+                jsonObject.getLong("authorId"),
+                jsonObject.getString("publishTime"),
+                jsonObject.getString("cover"),
+                jsonObject.getString("abstract"),
+                null,//discription deleted from API
+                jsonObject.getString("keyWords").split(" "),
+                jsonObject.getString("tutorialType"));
     }
     @GetMapping("/tutorial")
     Tutorial getTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){

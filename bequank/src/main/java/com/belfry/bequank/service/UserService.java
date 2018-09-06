@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 用户的共同api
  */
 public interface UserService {
-    JSONArray filterTutorials(Long userid,String time,String title,String discription,String[] keywords);
+    JSONArray filterTutorials(Long userid,String time,String cover,String title,String discription,String[] keywords,String tutorialType);
     Tutorial getTutorial(Long id);
     JSONObject postComment(Long tutorialid,String content,String nickname,Long writerid,String time);
     JSONObject reply(Long commentid,String content,String nickname,Long writerid,String time);

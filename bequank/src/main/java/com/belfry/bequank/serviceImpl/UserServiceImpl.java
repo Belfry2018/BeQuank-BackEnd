@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     CommentRepository commentRepository;
     @Override
-    public JSONArray filterTutorials(Long userid, String time, String title, String description, String[] keywords) {
+    public JSONArray filterTutorials(Long userid, String time, String cover,String title, String description, String[] keywords,String type) {
         /**
          * @author: Yang Yuqing
          * @description:

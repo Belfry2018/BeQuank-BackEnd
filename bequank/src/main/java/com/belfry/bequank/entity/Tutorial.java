@@ -26,7 +26,7 @@ public class Tutorial implements Serializable {
     private Long id;
     private Long userid;
     private int likecount;
-    private String nickname,title,discription,content,time;
+    private String nickname,title,discription,content,time,cover,type;
     private JSONArray keywords;
     @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Comment> comments;

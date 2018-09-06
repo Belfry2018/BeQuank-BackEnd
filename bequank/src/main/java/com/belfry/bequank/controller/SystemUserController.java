@@ -21,13 +21,15 @@ public class SystemUserController {
     SystemUserService systemUserService;
     @PostMapping("/tutorial")
     public JSONObject postTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        return systemUserService.postTutorial(
-                    jsonObject.getString("nickname"),
-                    jsonObject.getLong("userid"),
+        return systemUserService.postTutorial(request,
+                    jsonObject.getString("author"),
                     jsonObject.getString("title"),
-                    jsonObject.getString("discription"),
-                    jsonObject.getJSONArray("keywords"),
+                    jsonObject.getString("cover"),
+                    jsonObject.getString("abstract"),
+                    jsonObject.getJSONArray("keyWords"),
                     jsonObject.getString("content"),
-                    jsonObject.getString("time"));
+                    jsonObject.getString("time"),
+                    jsonObject.getString("tutorialType"));
+
     }
 }

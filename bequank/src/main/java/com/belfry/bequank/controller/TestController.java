@@ -59,7 +59,7 @@ public class TestController {
         String email="161250179@smail.nju.edu.cn";
         JSONObject object1 = new JSONObject();
         try {
-            object1 = baseService.sendVerificationCode(email);
+            object1 = baseService.sendVerificationCode(null,email);
         } catch (Exception e) {
             e.printStackTrace();
             object1.put("status", Message.MSG_EMAIL_FAILED);
@@ -71,7 +71,7 @@ public class TestController {
     @GetMapping("newTutorial")
     public JSONObject newTutorial(){
         String[] keywords={"bequank","first"};
-        return systemUserService.postTutorial("jjj",(long)1,"bequank",
+        return systemUserService.postTutorial(null,"jjj",(long)1,"bequank",
                 "bequank introduction",JSONArray.fromObject(keywords),
                 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
                 "2018-7-15"
