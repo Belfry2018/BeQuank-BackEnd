@@ -1,6 +1,6 @@
 package com.belfry.bequank.util;
 
-import com.belfry.bequank.entity.User;
+import com.belfry.bequank.entity.primary.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
@@ -31,8 +32,10 @@ public class JwtUtil {
     public String generateToken(User user) {
 
         HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", user.getId());
         map.put("userName", user.getUserName());
         map.put("role", user.getRole());
+
         String jwt = token_prefix + Jwts.builder()
                 .setClaims(map)
                 .setExpiration(new Date(System.currentTimeMillis() + expiration_time))
@@ -46,6 +49,13 @@ public class JwtUtil {
     @Cacheable(value = "loginList", key = "#user.userName")
     public String getToken(User user) {
         return null;
+    }
+
+    public Map<String, Object> parseToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token.replace(token_prefix, ""))
+                .getBody();
     }
 
 }

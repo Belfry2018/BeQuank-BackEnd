@@ -1,10 +1,9 @@
 package com.belfry.bequank.serviceImpl;
 
-import com.belfry.bequank.entity.Tutorial;
-import com.belfry.bequank.entity.User;
-import com.belfry.bequank.repository.CommentRepository;
-import com.belfry.bequank.repository.TutorialRepository;
-import com.belfry.bequank.repository.UserRepository;
+import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.repository.primary.CommentRepository;
+import com.belfry.bequank.repository.primary.TutorialRepository;
+import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.SystemUserService;
 import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.Role;
@@ -12,8 +11,6 @@ import net.sf.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.Assert.*;
 
 /**
  * @Author: Yang Yuqing
@@ -38,7 +35,7 @@ public class UserServiceImplTest {
         User u=new User();
         u.setUserName("bequank@outlook.com");
         u.setPassword("citi@2018");
-        u.setNickName("bequank");
+        u.setNickname("bequank");
         u.setRole(Role.NORMAL);
         System.out.println(userRepository);
         userRepository.save(u);
@@ -46,13 +43,13 @@ public class UserServiceImplTest {
         User u1=new User();
         u1.setUserName("123@outlook.com");
         u1.setPassword("666");
-        u1.setNickName("user");
+        u1.setNickname("user");
         u1.setRole(Role.NORMAL);
         userRepository.save(u1);
         String[] tags={"intro","bequank","first"};
         JSONArray array=JSONArray.fromObject(tags);
 
-        systemUserService.postTutorial(u.getNickName(),
+        systemUserService.postTutorial(null,u.getNickname(),
                 u.getId(),
                 "bequank introduction",
                 "describes bequank intro",

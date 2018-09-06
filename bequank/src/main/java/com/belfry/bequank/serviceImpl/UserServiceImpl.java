@@ -1,9 +1,9 @@
 package com.belfry.bequank.serviceImpl;
 
-import com.belfry.bequank.entity.Comment;
-import com.belfry.bequank.entity.Tutorial;
-import com.belfry.bequank.repository.CommentRepository;
-import com.belfry.bequank.repository.TutorialRepository;
+import com.belfry.bequank.entity.primary.Comment;
+import com.belfry.bequank.entity.primary.Tutorial;
+import com.belfry.bequank.repository.primary.CommentRepository;
+import com.belfry.bequank.repository.primary.TutorialRepository;
 import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.Message;
 import net.sf.json.JSONArray;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
                 iter.remove();
             else if(title!=null&&!t.getTitle().equals(title))
                 iter.remove();
-            else if(description!=null&&!t.getDiscription().equals(description)){
+            else if(description!=null&&!t.getDescription().equals(description)){
                 iter.remove();
             }
             // TODO: 8/17/18 optimize keyword filter, making the results sorted by number of hits
