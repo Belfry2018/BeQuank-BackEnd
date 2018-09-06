@@ -2,6 +2,7 @@ package com.belfry.bequank.repository;
 
 import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.repository.primary.UserRepository;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +42,13 @@ public class DataTest {
 
         Assert.assertEquals(3, userRepository.findAll().size());
         Assert.assertEquals("nick1", userRepository.findByUserName("name1").getNickname());
+    }
+
+    @After
+    public void deleteTestData() {
+        userRepository.delete(userRepository.findByUserName("name1"));
+        userRepository.delete(userRepository.findByUserName("name2"));
+        userRepository.delete(userRepository.findByUserName("name3"));
     }
 
 }
