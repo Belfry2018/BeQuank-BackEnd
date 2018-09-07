@@ -1,9 +1,9 @@
 spring:
   datasource:
     primary:
-      jdbc-url: jdbc:mysql://localhost:3306/beQuank?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+      jdbc-url: jdbc:mysql://120.79.205.168:3306/bequank?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
       username: root
-      password: 1234
+      password: password
       driver-class-name: com.mysql.jdbc.Driver
     secondary:
       driver-class-name: com.mysql.jdbc.Driver
@@ -21,6 +21,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     open-in-view: true
+  data:
+    mongodb:
+      uri: mongodb://guest:njuacmicpc@120.79.139.239:27017/weibo
   cache:
     type: redis
   redis:
