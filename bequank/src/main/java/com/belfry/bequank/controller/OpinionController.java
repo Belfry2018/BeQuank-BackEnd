@@ -2,10 +2,12 @@ package com.belfry.bequank.controller;
 
 import com.belfry.bequank.service.OpinionService;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Mr.Wang
@@ -17,8 +19,48 @@ public class OpinionController {
     @Autowired
     OpinionService opinionService;
 
+    /**
+     * 根据页数得到8篇文章
+     * @author Mr.Wang
+     * @param page 页号
+     * @return net.sf.json.JSONObject
+     */
     @GetMapping(value = "/gvn/passage/{page}")
-    public JSONArray findArticlesByPages(@PathVariable int page) {
+    public JSONObject findArticlesByPages(@PathVariable int page) {
         return opinionService.getArticlesByPages(page);
+    }
+
+    /**
+     * 获得关键词云
+     * @return net.sf.json.JSONArray
+     * @author Mr.Wang
+     */
+    @GetMapping(value = "/keywords")
+    public JSONArray getKeywords() {
+        return opinionService.getKeywords();
+    }
+
+    /**
+     * 微博热点
+     * @author Mr.Wang
+     * @return net.sf.json.JSONArray
+     */
+    @PostMapping(value = "/hotspot")
+    public JSONObject getHotSpots(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+        return opinionService.getHotSpots(
+                jsonObject.getString("userName"),
+                jsonObject.getInt("page")
+        );
+    }
+
+    /**
+     * 随机展示三个词的舆情
+     * @author Mr.Wang
+     * @param () null
+     * @return net.sf.json.JSONArray
+     */
+    @GetMapping(value = "/sentiment")
+    public JSONArray getSentiment() {
+        return opinionService.getSentiment();
     }
 }

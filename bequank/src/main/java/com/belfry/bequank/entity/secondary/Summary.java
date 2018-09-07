@@ -20,11 +20,11 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Jbw implements Serializable {
+public class Summary implements Serializable {
 
     @Id
     private String link;
 
-    private String pos, title, date;
+    private String pos, title, date, origin;
 
 }

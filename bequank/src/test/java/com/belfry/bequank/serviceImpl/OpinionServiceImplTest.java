@@ -25,8 +25,10 @@ public class OpinionServiceImplTest {
 
     @Test
     public void getGvnPassage() {
-        JSONArray array = service.getArticlesByPages(0);
-        System.out.println(array.size());
+        JSONObject jsonObject = service.getArticlesByPages(0);
+        System.out.println(jsonObject.get("totalPage"));
+        System.out.println(jsonObject.get("currentPage"));
+        JSONArray array = jsonObject.getJSONArray("data");
         for (int i = 0; i < array.size(); i++) {
             JSONObject object = array.getJSONObject(i);
             String pos = object.getString("pos");
@@ -41,5 +43,11 @@ public class OpinionServiceImplTest {
         for (Word_tf word : lists) {
             System.out.println(word.getWord());
         }
+    }
+
+    @Test
+    public void testGetKeywords() {
+        JSONArray array = service.getKeywords();
+        System.out.println(array.toString());
     }
 }

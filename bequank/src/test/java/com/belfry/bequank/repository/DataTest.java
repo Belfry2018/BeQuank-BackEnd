@@ -1,9 +1,8 @@
 package com.belfry.bequank.repository;
 
 import com.belfry.bequank.entity.primary.User;
-import com.belfry.bequank.entity.secondary.Jbw;
 import com.belfry.bequank.repository.primary.UserRepository;
-import com.belfry.bequank.repository.secondary.JbwRepository;
+import com.belfry.bequank.repository.secondary.SummaryRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +24,7 @@ public class DataTest {
     private UserRepository userRepository;
 
     @Resource
-    private JbwRepository jbwRepository;
+    private SummaryRepository summaryRepository;
 
     @Test
     public void testPrimaryDatabase() {
@@ -51,8 +50,8 @@ public class DataTest {
     @Test
     public void getPolicy() {
         //Assert.assertNotNull(policyRepository.findByDate("2018"));
-        //Jbw jbw = jbwRepository.findByDate("2018").get(0);
-        System.out.println(jbwRepository.findByDateStartingWith("2018").get(0).getTitle());
+        //Summary jbw = jbwRepository.findByDate("2018").get(0);
+        System.out.println(summaryRepository.findByDateStartingWith("2018").get(0).getTitle());
     }
 //
 //    @After
