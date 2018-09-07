@@ -1,7 +1,9 @@
 package com.belfry.bequank.repository;
 
 import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.entity.secondary.Jbw;
 import com.belfry.bequank.repository.primary.UserRepository;
+import com.belfry.bequank.repository.secondary.JbwRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +23,9 @@ public class DataTest {
 
     @Resource
     private UserRepository userRepository;
+
+    @Resource
+    private JbwRepository jbwRepository;
 
     @Test
     public void testPrimaryDatabase() {
@@ -42,5 +47,19 @@ public class DataTest {
         Assert.assertEquals(3, userRepository.findAll().size());
         Assert.assertEquals("nick1", userRepository.findByUserName("name1").getNickname());
     }
+
+    @Test
+    public void getPolicy() {
+        //Assert.assertNotNull(policyRepository.findByDate("2018"));
+        //Jbw jbw = jbwRepository.findByDate("2018").get(0);
+        System.out.println(jbwRepository.findByDateStartingWith("2018").get(0).getTitle());
+    }
+//
+//    @After
+//    public void deleteTestData() {
+//        userRepository.delete(userRepository.findByUserName("name1"));
+//        userRepository.delete(userRepository.findByUserName("name2"));
+//        userRepository.delete(userRepository.findByUserName("name3"));
+//    }
 
 }
