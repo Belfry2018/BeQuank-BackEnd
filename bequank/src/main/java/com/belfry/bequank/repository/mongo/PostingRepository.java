@@ -15,5 +15,7 @@ public interface PostingRepository {
      *              按时间顺序从最近到较远排列
      **/
     ArrayList<Posting> getHotSpots(int page, int count);
+
+    long getTotalHotSpots();
 }
 
