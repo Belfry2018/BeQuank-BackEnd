@@ -21,4 +21,9 @@ public class PostingRepositoryImpl implements PostingRepository {
         q.skip((page - 1) * count).limit(count);
         return (ArrayList<Posting>) mongoTemplate.find(q, Posting.class);
     }
+
+    public long getTotalHotSpots() {
+        Query q = new Query();
+        return mongoTemplate.count(q, Posting.class);
+    }
 }
