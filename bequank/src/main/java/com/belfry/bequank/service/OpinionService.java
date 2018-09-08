@@ -50,4 +50,12 @@ public interface OpinionService {
      * @return net.sf.json.JSONArray
      */
     JSONArray getSentiment();
+
+    /**
+     * 展示一个关键词的舆情走势
+     * @author Mr.Wang
+     * @param word text
+     * @return net.sf.json.JSONArray
+     */
+    JSONArray getSentimentTrend(String word);
 }

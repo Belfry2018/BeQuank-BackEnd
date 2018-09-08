@@ -50,4 +50,16 @@ public class OpinionServiceImplTest {
         JSONArray array = service.getKeywords();
         System.out.println(array.toString());
     }
+
+    @Test
+    public void testGetSentiment() {
+        JSONArray array = service.getSentiment();
+        System.out.println(array.toString());
+    }
+
+    @Test
+    public void testGetSentimentTrend() {
+        JSONArray array = service.getSentimentTrend("理念");
+        System.out.println(array.toString());
+    }
 }

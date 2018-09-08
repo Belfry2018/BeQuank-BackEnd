@@ -63,4 +63,16 @@ public class OpinionController {
     public JSONArray getSentiment() {
         return opinionService.getSentiment();
     }
+
+    /**
+     * 展示一个关键词的舆情走势
+     * @author Mr.Wang
+     * @return net.sf.json.JSONArray
+     */
+    @PostMapping(value = "/sentiment/trend")
+    public JSONArray getSentimentTrend(HttpServlet request, @RequestBody JSONObject jsonObject) {
+        return opinionService.getSentimentTrend(
+                jsonObject.getString("word")
+        );
+    }
 }

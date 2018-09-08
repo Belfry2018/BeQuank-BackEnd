@@ -186,4 +186,30 @@ public class OpinionServiceImpl implements OpinionService {
         return array;
     }
 
+    /**
+     * 展示一个关键词的舆情走势
+     * @param word text
+     * @return net.sf.json.JSONArray
+     * @author Mr.Wang
+     */
+    @Override
+    public JSONArray getSentimentTrend(String word) {
+        ArrayList<Sentiment> list = sentiRepository.getSentimentTrend(word);
+        JSONArray array = new JSONArray();
+        if (list == null) {
+            JSONObject object = new JSONObject();
+            object.put("date", null);
+            object.put("sentiment", null);
+            array.add(object);
+        } else {
+            for (Sentiment sentiment : list) {
+                JSONObject object = new JSONObject();
+                object.put("date", sentiment.getDate());
+                object.put("sentiment", sentiment.getSenti());
+                array.add(object);
+            }
+        }
+        return array;
+    }
+
 }
