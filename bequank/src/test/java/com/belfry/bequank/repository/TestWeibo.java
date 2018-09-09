@@ -85,4 +85,9 @@ public class TestWeibo {
 
     }
 
+    @Test
+    public void getTotalPostingCount() {
+        System.out.println(postingRepository.getTotalHotSpots());
+    }
+
 }
