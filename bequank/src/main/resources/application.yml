@@ -34,7 +34,10 @@ spring:
       pool:
         max-idle: 0
         max-active: 0
-
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
 belfry:
   expiration_time: 10800000
   secret: "belfry2018"
@@ -50,3 +53,7 @@ belfry:
 
 server:
   port: 9000
+  ssl:
+      key-store: classpath:njuwc.cn.jks
+      key-store-type: JKS
+      key-store-password: 2018citi

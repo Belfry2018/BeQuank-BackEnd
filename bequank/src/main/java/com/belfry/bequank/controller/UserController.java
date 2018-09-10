@@ -95,8 +95,13 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping("/strategy/recommend")
-    public JSONObject recommendStock(HttpServletRequest request) {
+    @GetMapping("/strategy/recommend/profit")
+    public JSONObject recommendStockByProfit(HttpServletRequest request) {
+        return null;
+    }
+
+    @GetMapping("/strategy/recommend/risk")
+    public JSONObject recommendStockByRisk(HttpServletRequest request) {
         return null;
     }
 
@@ -106,7 +111,7 @@ public class UserController {
      * @param stockId
      * @return
      */
-    @GetMapping("/stock")
+    @GetMapping("/stock/{stockId}")
     public JSONObject viewAStock(HttpServletRequest request, @PathVariable String stockId) {
         return null;
     }
@@ -117,7 +122,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping("/stocks")
+    @GetMapping("/stocks/{page}")
     public JSONObject viewStocks(HttpServletRequest request, @PathVariable int page) {
         return null;
     }
@@ -127,7 +132,7 @@ public class UserController {
         return normalUserService.addStrategy(request, strategy);
     }
 
-    @DeleteMapping("/strategy/record")
+    @DeleteMapping("/strategy/record/{recordId}")
     public void deleteStrategy(HttpServletRequest request, @PathVariable long recordId) {
         normalUserService.deleteStrategy(request, recordId);
     }
@@ -137,7 +142,7 @@ public class UserController {
         return normalUserService.getStrategies(request);
     }
 
-    @GetMapping("/strategy/record")
+    @GetMapping("/strategy/record/{recordId}")
     public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
         return normalUserService.getAStrategy(request, recordId);
     }
