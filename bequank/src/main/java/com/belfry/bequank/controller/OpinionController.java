@@ -19,6 +19,17 @@ public class OpinionController {
     OpinionService opinionService;
 
     /**
+     * 政府热点词汇
+     * @author Mr.Wang
+     * @param () null
+     * @return net.sf.json.JSONArray
+     */
+    @GetMapping(value = "gvn/words")
+    public JSONArray getGvnHotWords(HttpServletRequest request) {
+        return opinionService.getGvnHotWords();
+    }
+
+    /**
      * 根据页数得到8篇文章
      * @author Mr.Wang
      * @param page 页号

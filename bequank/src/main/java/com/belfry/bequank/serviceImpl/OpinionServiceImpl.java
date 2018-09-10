@@ -4,6 +4,7 @@ import com.belfry.bequank.entity.mongo.Posting;
 import com.belfry.bequank.entity.mongo.Sentiment;
 import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.entity.secondary.Summary;
+import com.belfry.bequank.entity.secondary.Word_tf;
 import com.belfry.bequank.repository.mongo.PostingRepository;
 import com.belfry.bequank.repository.mongo.SentiRepository;
 import com.belfry.bequank.repository.primary.UserRepository;
@@ -88,8 +89,23 @@ public class OpinionServiceImpl implements OpinionService {
      */
     @Override
     public JSONArray getGvnHotWords() {
+        JSONArray array = new JSONArray();
+        String[] words = {"知识产权", "能源", "专利", "监管", "金融"};
+        for (String word : words) {
+            List<Word_tf> sameWords = wordsRepository.findByWord(word);
+            int tf = 0;
+            if (sameWords != null) {
+                for (Word_tf word_tf : sameWords) {
+                    tf += word_tf.getTf();
+                }
+            }
 
-        return null;
+            JSONObject object = new JSONObject();
+            object.put("name", word);
+            object.put("value", tf);
+            array.add(object);
+        }
+        return array;
     }
 
     /**
