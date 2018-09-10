@@ -3,6 +3,7 @@ package com.belfry.bequank.repository;
 import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.repository.secondary.SummaryRepository;
+import com.belfry.bequank.repository.secondary.Word_tfRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,9 @@ public class DataTest {
 
     @Resource
     private SummaryRepository summaryRepository;
+
+    @Resource
+    private Word_tfRepository word_tfRepository;
 
     @Test
     public void testPrimaryDatabase() {
@@ -52,6 +56,11 @@ public class DataTest {
         //Assert.assertNotNull(policyRepository.findByDate("2018"));
         //Summary jbw = jbwRepository.findByDate("2018").get(0);
         System.out.println(summaryRepository.findByDateStartingWith("2018").get(0).getTitle());
+    }
+
+    @Test
+    public void testGetWord_tf() {
+        System.out.println(word_tfRepository.findByWord("知识产权").size());
     }
 //
 //    @After

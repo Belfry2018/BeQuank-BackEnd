@@ -62,4 +62,10 @@ public class OpinionServiceImplTest {
         JSONArray array = service.getSentimentTrend("理念");
         System.out.println(array.toString());
     }
+
+    @Test
+    public void testGetGvnHotWords() {
+        JSONArray array = service.getGvnHotWords();
+        System.out.println(array.toString());
+    }
 }

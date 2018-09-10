@@ -6,7 +6,6 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -20,13 +19,24 @@ public class OpinionController {
     OpinionService opinionService;
 
     /**
+     * 政府热点词汇
+     * @author Mr.Wang
+     * @param () null
+     * @return net.sf.json.JSONArray
+     */
+    @GetMapping(value = "gvn/words")
+    public JSONArray getGvnHotWords(HttpServletRequest request) {
+        return opinionService.getGvnHotWords();
+    }
+
+    /**
      * 根据页数得到8篇文章
      * @author Mr.Wang
      * @param page 页号
      * @return net.sf.json.JSONObject
      */
     @GetMapping(value = "/gvn/passage/{page}")
-    public JSONObject findArticlesByPages(@PathVariable int page) {
+    public JSONObject findArticlesByPages(HttpServletRequest request, @PathVariable int page) {
         return opinionService.getArticlesByPages(page);
     }
 
@@ -36,7 +46,7 @@ public class OpinionController {
      * @author Mr.Wang
      */
     @GetMapping(value = "/keywords")
-    public JSONArray getKeywords() {
+    public JSONArray getKeywords(HttpServletRequest request) {
         return opinionService.getKeywords();
     }
 
@@ -60,7 +70,7 @@ public class OpinionController {
      * @return net.sf.json.JSONArray
      */
     @GetMapping(value = "/sentiment")
-    public JSONArray getSentiment() {
+    public JSONArray getSentiment(HttpServletRequest request) {
         return opinionService.getSentiment();
     }
 
@@ -70,7 +80,7 @@ public class OpinionController {
      * @return net.sf.json.JSONArray
      */
     @PostMapping(value = "/sentiment/trend")
-    public JSONArray getSentimentTrend(HttpServlet request, @RequestBody JSONObject jsonObject) {
+    public JSONArray getSentimentTrend(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
         return opinionService.getSentimentTrend(
                 jsonObject.getString("word")
         );
