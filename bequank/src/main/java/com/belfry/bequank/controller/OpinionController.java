@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 2018/9/7
  */
 @RestController
+@RequestMapping("/api/v1")
 public class OpinionController {
 
     @Autowired

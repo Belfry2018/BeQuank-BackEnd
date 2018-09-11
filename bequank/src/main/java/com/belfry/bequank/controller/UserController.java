@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,7 +87,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/strategy/answer")
-    public JSONObject getQuestionnairResult(HttpServletRequest request, JSONObject answer) {
+    public JSONObject getQuestionnairResult(HttpServletRequest request, @RequestBody JSONObject answer) {
         return normalUserService.getQuestionnairResult(request, answer);
     }
 
@@ -97,12 +98,22 @@ public class UserController {
      */
     @GetMapping("/strategy/recommend/profit")
     public JSONObject recommendStockByProfit(HttpServletRequest request) {
-        return null;
+        JSONObject object = new JSONObject();
+        object.put("todayBenefit", 5.6);
+        object.put("yearBenefit", 0.9);
+        object.put("risk", 100);
+        object.put("stocks", new ArrayList<>());
+        return object;
     }
 
     @GetMapping("/strategy/recommend/risk")
     public JSONObject recommendStockByRisk(HttpServletRequest request) {
-        return null;
+        JSONObject object = new JSONObject();
+        object.put("todayBenefit", 5.6);
+        object.put("yearBenefit", 0.9);
+        object.put("risk", 100);
+        object.put("stocks", new ArrayList<>());
+        return object;
     }
 
     /**
@@ -124,6 +135,7 @@ public class UserController {
      */
     @GetMapping("/stocks/{page}")
     public JSONObject viewStocks(HttpServletRequest request, @PathVariable int page) {
+
         return null;
     }
 
