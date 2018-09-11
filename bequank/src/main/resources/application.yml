@@ -50,6 +50,7 @@ belfry:
   oss_key: "O5dhvXDdDKxU4nsUKt444UdQ6RXYKq"
   oss_prefix: "http://bequank.oss-cn-beijing.aliyuncs.com/avatars/"
   oss_dir: "avatars/"
+  port: 9001
 
 server:
   port: 9000
@@ -57,3 +58,5 @@ server:
       key-store: classpath:njuwc.cn.jks
       key-store-type: JKS
       key-store-password: 2018citi
+
+

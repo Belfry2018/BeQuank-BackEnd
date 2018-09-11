@@ -14,6 +14,9 @@ public class HttpCfg {
     @Value("${server.port}")
     int httpsPort;
 
+    @Value("${belfry.port}")
+    int httpPort;
+
     @Bean
     public Integer port() {
         return SocketUtils.findAvailableTcpPort();
@@ -28,7 +31,7 @@ public class HttpCfg {
 
     private Connector createStandardConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setPort(port());
+        connector.setPort(httpPort);
         connector.setRedirectPort(httpsPort);
         return connector;
     }
