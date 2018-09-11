@@ -1,5 +1,6 @@
 package com.belfry.bequank.entity;
 
+import com.belfry.bequank.entity.primary.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

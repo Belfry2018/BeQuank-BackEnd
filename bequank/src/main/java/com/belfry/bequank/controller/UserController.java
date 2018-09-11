@@ -4,7 +4,9 @@ import com.belfry.bequank.entity.primary.Strategy;
 import com.belfry.bequank.entity.primary.Tutorial;
 import com.belfry.bequank.service.NormalUserService;
 import com.belfry.bequank.service.UserService;
+import com.belfry.bequank.util.JwtUtil;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,31 +26,30 @@ public class UserController {
     UserService userService;
     @Autowired
     NormalUserService normalUserService;
+    @Autowired
+    JwtUtil util;
 
-    @PostMapping("/tutorials")
-    public JSONArray filterTutorials(HttpServletRequest request, @RequestBody JSONObject jsonObject){
+    // TODO: 9/7/18 将一些map url前加上/api/v1以与前端对应
+    // TODO: 9/7/18 要处理所有jsonobject可能为null的问题。
+    @PostMapping("/api/v1/tutorials")
+    public JSONArray filterTutorials(@RequestBody JSONObject jsonObject){
+        System.out.println("the request is"+jsonObject);
         return userService.filterTutorials(
-                jsonObject.getLong("authorId"),
-                jsonObject.getString("publishTime"),
-                jsonObject.getString("cover"),
-                jsonObject.getString("abstract"),
-                null,//discription deleted from API
-                jsonObject.getString("keyWords").split(" "),
+                jsonObject.getString("keywords").split(" "),
                 jsonObject.getString("tutorialType"));
     }
 
     @GetMapping("/tutorial")
-    public Tutorial getTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        return userService.getTutorial(jsonObject.getLong("id"));
+    public JSONObject getTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
+        System.out.println(request.toString());
+        return userService.getTutorial(Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),jsonObject.getLong("id"));
     }
-
     @PostMapping("/comment")
     public JSONObject postComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.postComment(
-                jsonObject.getLong("tutorialid"),
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("tutorialId"),
                 jsonObject.getString("content"),
-                jsonObject.getString("nickname"),
-                jsonObject.getLong("writerid"),
                 jsonObject.getString("time")
         );
     }
@@ -56,10 +57,9 @@ public class UserController {
     @PostMapping("/reply")
     public JSONObject reply(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.postComment(
-                jsonObject.getLong("commentid"),
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("commentId"),
                 jsonObject.getString("content"),
-                jsonObject.getString("nickname"),
-                jsonObject.getLong("writerid"),
                 jsonObject.getString("time")
         );
     }
@@ -67,16 +67,16 @@ public class UserController {
     @PostMapping("/like/tutorial")
     public JSONObject likeTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeTutorial(
-                jsonObject.getLong("tutorialid"),
-                jsonObject.getLong("likerid")
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("tutorialid")
         );
     }
 
     @PostMapping("/like/comment")
     public JSONObject likeComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeComment(
-                jsonObject.getLong("commentid"),
-                jsonObject.getLong("likerid")
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("commentid")
         );
     }
 

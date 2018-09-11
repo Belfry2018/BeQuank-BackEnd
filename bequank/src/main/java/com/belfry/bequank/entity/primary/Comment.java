@@ -25,7 +25,7 @@ public class Comment implements Serializable {
     private Long id;
     private Long writerid;         // 这个也准备换成User对象
     private String content,time,nickname;
-    private int likecount;
+    private boolean alreadyLiked;
 
     @ManyToOne(targetEntity = Tutorial.class, cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
     private Tutorial tutorial;
@@ -34,16 +34,16 @@ public class Comment implements Serializable {
     private Comment replyTarget;
     @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE},mappedBy = "replyTarget")
     private List<Comment> comments;
-
+    private ArrayList<Long> likedusers;
     public Comment(Long writerid, String content, String time, String nickname, int likecount, Tutorial tutorial, Comment replyTarget) {
         this.writerid = writerid;
         this.content = content;
         this.time = time;
         this.nickname = nickname;
-        this.likecount = likecount;
         this.tutorial = tutorial;
         this.replyTarget = replyTarget;
         this.comments = new ArrayList<>();
+        this.likedusers=new ArrayList<>();
     }
 }
 

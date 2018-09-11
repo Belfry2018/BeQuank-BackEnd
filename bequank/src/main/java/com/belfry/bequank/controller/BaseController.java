@@ -86,7 +86,7 @@ public class BaseController {
         return "this is unprotected request";
     }
 
-    @GetMapping("/user/profile")
+    @GetMapping("/api/v1/user/profile")
     public User getProfile(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
@@ -94,7 +94,7 @@ public class BaseController {
         return baseService.getProfile(userId);
     }
 
-    @PostMapping("/user/profile")
+    @PostMapping("/api/v1/user/profile")
     public JSONObject setProfile(HttpServletRequest request, @RequestBody User user) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
