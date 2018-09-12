@@ -5,6 +5,7 @@ import com.belfry.bequank.entity.primary.Tutorial;
 import com.belfry.bequank.repository.primary.CommentRepository;
 import com.belfry.bequank.repository.primary.TutorialRepository;
 import com.belfry.bequank.service.UserService;
+import com.belfry.bequank.util.HttpHandler;
 import com.belfry.bequank.util.Message;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
     TutorialRepository tutorialRepository;
     @Autowired
     CommentRepository commentRepository;
+
     @Override
     public JSONArray filterTutorials(Long userid, String time, String title, String description, String[] keywords) {
         /**

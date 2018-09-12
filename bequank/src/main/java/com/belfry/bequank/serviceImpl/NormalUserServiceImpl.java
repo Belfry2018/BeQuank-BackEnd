@@ -1,17 +1,23 @@
 package com.belfry.bequank.serviceImpl;
 
+import com.belfry.bequank.entity.primary.RealStock;
 import com.belfry.bequank.entity.primary.Strategy;
+import com.belfry.bequank.repository.primary.RealStockRepository;
 import com.belfry.bequank.repository.primary.StrategyRepository;
 import com.belfry.bequank.service.NormalUserService;
 import com.belfry.bequank.service.UserService;
+import com.belfry.bequank.util.HttpHandler;
 import com.belfry.bequank.util.JwtUtil;
 import jdk.nashorn.internal.ir.IfNode;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import sun.security.x509.CRLDistributionPointsExtension;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +38,10 @@ public class NormalUserServiceImpl implements NormalUserService {
     JwtUtil jwtUtil;
     @Autowired
     StrategyRepository strategyRepository;
+    @Autowired
+    HttpHandler httpHandler;
+    @Autowired
+    RealStockRepository realStockRepository;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -96,6 +106,16 @@ public class NormalUserServiceImpl implements NormalUserService {
     @Override
     public Strategy getAStrategy(HttpServletRequest request, long strategyId) {
         return strategyRepository.findByRecordId(strategyId);
+    }
+
+    @Override
+    public String getAStock(HttpServletRequest request, String code) throws IOException {
+        return httpHandler.getAStock("http://127.0.0.1:5000/stock/" + code);
+    }
+
+    @Override
+    public Page<RealStock> getStocks(HttpServletRequest request, int page) {
+        return realStockRepository.findAll(PageRequest.of(page, 20));
     }
 
     private long getUserId(HttpServletRequest request) {
