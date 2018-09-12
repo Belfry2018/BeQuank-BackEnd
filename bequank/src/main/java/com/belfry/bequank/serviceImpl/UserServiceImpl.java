@@ -47,7 +47,8 @@ public class UserServiceImpl implements UserService {
          * @date: 5:05 PM 8/16/18
          */
         System.out.println("s");
-        List<Tutorial> tutorialList=tutorialRepository.findAll();
+
+        List<Tutorial> tutorialList=tutorialRepository.getAll();
         //check by id
         Iterator<Tutorial> iter = tutorialList.iterator();
         JSONArray keywordlist=JSONArray.fromObject(keywords);
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
             object.put("tutorialType",t.getType());
             resultarray.add(object);
         }
-
+        System.out.println("result of tutorials is "+resultarray);
 
 
 
@@ -104,13 +105,15 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("keyWords",t.getKeywords());
         jsonObject.put("content",t.getContent());
         jsonObject.put("time",t.getTime());
-        jsonObject.put("likecount",t.getLikedlist().size());
+        int size=0;
+        if(t.getLikedlist()!=null)size=t.getLikedlist().size();
+        jsonObject.put("likecount",size);
         if(userid==null)jsonObject.put("alreadyLike",false);
-        else jsonObject.put("alreadyLike",t.getLikedlist().indexOf(userid)==-1?false:true);
+        else jsonObject.put("alreadyLike",t.getLikedlist()==null?false:(t.getLikedlist().indexOf(userid)==-1?false:true));
         jsonObject.put("tutorialType",t.getType());
         List<Comment> list=t.getComments();
         for(Comment c:list){
-            c.setAlreadyLiked(c.getLikedusers().indexOf(userid)==-1?false:true);
+            c.setAlreadyLiked(c.getLikedusers()==null?false:(c.getLikedusers().indexOf(userid)==-1?false:true));
         }
         jsonObject.put("comments",list);
         return jsonObject;
@@ -134,8 +137,8 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("writer",userRepository.getById(writerid));
         jsonObject.put("content",content);
         jsonObject.put("time",time);
-        jsonObject.put("likeCount",c.getLikedusers().size());
-        jsonObject.put("alreadyLike",c.getLikedusers().indexOf(writerid)==-1?false:true);
+        jsonObject.put("likeCount",c.getLikedusers()==null?0:c.getLikedusers().size());
+        jsonObject.put("alreadyLike",c.getLikedusers()==null?false:(c.getLikedusers().indexOf(writerid)==-1?false:true));
         jsonObject.put("childrenComments",null);
         return jsonObject;
     }
@@ -160,7 +163,8 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("content",content);
         jsonObject.put("time",time);
         jsonObject.put("likeCount",reply.getLikedusers().size());
-        jsonObject.put("alreadyLike",reply.getLikedusers().indexOf(commenterid)==-1?false:true);
+        if(reply.getLikedusers()==null)reply.setLikedusers(new ArrayList<>());
+        jsonObject.put("alreadyLike",reply.getLikedusers()==null?false:(reply.getLikedusers().indexOf(commenterid)==-1?false:true));
         jsonObject.put("childrenComments",null);
         return jsonObject;
     }
@@ -176,7 +180,8 @@ public class UserServiceImpl implements UserService {
          * @date: 5:44 PM 8/17/18
          */
         Tutorial t=tutorialRepository.getOne(tutorialid);
-        if(t.getLikedlist().indexOf(likerid)==-1)t.getLikedlist().add(likerid);
+        if(t.getLikedlist()==null)t.setLikedlist(new ArrayList<>());
+        if(t.getLikedlist()==null||t.getLikedlist().indexOf(likerid)==-1)t.getLikedlist().add(likerid);
         else t.getLikedlist().remove(likerid);
         tutorialRepository.save(t);
         JSONObject jsonObject=new JSONObject();
@@ -186,7 +191,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public JSONObject likeComment(Long likerid,Long commentid) {
         Comment c=commentRepository.getOne(commentid);
-        if(c.getLikedusers().indexOf(likerid)==-1)c.getLikedusers().add(likerid);
+        if(c.getLikedusers()==null)c.setLikedusers(new ArrayList<>());
+
+        if(c.getLikedusers()==null||c.getLikedusers().indexOf(likerid)==-1)c.getLikedusers().add(likerid);
         else c.getLikedusers().remove(likerid);
         commentRepository.save(c);
         JSONObject jsonObject=new JSONObject();

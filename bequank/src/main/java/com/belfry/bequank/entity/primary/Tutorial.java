@@ -20,7 +20,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Tutorial implements Serializable {
     @Id
     @GeneratedValue
@@ -34,6 +33,10 @@ public class Tutorial implements Serializable {
     @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE}, fetch = FetchType.EAGER,mappedBy = "tutorial")
     private List<Comment> comments;
     private ArrayList<Long> likedlist;
+    public Tutorial(){
+        this.comments=new ArrayList<>();
+        this.likedlist=new ArrayList<>();
+    }
     public Tutorial(Long userid, String nickname, String title, String description, String content, String time, JSONArray keywords) {
         this.userid = userid;
         this.nickname = nickname;

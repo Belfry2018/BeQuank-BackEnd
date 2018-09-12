@@ -18,7 +18,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 public class Comment implements Serializable {
     @Id
     @GeneratedValue
@@ -35,6 +34,10 @@ public class Comment implements Serializable {
     @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE},mappedBy = "replyTarget")
     private List<Comment> comments;
     private ArrayList<Long> likedusers;
+    public Comment(){
+        this.likedusers=new ArrayList<>();
+        this.comments=new ArrayList<>();
+    }
     public Comment(Long writerid, String content, String time, String nickname, int likecount, Tutorial tutorial, Comment replyTarget) {
         this.writerid = writerid;
         this.content = content;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ import java.util.List;
  * @Modifiedby:
  */
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
     @Autowired
     UserService userService;
@@ -31,7 +33,7 @@ public class UserController {
 
     // TODO: 9/7/18 将一些map url前加上/api/v1以与前端对应
     // TODO: 9/7/18 要处理所有jsonobject可能为null的问题。
-    @PostMapping("/api/v1/tutorials")
+    @PostMapping("/tutorials")
     public JSONArray filterTutorials(@RequestBody JSONObject jsonObject){
         System.out.println("the request is"+jsonObject);
         return userService.filterTutorials(
@@ -40,10 +42,11 @@ public class UserController {
     }
 
     @GetMapping("/tutorial")
-    public JSONObject getTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        System.out.println(request.toString());
-        return userService.getTutorial(Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),jsonObject.getLong("id"));
+    public JSONObject getTutorial(@RequestParam String id){
+//        System.out.println("id is "+request);
+        return userService.getTutorial((long)1,Long.parseLong(id));
     }
+
     @PostMapping("/comment")
     public JSONObject postComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.postComment(
@@ -68,7 +71,7 @@ public class UserController {
     public JSONObject likeTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeTutorial(
                 Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
-                jsonObject.getLong("tutorialid")
+                jsonObject.getLong("tutorialId")
         );
     }
 
@@ -76,7 +79,7 @@ public class UserController {
     public JSONObject likeComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeComment(
                 Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
-                jsonObject.getLong("commentid")
+                jsonObject.getLong("commentId")
         );
     }
 
@@ -87,7 +90,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/strategy/answer")
-    public JSONObject getQuestionnairResult(HttpServletRequest request, JSONObject answer) {
+    public JSONObject getQuestionnairResult(HttpServletRequest request, @RequestBody JSONObject answer) {
         return normalUserService.getQuestionnairResult(request, answer);
     }
 
@@ -96,9 +99,24 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping("/strategy/recommend")
-    public JSONObject recommendStock(HttpServletRequest request) {
-        return null;
+    @GetMapping("/strategy/recommend/profit")
+    public JSONObject recommendStockByProfit(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        object.put("todayBenefit", 5.6);
+        object.put("yearBenefit", 0.9);
+        object.put("risk", 100);
+        object.put("stocks", new ArrayList<>());
+        return object;
+    }
+
+    @GetMapping("/strategy/recommend/risk")
+    public JSONObject recommendStockByRisk(HttpServletRequest request) {
+        JSONObject object = new JSONObject();
+        object.put("todayBenefit", 5.6);
+        object.put("yearBenefit", 0.9);
+        object.put("risk", 100);
+        object.put("stocks", new ArrayList<>());
+        return object;
     }
 
     /**
@@ -107,7 +125,7 @@ public class UserController {
      * @param stockId
      * @return
      */
-    @GetMapping("/stock")
+    @GetMapping("/stock/{stockId}")
     public JSONObject viewAStock(HttpServletRequest request, @PathVariable String stockId) {
         return null;
     }
@@ -118,8 +136,9 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping("/stocks")
+    @GetMapping("/stocks/{page}")
     public JSONObject viewStocks(HttpServletRequest request, @PathVariable int page) {
+
         return null;
     }
 
@@ -128,7 +147,7 @@ public class UserController {
         return normalUserService.addStrategy(request, strategy);
     }
 
-    @DeleteMapping("/strategy/record")
+    @DeleteMapping("/strategy/record/{recordId}")
     public void deleteStrategy(HttpServletRequest request, @PathVariable long recordId) {
         normalUserService.deleteStrategy(request, recordId);
     }
@@ -138,7 +157,7 @@ public class UserController {
         return normalUserService.getStrategies(request);
     }
 
-    @GetMapping("/strategy/record")
+    @GetMapping("/strategy/record/{recordId}")
     public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
         return normalUserService.getAStrategy(request, recordId);
     }

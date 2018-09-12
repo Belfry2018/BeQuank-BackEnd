@@ -100,6 +100,6 @@ public class NormalUserServiceImpl implements NormalUserService {
 
     private long getUserId(HttpServletRequest request) {
         Map<String, Object> map = jwtUtil.parseToken(request.getHeader("Authorization"));
-        return ((long) map.get("userId"));
+        return Integer.toUnsignedLong((int) map.get("userId"));
     }
 }

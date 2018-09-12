@@ -10,17 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/v1")
 public class BaseController {
 
     @Value("${belfry.expiration_time}")
@@ -86,19 +85,21 @@ public class BaseController {
         return "this is unprotected request";
     }
 
-    @GetMapping("/api/v1/user/profile")
+    @GetMapping("/user/profile")
     public User getProfile(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
-        long userId = ((long) map.get("userId"));
+        long userId = Integer.toUnsignedLong((int)map.get("userId"));
+        System.out.println("ss "+baseService.getProfile(userId).getUserName());
         return baseService.getProfile(userId);
     }
 
-    @PostMapping("/api/v1/user/profile")
+    @PostMapping("/user/profile")
     public JSONObject setProfile(HttpServletRequest request, @RequestBody User user) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
-        long userId = ((long) map.get("userId"));
+        long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        System.out.println("sdf");
         return baseService.setProfile(userId, user);
     }
 
@@ -106,14 +107,17 @@ public class BaseController {
     public JSONObject setPassword(HttpServletRequest request, @RequestBody JSONObject object){
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
-        long userId = ((long) map.get("userId"));
+        long userId = Integer.toUnsignedLong((int) map.get("userId"));
         return baseService.setPassword(userId, object);
     }
 
     @PostMapping("/user/avatar")
-    public JSONObject setAvatar(@RequestBody MultipartFile file) throws IOException {
+    public JSONObject setAvatar(HttpServletRequest request) throws IOException {
 
         long time = System.currentTimeMillis();
+        MultipartFile file = ((MultipartRequest) request).getFile("avatar");
+//        logger.info("file = {}", file);
+
         String path = time + file.getOriginalFilename().replaceAll(" ", "");
         File temp = new File(path);
         BufferedInputStream inputStream = new BufferedInputStream(file.getInputStream());
@@ -133,7 +137,7 @@ public class BaseController {
         temp.delete();
         object.put("url", url);
         object.put("status", url == null ? Message.MSG_FAILED : Message.MSG_SUCCESS);
-        
+
         return object;
     }
 }

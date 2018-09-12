@@ -1,6 +1,7 @@
 package com.belfry.bequank.serviceImpl;
 
 import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.exception.AuthorityException;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.BaseService;
 import com.belfry.bequank.util.JwtUtil;
@@ -74,17 +75,13 @@ public class BaseServiceImpl implements BaseService {
         JSONObject object = new JSONObject();
         User user1 = repository.findByUserName(user.getUserName());
         if (user1 == null) {
-            object.put("status", Message.MSG_USER_NOTEXIST);
-            object.put("message", "用户不存在");
-            return object;
+            throw new AuthorityException();
         }
 
         String expectPw = user1.getPassword();
         String actualPw = user.getPassword();
         if (!expectPw.equals(actualPw)) {
-            object.put("status", Message.MSG_WRONG_PASSWORD);
-            object.put("message", "密码错误");
-            return object;
+            throw new AuthorityException();
         }
 
         String token = jwtUtil.generateToken(user1);
@@ -162,6 +159,7 @@ public class BaseServiceImpl implements BaseService {
         if (user1 == null) {
             object.put("status", Message.MSG_FAILED);
         } else {
+            System.out.println("user is "+user.getUserName()+user.getPassword());
             user.setId(userId);
             repository.saveAndFlush(user);
             object.put("status", Message.MSG_SUCCESS);
