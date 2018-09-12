@@ -1,8 +1,8 @@
 package com.belfry.bequank.serviceImpl;
 
+import com.belfry.bequank.entity.mongo.CommentsInSenti;
 import com.belfry.bequank.entity.mongo.Posting;
 import com.belfry.bequank.entity.mongo.Sentiment;
-import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.entity.secondary.Summary;
 import com.belfry.bequank.entity.secondary.Word_tf;
 import com.belfry.bequank.repository.mongo.PostingRepository;
@@ -136,13 +136,12 @@ public class OpinionServiceImpl implements OpinionService {
 
     /**
      * 微博热点
-     * @param username 用户名
      * @param page     页号
      * @return net.sf.json.JSONArray
      * @author Mr.Wang
      */
     @Override
-    public JSONObject getHotSpots(String username, int page) {
+    public JSONObject getHotSpots(int page) {
         // TODO: 并没有根据用户类型推荐不同新闻的部分，暂时按照全部热点返回
 //        User user = userRepository.findByUserName(username);
 //        String avatar = user.getAvatar();
@@ -227,5 +226,48 @@ public class OpinionServiceImpl implements OpinionService {
         }
         return array;
     }
+
+    /**
+     * 展示一个词好中坏的评论次数
+     *
+     * @param word
+     * @return net.sf.json.JSONArray
+     * @author andi
+     */
+    @Override
+    public JSONObject getCommentsInSenti(String word) {
+        CommentsInSenti commentsInSenti = sentiRepository.getCommentsInSenti(word);
+        System.out.println(commentsInSenti);
+        JSONObject object = new JSONObject();
+        object.put("word", word);
+        object.put("positive", commentsInSenti.getGood());
+        object.put("neutral", commentsInSenti.getMid());
+        object.put("negative", commentsInSenti.getBad());
+        return object;
+    }
+
+    /**
+     * 展示一个词好中坏评论次数的舆情走势
+     *
+     * @param word
+     * @return net.sf.json.JSONArray
+     * @author andi
+     */
+    @Override
+    public JSONArray getCommentsInSentiTrend(String word) {
+        ArrayList<Sentiment> sentiments = sentiRepository.getSentimentTrend(word);
+        JSONArray array = new JSONArray();
+        for (Sentiment sentiment : sentiments) {
+            System.out.println(sentiment.toString());
+            JSONObject object = new JSONObject();
+            object.put("date", sentiment.getDate());
+            object.put("positive", sentiment.getGood());
+            object.put("neutral", sentiment.getMid());
+            object.put("negative", sentiment.getBad());
+            array.add(object);
+        }
+        return array;
+    }
+
 
 }

@@ -59,7 +59,6 @@ public class OpinionController {
     @PostMapping(value = "/hotspot")
     public JSONObject getHotSpots(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
         return opinionService.getHotSpots(
-                jsonObject.getString("userName"),
                 jsonObject.getInt("page")
         );
     }
@@ -86,4 +85,26 @@ public class OpinionController {
                 jsonObject.getString("word")
         );
     }
+
+    /**
+     * 展示一个词好中坏的评论次数
+     *
+     * @author andi
+     */
+    @GetMapping(value = "/sentiment/ratio/{word}")
+    public JSONObject getCommentsInSenti(HttpServletRequest request, @PathVariable String word) {
+        return opinionService.getCommentsInSenti(word);
+    }
+
+    /**
+     * 展示一个词好中坏的评论次数的舆情走势
+     *
+     * @author andi
+     */
+    @GetMapping(value = "/sentiment/ratioTrend/{word}")
+    public JSONArray getCommentsInSentiTrend(HttpServletRequest request, @PathVariable String word) {
+        return opinionService.getCommentsInSentiTrend(word);
+    }
+
+
 }
