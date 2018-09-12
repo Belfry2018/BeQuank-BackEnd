@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "rcm_stock")
 @Getter
 @Setter
 @NoArgsConstructor

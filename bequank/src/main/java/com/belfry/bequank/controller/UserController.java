@@ -1,5 +1,6 @@
 package com.belfry.bequank.controller;
 
+import com.belfry.bequank.entity.primary.RealStock;
 import com.belfry.bequank.entity.primary.Strategy;
 import com.belfry.bequank.entity.primary.Tutorial;
 import com.belfry.bequank.service.NormalUserService;
@@ -7,11 +8,14 @@ import com.belfry.bequank.service.UserService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Yang Yuqing
@@ -123,7 +127,13 @@ public class UserController {
      * @return
      */
     @GetMapping("/stock/{stockId}")
-    public JSONObject viewAStock(HttpServletRequest request, @PathVariable String stockId) {
+    public String viewAStock(HttpServletRequest request, @PathVariable String stockId) {
+
+        try {
+            return normalUserService.getAStock(request, stockId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -134,9 +144,8 @@ public class UserController {
      * @return
      */
     @GetMapping("/stocks/{page}")
-    public JSONObject viewStocks(HttpServletRequest request, @PathVariable int page) {
-
-        return null;
+    public List<RealStock> viewStocks(HttpServletRequest request, @PathVariable int page) {
+        return normalUserService.getStocks(request,page).stream().collect(Collectors.toList());
     }
 
     @PostMapping("/strategy/record")
