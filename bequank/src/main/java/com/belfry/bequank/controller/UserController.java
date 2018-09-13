@@ -10,7 +10,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,8 +45,8 @@ public class UserController {
     }
 
     @GetMapping("/tutorial")
-    public JSONObject getTutorial(HttpServletRequest request,@RequestParam String id){
-        System.out.println("id is "+request.getHeader("Authorization"));
+    public JSONObject getTutorial(@RequestParam String id){
+//        System.out.println("id is "+request.getHeader("Authorization"));
         return userService.getTutorial((long)1,Long.parseLong(id));
     }
 
