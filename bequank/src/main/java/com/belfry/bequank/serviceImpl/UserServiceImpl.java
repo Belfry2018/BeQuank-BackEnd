@@ -6,6 +6,7 @@ import com.belfry.bequank.repository.primary.CommentRepository;
 import com.belfry.bequank.repository.primary.TutorialRepository;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.UserService;
+import com.belfry.bequank.util.HttpHandler;
 import com.belfry.bequank.util.Message;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -28,6 +29,7 @@ public class UserServiceImpl implements UserService {
     CommentRepository commentRepository;
     @Autowired
     UserRepository userRepository;
+
     @Override
     public JSONArray filterTutorials(String[] keywords,String tutorialType) {
         /**
@@ -108,6 +110,8 @@ public class UserServiceImpl implements UserService {
         int size=0;
         if(t.getLikedlist()!=null)size=t.getLikedlist().size();
         jsonObject.put("likecount",size);
+        if(t.getLikedlist()==null||t.getLikedlist().size()==0)System.out.println("now nobody likes you");
+        else System.out.println("pressed like, and result is "+((t.getLikedlist().indexOf(userid))==-1?false:true)+";"+userid+";"+t.getLikedlist().indexOf((long)4));
         if(userid==null)jsonObject.put("alreadyLike",false);
         else jsonObject.put("alreadyLike",t.getLikedlist()==null?false:(t.getLikedlist().indexOf(userid)==-1?false:true));
         jsonObject.put("tutorialType",t.getType());
@@ -182,11 +186,15 @@ public class UserServiceImpl implements UserService {
         Tutorial t=tutorialRepository.getOne(tutorialid);
         if(t.getLikedlist()==null)t.setLikedlist(new ArrayList<>());
         if(t.getLikedlist()==null||t.getLikedlist().indexOf(likerid)==-1)t.getLikedlist().add(likerid);
-        else t.getLikedlist().remove(likerid);
+        else {t.getLikedlist().remove(likerid);
+            t.setLikedlist(new ArrayList<>());
+        }
         tutorialRepository.save(t);
+        System.out.println("liked num is "+t.getLikedlist().size());
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",Message.MSG_SUCCESS);
-        return jsonObject;        }
+        return jsonObject;
+    }
 
     @Override
     public JSONObject likeComment(Long likerid,Long commentid) {
@@ -194,7 +202,9 @@ public class UserServiceImpl implements UserService {
         if(c.getLikedusers()==null)c.setLikedusers(new ArrayList<>());
 
         if(c.getLikedusers()==null||c.getLikedusers().indexOf(likerid)==-1)c.getLikedusers().add(likerid);
-        else c.getLikedusers().remove(likerid);
+        else {c.getLikedusers().remove(likerid);
+            c.setLikedusers(new ArrayList<>());
+        }
         commentRepository.save(c);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("code",Message.MSG_SUCCESS);

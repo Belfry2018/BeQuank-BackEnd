@@ -55,8 +55,9 @@ public class SystemUserServiceImpl implements SystemUserService {
         tutorial.setContent(content);
         tutorial.setType(type);
         tutorial.setCover(cover);
+
         String nickname=userRepository.getById(userid).getNickname();
-        if(userRepository.findByUserName(nickname)==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
+        if(userRepository.findByNickname(nickname)==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
         else {
             tutorial.setNickname(nickname);
             tutorialRepository.save(tutorial);
