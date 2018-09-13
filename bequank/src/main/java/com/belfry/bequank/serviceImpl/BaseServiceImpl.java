@@ -159,6 +159,7 @@ public class BaseServiceImpl implements BaseService {
         if (user1 == null) {
             object.put("status", Message.MSG_FAILED);
         } else {
+            System.out.println("user is "+user.getUserName()+user.getPassword());
             user.setId(userId);
             repository.saveAndFlush(user);
             object.put("status", Message.MSG_SUCCESS);

@@ -90,6 +90,7 @@ public class BaseController {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int)map.get("userId"));
+        System.out.println("ss "+baseService.getProfile(userId).getUserName());
         return baseService.getProfile(userId);
     }
 
@@ -98,6 +99,7 @@ public class BaseController {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        System.out.println("sdf");
         return baseService.setProfile(userId, user);
     }
 

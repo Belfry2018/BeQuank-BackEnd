@@ -8,10 +8,10 @@ import net.sf.json.JSONObject;
  * 用户的共同api
  */
 public interface UserService {
-    JSONArray filterTutorials(Long userid,String time,String title,String discription,String[] keywords);
-    Tutorial getTutorial(Long id);
-    JSONObject postComment(Long tutorialid,String content,String nickname,Long writerid,String time);
-    JSONObject reply(Long commentid,String content,String nickname,Long writerid,String time);
-    JSONObject likeTutorial(Long tutorialid,Long likerid);
-    JSONObject likeComment(Long commentid,Long likerid);
+    JSONArray filterTutorials(String[] keywords,String tutorialType);
+    JSONObject getTutorial(Long userid,Long id);
+    JSONObject postComment(Long writerid,Long tutorialid,String content,String time);
+    JSONObject reply(Long commenterid,Long commentid,String content,String time);
+    JSONObject likeTutorial(Long likerid,Long tutorialid);
+    JSONObject likeComment(Long likeerid,Long commentid);
 }
