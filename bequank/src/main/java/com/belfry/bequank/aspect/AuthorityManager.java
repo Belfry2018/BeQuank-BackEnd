@@ -1,6 +1,7 @@
 package com.belfry.bequank.aspect;
 
 import com.belfry.bequank.exception.AuthorityException;
+import com.belfry.bequank.exception.TokenException;
 import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Role;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -53,7 +54,12 @@ public class AuthorityManager {
     }
 
     private String getRole(String token) {
-        Map<String, Object> map = jwtUtil.parseToken(token);
+        Map<String, Object> map = null;
+        try {
+            map = jwtUtil.parseToken(token);
+        } catch (Exception e) {
+            throw new TokenException();
+        }
         String role = ((String) map.get("role"));
         return role;
     }

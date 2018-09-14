@@ -30,7 +30,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     Message message=new Message();
 
     @Override
-    public JSONObject postTutorial(HttpServletRequest request, String nickname, Long userid, String title, String discription, JSONArray keywords, String content, String time) {
+    public JSONObject postTutorial(HttpServletRequest request, Long userid,  String title, String cover,String discription, JSONArray keywords, String content, String time,String type){
         /**
          * @author: Yang Yuqing
          * @description:
@@ -48,15 +48,19 @@ public class SystemUserServiceImpl implements SystemUserService {
          */
         JSONObject jsonObject=new JSONObject();
         Tutorial tutorial=new Tutorial();
-        tutorial.setNickname(nickname);
-        tutorial.setUserid(userid);
         tutorial.setTitle(title);
+        tutorial.setUserid(userid);
         tutorial.setTime(time);
         tutorial.setDescription(discription);
         tutorial.setKeywords(keywords);
         tutorial.setContent(content);
-        if(userRepository.findById(userid)==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
+        tutorial.setType(type);
+        tutorial.setCover(cover);
+
+        String nickname=userRepository.getById(userid).getNickname();
+        if(userRepository.findByNickname(nickname)==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
         else {
+            tutorial.setNickname(nickname);
             tutorialRepository.save(tutorial);
             jsonObject.put("code",Message.MSG_SUCCESS);
         }

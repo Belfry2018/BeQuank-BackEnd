@@ -49,14 +49,6 @@ public class UserServiceImplTest {
         String[] tags={"intro","bequank","first"};
         JSONArray array=JSONArray.fromObject(tags);
 
-        systemUserService.postTutorial(null,u.getNickname(),
-                u.getId(),
-                "bequank introduction",
-                "describes bequank intro",
-                array,
-                "Bequank financial platform is our best financial platform ever.",
-                "2018-8-17"
-                );
 
     }
     @Test
@@ -66,7 +58,7 @@ public class UserServiceImplTest {
 
     @Test
     public void getTutorial() {
-        System.out.println(userService.getTutorial(tutorialRepository.findByTitle("bequank introduction").getId()));
+//        System.out.println(userService.getTutorial(tutorialRepository.findByTitle("bequank introduction").getId()));
     }
 
     @Test

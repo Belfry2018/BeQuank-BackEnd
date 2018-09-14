@@ -23,13 +23,13 @@ public class TestComment_Tutorial {
     TutorialRepository tutorialRepository;
 
     @Test public void test1() {
-        Tutorial tutorial = new Tutorial((long) 1, 109, "nickName", "title", "description", "content", "time", null);
-        Comment comment1 = new Comment((long) 1, "content", "time", "nickName", 12, tutorial, null);
-        Comment comment2 = new Comment((long) 2, "content", "time", "nickName", 12, tutorial, null);
-
-        tutorialRepository.saveAndFlush(tutorial);
-        commentRepository.saveAndFlush(comment1);
-        commentRepository.saveAndFlush(comment2);
+//        Tutorial tutorial = new Tutorial((long) 1, 109, "nickName", "title", "description", "content", "time", null);
+//        Comment comment1 = new Comment((long) 1, "content", "time", "nickName", 12, tutorial, null);
+//        Comment comment2 = new Comment((long) 2, "content", "time", "nickName", 12, tutorial, null);
+//
+//        tutorialRepository.saveAndFlush(tutorial);
+//        commentRepository.saveAndFlush(comment1);
+//        commentRepository.saveAndFlush(comment2);
     }
 
     @Test

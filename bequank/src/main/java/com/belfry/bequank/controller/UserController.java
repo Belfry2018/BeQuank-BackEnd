@@ -5,10 +5,11 @@ import com.belfry.bequank.entity.primary.Strategy;
 import com.belfry.bequank.entity.primary.Tutorial;
 import com.belfry.bequank.service.NormalUserService;
 import com.belfry.bequank.service.UserService;
+import com.belfry.bequank.util.JwtUtil;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,40 +31,46 @@ public class UserController {
     UserService userService;
     @Autowired
     NormalUserService normalUserService;
+    @Autowired
+    JwtUtil util;
 
+    // TODO: 9/7/18 将一些map url前加上/api/v1以与前端对应
+    // TODO: 9/7/18 要处理所有jsonobject可能为null的问题。
     @PostMapping("/tutorials")
-    public JSONArray filterTutorials(HttpServletRequest request, @RequestBody JSONObject jsonObject){
+    public JSONArray filterTutorials(@RequestBody JSONObject jsonObject){
+        System.out.println("the request is"+jsonObject);
         return userService.filterTutorials(
-                jsonObject.getLong("userid"),
-                jsonObject.getString("time"),
-                jsonObject.getString("title"),
-                jsonObject.getString("description"),
-                jsonObject.getString("keywords").split(" "));
+                jsonObject.getString("keywords"),
+                jsonObject.getString("tutorialType"));
     }
 
     @GetMapping("/tutorial")
-    public Tutorial getTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        return userService.getTutorial(jsonObject.getLong("id"));
+    public JSONObject getTutorial(HttpServletRequest request,@RequestParam String id){
+        System.out.println("id is "+request.getHeader("Authorization"));
+        if(request.getHeader("Authorization")==null||request.getHeader("Authorization").equals("null"))
+            return userService.getTutorial((long)0,Long.parseLong(id));
+        return userService.getTutorial(
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                Long.parseLong(id));
     }
 
     @PostMapping("/comment")
     public JSONObject postComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.postComment(
-                jsonObject.getLong("tutorialid"),
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("tutorialId"),
                 jsonObject.getString("content"),
-                jsonObject.getString("nickname"),
-                jsonObject.getLong("writerid"),
                 jsonObject.getString("time")
         );
     }
 
     @PostMapping("/reply")
     public JSONObject reply(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        return userService.postComment(
-                jsonObject.getLong("commentid"),
+        System.out.println(jsonObject);
+        return userService.reply(
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("commentId"),
                 jsonObject.getString("content"),
-                jsonObject.getString("nickname"),
-                jsonObject.getLong("writerid"),
                 jsonObject.getString("time")
         );
     }
@@ -71,16 +78,16 @@ public class UserController {
     @PostMapping("/like/tutorial")
     public JSONObject likeTutorial(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeTutorial(
-                jsonObject.getLong("tutorialid"),
-                jsonObject.getLong("likerid")
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("tutorialId")
         );
     }
 
     @PostMapping("/like/comment")
     public JSONObject likeComment(HttpServletRequest request,@RequestBody JSONObject jsonObject){
         return userService.likeComment(
-                jsonObject.getLong("commentid"),
-                jsonObject.getLong("likerid")
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("commentId")
         );
     }
 
@@ -166,5 +173,9 @@ public class UserController {
     @GetMapping("/strategy/record/{recordId}")
     public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
         return normalUserService.getAStrategy(request, recordId);
+    }
+    @GetMapping("/tutorials/recommendation")
+    public JSONArray recommendation(){
+        return userService.recommendation();
     }
 }

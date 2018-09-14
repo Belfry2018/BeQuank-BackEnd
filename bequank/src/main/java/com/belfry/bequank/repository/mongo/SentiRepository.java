@@ -1,5 +1,6 @@
 package com.belfry.bequank.repository.mongo;
 
+import com.belfry.bequank.entity.mongo.CommentsInSenti;
 import com.belfry.bequank.entity.mongo.Sentiment;
 
 import javax.transaction.Transactional;
@@ -16,4 +17,6 @@ public interface SentiRepository {
     ArrayList<Sentiment> getSentiment(int type);
 
     ArrayList<Sentiment> getSentimentTrend(String text);
+
+    CommentsInSenti getCommentsInSenti(String text);
 }
