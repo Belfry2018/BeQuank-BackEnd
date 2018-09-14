@@ -153,15 +153,21 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public JSONObject setProfile(long userId, User user) {
+    public JSONObject setProfile(long userId, JSONObject user) {
         JSONObject object = new JSONObject();
         User user1 = repository.getById(userId);
         if (user1 == null) {
             object.put("status", Message.MSG_FAILED);
         } else {
-            System.out.println("user is "+user.getUserName()+user.getPassword());
-            user.setId(userId);
-            repository.saveAndFlush(user);
+            user1.setNickname(user.optString("nickname"));
+            user1.setAvatar(user.optString("avatar"));
+            user1.setPhone(user.optString("phone"));
+            user1.setGender(user.optString("gender"));
+            user1.setBirthday(user.optString("birthday"));
+            user1.setMoneyLevel(user.optString("moneyLevel"));
+            user1.setBio(user.optString("bio"));
+            user1.setExpectedProfit(Double.parseDouble(user.optString("expectedProfit")));
+            repository.saveAndFlush(user1);
             object.put("status", Message.MSG_SUCCESS);
         }
 

@@ -95,7 +95,7 @@ public class BaseController {
     }
 
     @PostMapping("/user/profile")
-    public JSONObject setProfile(HttpServletRequest request, @RequestBody User user) {
+    public JSONObject setProfile(HttpServletRequest request, @RequestBody JSONObject user) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int) map.get("userId"));

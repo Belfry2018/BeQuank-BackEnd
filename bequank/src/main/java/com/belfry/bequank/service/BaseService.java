@@ -17,7 +17,7 @@ public interface BaseService {
 
     public User getProfile(long userId);
 
-    public JSONObject setProfile(long userId, User user);
+    public JSONObject setProfile(long userId, JSONObject user);
 
     public JSONObject setPassword(long userId, JSONObject object);
 
