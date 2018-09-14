@@ -48,7 +48,7 @@ public class OpinionServiceImpl implements OpinionService {
     @Resource
     private UserRepository userRepository;
 
-    private final int MULTI = 10000;
+    private final int MULTI = 1;
 
     /**
      * 根据页数得到8篇文章
@@ -155,6 +155,7 @@ public class OpinionServiceImpl implements OpinionService {
         if (posts == null) {
             JSONObject object = new JSONObject();
             object.put("username", null);
+            object.put("avatar", null);
             object.put("attitudesCount", null);
             object.put("commentCount", null);
             object.put("fullText", null);
@@ -164,6 +165,7 @@ public class OpinionServiceImpl implements OpinionService {
             for (Posting post : posts) {
                 JSONObject object = new JSONObject();
                 object.put("username", post.getUser());
+                object.put("avatar", post.getAvatar());
                 object.put("attitudesCount", post.getAttitudes_count());
                 object.put("commentCount", post.getComments_count());
                 object.put("fullText", post.getFull_text());

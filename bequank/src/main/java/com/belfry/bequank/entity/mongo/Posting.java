@@ -2,8 +2,10 @@ package com.belfry.bequank.entity.mongo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,6 +16,7 @@ import java.util.List;
 
 @Document(collection = "weibos")
 @Getter
+@Setter
 @NoArgsConstructor
 @ToString
 public class Posting implements Serializable {
@@ -36,5 +39,6 @@ public class Posting implements Serializable {
     private String full_text;
     private List<String> words;
 
-
+    @Transient
+    private String avatar;
 }

@@ -17,5 +17,7 @@ public interface PostingRepository {
     ArrayList<Posting> getHotSpots(int page, int count);
 
     long getTotalHotSpots();
+
+
 }
 
