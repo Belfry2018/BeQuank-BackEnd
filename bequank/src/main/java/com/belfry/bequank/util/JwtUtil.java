@@ -46,11 +46,6 @@ public class JwtUtil {
         return  jwt;
     }
 
-    @Cacheable(value = "loginList", key = "#user.userName")
-    public String getToken(User user) {
-        return null;
-    }
-
     public Map<String, Object> parseToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)

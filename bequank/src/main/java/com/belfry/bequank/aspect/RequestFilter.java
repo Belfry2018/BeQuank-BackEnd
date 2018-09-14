@@ -56,7 +56,12 @@ public class RequestFilter {
 
         JSONObject response = new JSONObject();
         if (token != null) {
-            Map<String, Object> map = jwtUtil.parseToken(token);
+            Map<String, Object> map = null;
+            try {
+                map = jwtUtil.parseToken(token);
+            } catch (Exception e) {
+                throw new TokenException();
+            }
 
             String userName = ((String) map.get("userName"));
             int time = ((int) map.get("exp"));
