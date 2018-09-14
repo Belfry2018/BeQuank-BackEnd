@@ -49,6 +49,7 @@ public class SystemUserServiceImpl implements SystemUserService {
         JSONObject jsonObject=new JSONObject();
         Tutorial tutorial=new Tutorial();
         tutorial.setTitle(title);
+        tutorial.setUserid(userid);
         tutorial.setTime(time);
         tutorial.setDescription(discription);
         tutorial.setKeywords(keywords);

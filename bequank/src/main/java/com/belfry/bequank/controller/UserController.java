@@ -40,14 +40,18 @@ public class UserController {
     public JSONArray filterTutorials(@RequestBody JSONObject jsonObject){
         System.out.println("the request is"+jsonObject);
         return userService.filterTutorials(
-                jsonObject.getString("keywords").split(" "),
+                jsonObject.getString("keywords"),
                 jsonObject.getString("tutorialType"));
     }
 
     @GetMapping("/tutorial")
-    public JSONObject getTutorial(@RequestParam String id){
-//        System.out.println("id is "+request.getHeader("Authorization"));
-        return userService.getTutorial((long)1,Long.parseLong(id));
+    public JSONObject getTutorial(HttpServletRequest request,@RequestParam String id){
+        System.out.println("id is "+request.getHeader("Authorization"));
+        if(request.getHeader("Authorization")==null||request.getHeader("Authorization").equals("null"))
+            return userService.getTutorial((long)0,Long.parseLong(id));
+        return userService.getTutorial(
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                Long.parseLong(id));
     }
 
     @PostMapping("/comment")
@@ -62,7 +66,8 @@ public class UserController {
 
     @PostMapping("/reply")
     public JSONObject reply(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        return userService.postComment(
+        System.out.println(jsonObject);
+        return userService.reply(
                 Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
                 jsonObject.getLong("commentId"),
                 jsonObject.getString("content"),
@@ -168,5 +173,9 @@ public class UserController {
     @GetMapping("/strategy/record/{recordId}")
     public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
         return normalUserService.getAStrategy(request, recordId);
+    }
+    @GetMapping("/tutorials/recommendation")
+    public JSONArray recommendation(){
+        return userService.recommendation();
     }
 }

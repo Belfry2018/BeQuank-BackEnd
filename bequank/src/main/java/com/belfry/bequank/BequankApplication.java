@@ -13,6 +13,8 @@ import java.util.List;
 public class BequankApplication {
 
     public static void main(String[] args) {
+
+        System.out.println(" 4".split(" ")[0].equals(""));
         SpringApplication.run(BequankApplication.class, args);
     }
 }
