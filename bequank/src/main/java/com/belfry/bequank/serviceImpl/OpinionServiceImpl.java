@@ -48,6 +48,8 @@ public class OpinionServiceImpl implements OpinionService {
     @Resource
     private UserRepository userRepository;
 
+    private final int MULTI = 10000;
+
     /**
      * 根据页数得到8篇文章
      * @author Mr.Wang
@@ -127,7 +129,7 @@ public class OpinionServiceImpl implements OpinionService {
             for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
                 JSONObject object = new JSONObject();
                 object.put("word", entry.getKey());
-                object.put("count", entry.getValue());
+                object.put("count", entry.getValue() * MULTI);
                 array.add(object);
             }
         }
