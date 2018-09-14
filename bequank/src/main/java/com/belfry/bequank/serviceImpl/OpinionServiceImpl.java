@@ -48,6 +48,8 @@ public class OpinionServiceImpl implements OpinionService {
     @Resource
     private UserRepository userRepository;
 
+    private final int MULTI = 1;
+
     /**
      * 根据页数得到8篇文章
      * @author Mr.Wang
@@ -127,7 +129,7 @@ public class OpinionServiceImpl implements OpinionService {
             for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
                 JSONObject object = new JSONObject();
                 object.put("word", entry.getKey());
-                object.put("count", entry.getValue());
+                object.put("count", entry.getValue() * MULTI);
                 array.add(object);
             }
         }
@@ -153,6 +155,7 @@ public class OpinionServiceImpl implements OpinionService {
         if (posts == null) {
             JSONObject object = new JSONObject();
             object.put("username", null);
+            object.put("avatar", null);
             object.put("attitudesCount", null);
             object.put("commentCount", null);
             object.put("fullText", null);
@@ -162,6 +165,7 @@ public class OpinionServiceImpl implements OpinionService {
             for (Posting post : posts) {
                 JSONObject object = new JSONObject();
                 object.put("username", post.getUser());
+                object.put("avatar", post.getAvatar());
                 object.put("attitudesCount", post.getAttitudes_count());
                 object.put("commentCount", post.getComments_count());
                 object.put("fullText", post.getFull_text());
