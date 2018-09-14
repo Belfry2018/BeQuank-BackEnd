@@ -1,6 +1,7 @@
 package com.belfry.bequank.entity.primary;
 
 import lombok.*;
+import net.sf.json.JSONObject;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,5 +47,12 @@ public class User implements Serializable {
         this.registerTime = registerTime;
         this.expectedProfit = expectedProfit;
         this.riskAbility = riskAbility;
+    }
+    public JSONObject toJSONObject(){
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("username",this.userName);
+        jsonObject.put("avatar",this.avatar);
+        jsonObject.put("nickname",this.nickname);
+        return jsonObject;
     }
 }

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public JSONArray filterTutorials(String[] keywords,String tutorialType) {
+    public JSONArray filterTutorials(String keyword,String tutorialType) {
         /**
          * @author: Yang Yuqing
          * @description:
@@ -49,31 +49,32 @@ public class UserServiceImpl implements UserService {
          * @date: 5:05 PM 8/16/18
          */
         System.out.println("s");
-
+        String[] keywords=keyword.split(" ");
         List<Tutorial> tutorialList=tutorialRepository.getAll();
         //check by id
         Iterator<Tutorial> iter = tutorialList.iterator();
-        JSONArray keywordlist=JSONArray.fromObject(keywords);
-        System.out.println("keywordlaength"+keywordlist.size());
-        while(iter.hasNext()){
-            Tutorial t=iter.next();
-
-//            else if(time!=null&&!t.getTime().equals(time))
-//                iter.remove();
-//            else if(title!=null&&!t.getTitle().equals(title))
-//                iter.remove();
-//            else if(description!=null&&!t.getDescription().equals(description)){
-//                iter.remove();
-//            }
+        for(int walker=0;walker<tutorialList.size();walker++){
+            Tutorial t=tutorialList.get(walker);
+            if(!tutorialType.equals("")&&(!tutorialType.equals(t.getType()))){
+                tutorialList.remove(walker);
+                walker--;
+            }
             // TODO: 8/17/18 optimize keyword filter, making the results sorted by number of hits
-            if(keywords.length>=2){
+            else if(keywords.length>=1){
                 boolean hit = false;
-                for (int i = 0; i < keywordlist.size(); i++) {
-                    for (int j = 0; j < t.getKeywords().size(); j++) {
-                        if (keywordlist.getString(i).equals(t.getKeywords().getString(j))) hit = true;
+                for (int i = 0; i < keywords.length; i++) {
+                    for (int j = 0; j < t.getTitle().split(" ").length; j++) {
+                        if(keyword.equals(""))hit=true;
+                        else {
+                            if (t.getTitle().split(" ")[j].contains(keywords[i])) hit = true;
+                            if (keywords[i].equals("")) hit = false;
+                        }
                     }
                 }
-                if (!hit) iter.remove();
+                if (!hit) {
+                    tutorialList.remove(walker);
+                    walker--;
+                }
             }
         }
         JSONArray resultarray=new JSONArray();
@@ -94,13 +95,30 @@ public class UserServiceImpl implements UserService {
 
         return resultarray;
     }
-
+    @Override
+    public JSONArray recommendation(){
+        List<Tutorial> list=tutorialRepository.getAll();
+        Collections.sort(list);
+        JSONArray resultarray=new JSONArray();
+        for(Tutorial t:list){
+            JSONObject object=new JSONObject();
+            object.put("tutorialId",t.getId());
+            object.put("title",t.getTitle());
+            object.put("authorNickname",t.getNickname());
+            object.put("publishTime",t.getTime());
+            object.put("abstract",t.getDescription());
+            object.put("cover",t.getCover());
+            object.put("tutorialType",t.getType());
+            resultarray.add(object);        }
+        return resultarray;
+    }
     @Override
     public JSONObject getTutorial(Long userid,Long id) {
 
         Tutorial t=tutorialRepository.getOne(id);
+        System.out.println("user "+" is "+userRepository.getById(t.getUserid()));
         JSONObject jsonObject=new JSONObject();
-        jsonObject.put("author",userRepository.getById(t.getUserid()));
+        jsonObject.put("author",(userRepository.getById(t.getUserid())).toJSONObject());
         jsonObject.put("title",t.getTitle());
         jsonObject.put("cover",t.getCover());
         jsonObject.put("abstract",t.getDescription());
@@ -109,17 +127,24 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("time",t.getTime());
         int size=0;
         if(t.getLikedlist()!=null)size=t.getLikedlist().size();
-        jsonObject.put("likecount",size);
+        jsonObject.put("likeCount",size);
         if(t.getLikedlist()==null||t.getLikedlist().size()==0)System.out.println("now nobody likes you");
         else System.out.println("pressed like, and result is "+((t.getLikedlist().indexOf(userid))==-1?false:true)+";"+userid+";"+t.getLikedlist().indexOf((long)4));
         if(userid==null)jsonObject.put("alreadyLike",false);
         else jsonObject.put("alreadyLike",t.getLikedlist()==null?false:(t.getLikedlist().indexOf(userid)==-1?false:true));
         jsonObject.put("tutorialType",t.getType());
         List<Comment> list=t.getComments();
+        System.out.println("comment number:"+list.size());
         for(Comment c:list){
             c.setAlreadyLiked(c.getLikedusers()==null?false:(c.getLikedusers().indexOf(userid)==-1?false:true));
         }
-        jsonObject.put("comments",list);
+        JSONArray jsonArray=new JSONArray();
+        for(Comment c:list){
+            if(c.getReplyTarget()==null)
+                jsonArray.add(c.toJSONObject(userid));
+        }
+        jsonObject.put("comments",jsonArray);
+        System.out.println("jsonobject is "+jsonObject);
         return jsonObject;
     }
 
@@ -127,13 +152,15 @@ public class UserServiceImpl implements UserService {
     public JSONObject postComment(Long writerid,Long tutorialid,String content,String time) {
         Comment c=new Comment();
         c.setContent(content);
-        c.setWriterid(writerid);
+        c.setWriter(userRepository.getById(writerid));
         c.setNickname(userRepository.getById(writerid).getNickname());
         c.setTime(time);
         Tutorial t=tutorialRepository.getOne(tutorialid);
+        c.setTutorial(t);
         t.getComments().add(c);
-        tutorialRepository.save(t);
+        System.out.println("comment is "+c.getContent()+";and t comment num is:"+t.getComments().size());
         commentRepository.save(c);
+        tutorialRepository.save(t);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("commentId",c.getId());
         jsonObject.put("tutorialId",t.getId());
@@ -144,20 +171,23 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("likeCount",c.getLikedusers()==null?0:c.getLikedusers().size());
         jsonObject.put("alreadyLike",c.getLikedusers()==null?false:(c.getLikedusers().indexOf(writerid)==-1?false:true));
         jsonObject.put("childrenComments",null);
+        System.out.println("now "+tutorialRepository.getOne((long)13).getComments().size());
         return jsonObject;
     }
 
     @Override
     public JSONObject reply(Long commenterid,Long commentid, String content,  String time) {
+        System.out.println("reply now"+commentRepository.getAll().size());
         Comment origin=commentRepository.getOne(commentid);
         Comment reply=new Comment();
         reply.setContent(content);
         reply.setTime(time);
-        reply.setWriterid(commenterid);
+        reply.setWriter(userRepository.getById(commenterid));
         reply.setNickname(userRepository.getById(commenterid).getNickname());
         reply.setReplyTarget(origin);
+        reply.setTutorial(origin.getTutorial());
         origin.getComments().add(reply);
-        commentRepository.save(origin);
+//        commentRepository.save(origin);
         commentRepository.save(reply);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("commentId",reply.getId());
@@ -200,7 +230,6 @@ public class UserServiceImpl implements UserService {
     public JSONObject likeComment(Long likerid,Long commentid) {
         Comment c=commentRepository.getOne(commentid);
         if(c.getLikedusers()==null)c.setLikedusers(new ArrayList<>());
-
         if(c.getLikedusers()==null||c.getLikedusers().indexOf(likerid)==-1)c.getLikedusers().add(likerid);
         else {c.getLikedusers().remove(likerid);
             c.setLikedusers(new ArrayList<>());
@@ -210,5 +239,7 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("code",Message.MSG_SUCCESS);
         return jsonObject;
     }
+
+
 
 }
