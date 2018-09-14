@@ -1,7 +1,7 @@
 package com.belfry.bequank.repository.mongoImpl;
 
 import com.belfry.bequank.entity.mongo.Posting;
-import com.belfry.bequank.entity.primary.User;
+import com.belfry.bequank.entity.mongo.Users;
 import com.belfry.bequank.repository.mongo.PostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,7 +30,7 @@ public class PostingRepositoryImpl implements PostingRepository {
             String name = posting.getUser();
             Query query = new Query();
             query.addCriteria(Criteria.where("name").is(name));
-            User user = mongoTemplate.findOne(query, User.class);
+            Users user = mongoTemplate.findOne(query, Users.class);
             String avatar = user.getAvatar();
             posting.setAvatar(avatar);
         }
