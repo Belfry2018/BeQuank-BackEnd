@@ -15,6 +15,7 @@ public class PostingRepositoryImpl implements PostingRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Override
     public ArrayList<Posting> getHotSpots(int page, int count) {
         Query q = new Query();
         q.with(new Sort(Sort.Direction.DESC, "created_at"));
@@ -22,6 +23,7 @@ public class PostingRepositoryImpl implements PostingRepository {
         return (ArrayList<Posting>) mongoTemplate.find(q, Posting.class);
     }
 
+    @Override
     public long getTotalHotSpots() {
         Query q = new Query();
         return mongoTemplate.count(q, Posting.class);

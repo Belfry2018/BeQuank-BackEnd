@@ -72,8 +72,19 @@ public class TestWeibo {
     }
 
     @Test
-    public void getSentiTrend() {
-        ArrayList<Sentiment> sentimentTrend = sentiRepository.getSentimentTrend("黄金");
+    public void getNormalSentiTrend() {
+        getSentiTrend("黄金");
+        getSentiTrend("京东");
+    }
+
+    @Test
+    public void getNullSentiTrend() {
+        getSentiTrend("");
+        getSentiTrend(null);
+    }
+
+    public void getSentiTrend(String text) {
+        ArrayList<Sentiment> sentimentTrend = sentiRepository.getSentimentTrend(text);
         Assert.notNull(sentimentTrend);
         System.out.println(sentimentTrend.size());
         int i = 0;
@@ -82,12 +93,19 @@ public class TestWeibo {
             System.out.println(sentimentTrend.get(i));
             i++;
         }
-
     }
 
     @Test
     public void getTotalPostingCount() {
         System.out.println(postingRepository.getTotalHotSpots());
+    }
+
+    @Test
+    public void getCommentsInSenti() {
+        Assert.isTrue(sentiRepository.getCommentsInSenti("代码").getBad() != 0);
+        System.out.println(sentiRepository.getCommentsInSenti("京东"));
+        System.out.println(sentiRepository.getCommentsInSenti(""));
+        System.out.println(sentiRepository.getCommentsInSenti(null));
     }
 
 }

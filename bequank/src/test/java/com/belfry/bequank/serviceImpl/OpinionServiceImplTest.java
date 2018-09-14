@@ -2,6 +2,7 @@ package com.belfry.bequank.serviceImpl;
 
 import com.belfry.bequank.entity.secondary.Word_tf;
 import com.belfry.bequank.repository.secondary.Word_tfRepository;
+import io.jsonwebtoken.lang.Assert;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Test;
@@ -66,6 +67,22 @@ public class OpinionServiceImplTest {
     @Test
     public void testGetGvnHotWords() {
         JSONArray array = service.getGvnHotWords();
+        System.out.println(array.toString());
+    }
+
+    @Test
+    public void getCommentsInSenti() {
+        final String word = "刘强东";
+        JSONObject object = service.getCommentsInSenti(word);
+        System.out.println(word + object.toString());
+    }
+
+    @Test
+    public void getCommentsInSentiTrend() {
+        JSONArray array = service.getSentimentTrend("刘强东");
+        System.out.println(array.toString());
+        array = service.getCommentsInSentiTrend("刘强东");
+        Assert.notEmpty(array);
         System.out.println(array.toString());
     }
 }

@@ -37,11 +37,10 @@ public interface OpinionService {
     /**
      * 微博热点
      * @author Mr.Wang
-     * @param username 用户名
      * @param page 页号
      * @return net.sf.json.JSONArray
      */
-    JSONObject getHotSpots(String username, int page);
+    JSONObject getHotSpots(int page);
 
     /**
      * 随机展示三个词的舆情
@@ -58,4 +57,22 @@ public interface OpinionService {
      * @return net.sf.json.JSONArray
      */
     JSONArray getSentimentTrend(String word);
+
+    /**
+     * 展示一个词好中坏的评论次数
+     *
+     * @param word
+     * @return net.sf.json.JSONObject
+     * @author andi
+     */
+    JSONObject getCommentsInSenti(String word);
+
+    /**
+     * 展示一个词好中坏评论次数的舆情走势
+     *
+     * @param word
+     * @return net.sf.json.JSONArray
+     * @author andi
+     */
+    JSONArray getCommentsInSentiTrend(String word);
 }
