@@ -164,7 +164,8 @@ public class OpinionServiceImpl implements OpinionService {
             // TODO: totalPage / currentPage 还未添加
             for (Posting post : posts) {
                 JSONObject object = new JSONObject();
-                object.put("username", post.getUser());
+//                object.put("username", post.getUser());
+                object.put("username", post.getName());
                 object.put("avatar", post.getAvatar());
                 object.put("attitudesCount", post.getAttitudes_count());
                 object.put("commentCount", post.getComments_count());
