@@ -5,6 +5,7 @@ import com.belfry.bequank.repository.mongo.PostingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public class PostingRepositoryImpl implements PostingRepository {
     public ArrayList<Posting> getHotSpots(int page, int count) {
         Query q = new Query();
 //      q.with(new Sort(Sort.Direction.DESC, "created_at"));
-//        q.addCriteria(Criteria.where("text").ne("").ne(null));
+        q.addCriteria(Criteria.where("avatar").ne("").ne(null));
         q.with(new Sort(Sort.Direction.DESC, "attitudes_count", "comments_count", "reposts_count"));
         q.skip((page - 1) * count).limit(count);
         ArrayList<Posting> res = (ArrayList<Posting>) mongoTemplate.find(q, Posting.class);
