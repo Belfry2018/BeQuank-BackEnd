@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
 @Document
 public class Users {
     private ObjectId _id = new ObjectId();
-    private long id;
+    @Field("id")
+    private long users_id;
     private String name;
     private String avatar;
     private String cover;

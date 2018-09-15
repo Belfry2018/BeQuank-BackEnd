@@ -30,7 +30,7 @@ public class AuthorityManager {
         String role = getRole(token);
 
         Object res = null;
-        if (!role.equals(Role.NORMAL)) {
+        if (!role.equals(Role.NORMAL)&&!role.equals(Role.SYSTEM)) {
             throw new AuthorityException();
         }
 
