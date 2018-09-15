@@ -3,6 +3,8 @@ package com.belfry.bequank.repository.mongoImpl;
 import com.belfry.bequank.entity.mongo.Posting;
 import com.belfry.bequank.entity.mongo.Users;
 import com.belfry.bequank.repository.mongo.PostingRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,12 +12,17 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 
 @Repository
 public class PostingRepositoryImpl implements PostingRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public ArrayList<Posting> getHotSpots(int page, int count) {
@@ -28,9 +35,12 @@ public class PostingRepositoryImpl implements PostingRepository {
         for (int i = 0; i < res.size(); i++) {
             Posting posting = res.get(i);
             String name = posting.getUser();
+            long id = Long.parseLong(name);
             Query query = new Query();
-            query.addCriteria(Criteria.where("name").is(name));
+            query.addCriteria(Criteria.where("id").is(id));
             Users user = mongoTemplate.findOne(query, Users.class);
+            logger.info("object = {}", user);
+            logger.info("name = {}", name);
             String avatar = user.getAvatar();
             posting.setAvatar(avatar);
         }

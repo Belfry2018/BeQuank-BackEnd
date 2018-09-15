@@ -33,7 +33,7 @@ public class SystemUserController {
                 jsonObject.getString("title"),
                 jsonObject.getString("cover"),
                 jsonObject.getString("abstract"),
-                jsonObject.getJSONArray("keyWords"),
+                null,
                 jsonObject.getString("content"),
                 jsonObject.getString("time"),
                 jsonObject.getString("tutorialType"));
