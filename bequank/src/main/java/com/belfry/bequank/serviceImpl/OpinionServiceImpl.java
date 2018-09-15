@@ -168,7 +168,8 @@ public class OpinionServiceImpl implements OpinionService {
                 object.put("avatar", post.getAvatar());
                 object.put("attitudesCount", post.getAttitudes_count());
                 object.put("commentCount", post.getComments_count());
-                object.put("fullText", post.getFull_text());
+//                object.put("fullText", post.getFull_text());
+                object.put("fullText", post.getClean_text());
                 array.add(object);
             }
         }

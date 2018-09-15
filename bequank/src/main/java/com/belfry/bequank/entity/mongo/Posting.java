@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -39,6 +38,7 @@ public class Posting implements Serializable {
     private String full_text;
     private List<String> words;
 
-    @Transient
     private String avatar;
+    private String name;
+    private String clean_text;
 }
