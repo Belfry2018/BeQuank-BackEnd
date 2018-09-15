@@ -147,7 +147,8 @@ public class OpinionServiceImpl implements OpinionService {
         // TODO: 并没有根据用户类型推荐不同新闻的部分，暂时按照全部热点返回
 //        User user = userRepository.findByUserName(username);
 //        String avatar = user.getAvatar();
-        ArrayList<Posting> posts = postingRepository.getHotSpots(page, 8);
+        final int count = 8;
+        ArrayList<Posting> posts = postingRepository.getHotSpots(page, count);
         JSONArray array = new JSONArray();
         JSONObject json = new JSONObject();
         int totalPage = 0;
@@ -161,7 +162,8 @@ public class OpinionServiceImpl implements OpinionService {
             object.put("fullText", null);
             array.add(object);
         } else {
-            // TODO: totalPage / currentPage 还未添加
+            totalPage = (int) Math.ceil(postingRepository.getTotalHotSpots() / (double) count);
+            currentPage = page;
             for (Posting post : posts) {
                 JSONObject object = new JSONObject();
 //                object.put("username", post.getUser());
