@@ -56,7 +56,12 @@ public class RequestFilter {
 
         JSONObject response = new JSONObject();
         if (token != null) {
-            Map<String, Object> map = jwtUtil.parseToken(token);
+            Map<String, Object> map = null;
+            try {
+                map = jwtUtil.parseToken(token);
+            } catch (Exception e) {
+                throw new TokenException();
+            }
 
             String userName = ((String) map.get("userName"));
             int time = ((int) map.get("exp"));
@@ -76,7 +81,9 @@ public class RequestFilter {
                 throw new TokenException();
             }
         } else {
-            throw new TokenException();
+            System.out.println(request.getMethod()+"here is get method");
+            if(request.getMethod().equals("GET")&&request.getRequestURI().equals("/api/v1/tutorial"));
+            else throw new TokenException();
 
         }
         Object result = proceedingJoinPoint.proceed();

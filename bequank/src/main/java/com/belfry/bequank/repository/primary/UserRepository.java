@@ -13,7 +13,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.id=:id")
     User getById(@Param("id") Long id);
-
+    @Query("select u from User u where u.nickname=:nickname")
+    User findByNickname(@Param("nickname")String nickname);
     @Query("update User set nickname=:nickname,avatar=:avatar,phone=:phone,email=:email,gender=:gender,birthday=:birthday,moneyLevel=:moneyLevel,bio=:bio where userName=:userName")
     void setProfile(@Param("userName") String userName,
                     @Param("nickname") String nickname,

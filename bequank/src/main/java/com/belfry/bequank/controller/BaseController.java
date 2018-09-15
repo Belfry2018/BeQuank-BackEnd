@@ -90,14 +90,16 @@ public class BaseController {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int)map.get("userId"));
+        System.out.println("ss "+baseService.getProfile(userId).getUserName());
         return baseService.getProfile(userId);
     }
 
     @PostMapping("/user/profile")
-    public JSONObject setProfile(HttpServletRequest request, @RequestBody User user) {
+    public JSONObject setProfile(HttpServletRequest request, @RequestBody JSONObject user) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        System.out.println("sdf");
         return baseService.setProfile(userId, user);
     }
 
