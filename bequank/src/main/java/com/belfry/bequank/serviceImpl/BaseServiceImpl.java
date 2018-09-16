@@ -2,6 +2,7 @@ package com.belfry.bequank.serviceImpl;
 
 import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.exception.AuthorityException;
+import com.belfry.bequank.exception.DuplicateUserException;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.BaseService;
 import com.belfry.bequank.util.JwtUtil;
@@ -46,9 +47,7 @@ public class BaseServiceImpl implements BaseService {
         String userName = object.getString("email");
         User user1 = repository.findByUserName(userName);
         if (user1 != null) {
-            res.put("status", Message.MSG_DUPLICATE_EMAIL);
-            res.put("message", "邮箱已使用");
-            return res;
+            throw new DuplicateUserException();
         }
 
         String actualCode = object.getString("identifyCode");
