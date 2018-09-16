@@ -1,6 +1,7 @@
 package com.belfry.bequank.serviceImpl;
 
 import com.belfry.bequank.entity.primary.Tutorial;
+import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.repository.primary.TutorialRepository;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.SystemUserService;
@@ -57,10 +58,10 @@ public class SystemUserServiceImpl implements SystemUserService {
         tutorial.setType(type);
         tutorial.setCover(cover);
 
-        String nickname=userRepository.getById(userid).getNickname();
-        if(userRepository.findByNickname(nickname)==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
+        User user = userRepository.getById(userid);
+        if(user==null)jsonObject.put("code",Message.MSG_USER_NOTEXIST);
         else {
-            tutorial.setNickname(nickname);
+            tutorial.setNickname(user.getNickname());
             tutorialRepository.save(tutorial);
             jsonObject.put("code",Message.MSG_SUCCESS);
         }

@@ -9,6 +9,8 @@ import com.belfry.bequank.util.JwtUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +35,8 @@ public class UserController {
     NormalUserService normalUserService;
     @Autowired
     JwtUtil util;
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // TODO: 9/7/18 将一些map url前加上/api/v1以与前端对应
     // TODO: 9/7/18 要处理所有jsonobject可能为null的问题。
@@ -109,22 +113,24 @@ public class UserController {
      */
     @GetMapping("/strategy/recommend/profit")
     public JSONObject recommendStockByProfit(HttpServletRequest request) {
-        JSONObject object = new JSONObject();
-        object.put("todayBenefit", 5.6);
-        object.put("yearBenefit", 0.9);
-        object.put("risk", 100);
-        object.put("stocks", new ArrayList<>());
-        return object;
+//        JSONObject object = new JSONObject();
+//        object.put("todayBenefit", 5.6);
+//        object.put("yearBenefit", 0.9);
+//        object.put("risk", 100);
+//        object.put("stocks", new ArrayList<>());
+//        return object;
+        return normalUserService.recommendByProfit(request);
     }
 
     @GetMapping("/strategy/recommend/risk")
     public JSONObject recommendStockByRisk(HttpServletRequest request) {
-        JSONObject object = new JSONObject();
-        object.put("todayBenefit", 5.6);
-        object.put("yearBenefit", 0.9);
-        object.put("risk", 100);
-        object.put("stocks", new ArrayList<>());
-        return object;
+//        JSONObject object = new JSONObject();
+//        object.put("todayBenefit", 5.6);
+//        object.put("yearBenefit", 0.9);
+//        object.put("risk", 100);
+//        object.put("stocks", new ArrayList<>());
+//        return object;
+        return normalUserService.recommendByRisk(request);
     }
 
     /**
@@ -156,7 +162,7 @@ public class UserController {
     }
 
     @PostMapping("/strategy/record")
-    public JSONObject addStrategy(HttpServletRequest request, Strategy strategy) {
+    public JSONObject addStrategy(HttpServletRequest request, @RequestBody JSONObject strategy) {
         return normalUserService.addStrategy(request, strategy);
     }
 

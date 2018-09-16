@@ -17,7 +17,11 @@ public interface NormalUserService {
 
     JSONObject getQuestionnairResult(HttpServletRequest request, JSONObject answer);
 
-    JSONObject addStrategy(HttpServletRequest request, Strategy strategy);
+    JSONObject recommendByProfit(HttpServletRequest request);
+
+    JSONObject recommendByRisk(HttpServletRequest request);
+
+    JSONObject addStrategy(HttpServletRequest request, JSONObject object);
 
     void deleteStrategy(HttpServletRequest request, long strategyId);
 

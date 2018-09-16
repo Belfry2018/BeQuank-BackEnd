@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
         jsonObject.put("likeCount",c.getLikedusers()==null?0:c.getLikedusers().size());
         jsonObject.put("alreadyLike",c.getLikedusers()==null?false:(c.getLikedusers().indexOf(writerid)==-1?false:true));
         jsonObject.put("childrenComments",null);
-        System.out.println("now "+tutorialRepository.getOne((long)13).getComments().size());
+//        System.out.println("now "+tutorialRepository.getOne((long)13).getComments().size());
         return jsonObject;
     }
 
