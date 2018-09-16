@@ -148,7 +148,7 @@ public class OpinionServiceImpl implements OpinionService {
 //        User user = userRepository.findByUserName(username);
 //        String avatar = user.getAvatar();
         final int count = 8;
-        ArrayList<Posting> posts = postingRepository.getHotSpots(page, count);
+        List<Posting> posts = postingRepository.getHotSpots(page, count);
         JSONArray array = new JSONArray();
         JSONObject json = new JSONObject();
         int totalPage = 0;

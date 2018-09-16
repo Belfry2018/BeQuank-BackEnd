@@ -25,10 +25,8 @@ public class Stock {
     private double marketProfitability;//股市盈利率%
     private long todayVolume;//今日成交量
     private double buyRate;//推荐购买比例
-    @ManyToOne(targetEntity = Strategy.class,cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
-    private Strategy strategy;
 
-    public Stock(String stockId, String stockName, double currentPrice, double trend, double turnoverRate, double marketProfitability, long todayVolume, double buyRate, Strategy strategy) {
+    public Stock(String stockId, String stockName, double currentPrice, double trend, double turnoverRate, double marketProfitability, long todayVolume, double buyRate) {
         this.stockId = stockId;
         this.stockName = stockName;
         this.currentPrice = currentPrice;
@@ -37,6 +35,11 @@ public class Stock {
         this.marketProfitability = marketProfitability;
         this.todayVolume = todayVolume;
         this.buyRate = buyRate;
-        this.strategy = strategy;
     }
+
+    public static Stock transform(RealStock rs){
+        return new Stock(rs.getStockId(), rs.getStockName(), rs.getCurrentPrice(), rs.getTrend(), rs.getTurnoverRate(),
+                rs.getMarketProfitability(), new Double(rs.getTodayVolume()).longValue(), 0.0);
+    }
+
 }

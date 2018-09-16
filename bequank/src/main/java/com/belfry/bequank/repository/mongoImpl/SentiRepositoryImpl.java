@@ -12,9 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class SentiRepositoryImpl implements SentiRepository {
@@ -80,12 +78,25 @@ public class SentiRepositoryImpl implements SentiRepository {
         return (ArrayList<Sentiment>) sentiments;
     }
 
+    private List noDup(List sentiments) {
+        HashMap<String, Sentiment> map = new LinkedHashMap<>();
+        for (int i = 0; i < sentiments.size(); i++) {
+            Sentiment sentiment = (Sentiment) sentiments.get(i);
+            map.put(sentiment.getDate(), sentiment);
+        }
+        sentiments = new ArrayList<Sentiment>();
+        Collection<Sentiment> collection = map.values();
+        sentiments.addAll(collection);
+        return sentiments;
+    }
+
     @Override
     public ArrayList<Sentiment> getSentimentTrend(String text) {
         if (text == null || text.length() == 0)
             text = TEXT_IN_DB;
         Query q = getQueryOfAWordForAWeek(text);
         List sentiments = findInSentiment(q);
+
         if (sentiments.size() < 7) {
             q = getQueryOfAWordForAll(text);
             sentiments = findInSentiment(q);
@@ -101,6 +112,7 @@ public class SentiRepositoryImpl implements SentiRepository {
         if (sentiments.isEmpty()) {
             sentiments = mongoTemplate.find(q, BadSentiment.class);
         }
+        sentiments = noDup(sentiments);
         return sentiments;
     }
 

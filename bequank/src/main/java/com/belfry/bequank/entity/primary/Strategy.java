@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+
 @Entity
 @Getter
 @Setter
@@ -19,14 +21,17 @@ public class Strategy {
     private long userId;
     private String recordName;
     private String recordTime;
-    @OneToMany(targetEntity = Stock.class, cascade = {CascadeType.MERGE, CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "strategy")
-    private List<Stock> stocks;
-
+    @OneToMany(targetEntity = StrategyItem.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "strategy")
+    private List<StrategyItem> stocks = new ArrayList<>();
 
     public Strategy(long userId, String recordName, String recordTime) {
         this.userId = userId;
         this.recordName = recordName;
         this.recordTime = recordTime;
-        this.stocks = new ArrayList<>();
+    }
+
+    public void add(StrategyItem item) {
+        assertNotNull(stocks);
+        stocks.add(item);
     }
 }
