@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,6 +92,16 @@ public class SentiRepositoryImpl implements SentiRepository {
             sentiments = findInSentiment(q);
             while (sentiments.size() < 7)
                 sentiments.add(new Sentiment());
+        }
+        if (sentiments.size() > 7) {
+            HashMap<String, Sentiment> map = new HashMap<>();
+            for (int i = 0; i < sentiments.size(); i++) {
+                Sentiment sentiment = (Sentiment) sentiments.get(i);
+                map.put(sentiment.getDate(), sentiment);
+            }
+            sentiments = new ArrayList<Sentiment>();
+            Collection<Sentiment> collection = map.values();
+            sentiments.addAll(collection);
         }
         return (ArrayList<Sentiment>) (sentiments);
     }
