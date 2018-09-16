@@ -78,13 +78,7 @@ public class SentiRepositoryImpl implements SentiRepository {
         return (ArrayList<Sentiment>) sentiments;
     }
 
-    @Override
-    public ArrayList<Sentiment> getSentimentTrend(String text) {
-        if (text == null || text.length() == 0)
-            text = TEXT_IN_DB;
-        Query q = getQueryOfAWordForAWeek(text);
-        List sentiments = findInSentiment(q);
-
+    private List noDup(List sentiments) {
         HashMap<String, Sentiment> map = new LinkedHashMap<>();
         for (int i = 0; i < sentiments.size(); i++) {
             Sentiment sentiment = (Sentiment) sentiments.get(i);
@@ -93,6 +87,15 @@ public class SentiRepositoryImpl implements SentiRepository {
         sentiments = new ArrayList<Sentiment>();
         Collection<Sentiment> collection = map.values();
         sentiments.addAll(collection);
+        return sentiments;
+    }
+
+    @Override
+    public ArrayList<Sentiment> getSentimentTrend(String text) {
+        if (text == null || text.length() == 0)
+            text = TEXT_IN_DB;
+        Query q = getQueryOfAWordForAWeek(text);
+        List sentiments = findInSentiment(q);
 
         if (sentiments.size() < 7) {
             q = getQueryOfAWordForAll(text);
@@ -109,6 +112,7 @@ public class SentiRepositoryImpl implements SentiRepository {
         if (sentiments.isEmpty()) {
             sentiments = mongoTemplate.find(q, BadSentiment.class);
         }
+        sentiments = noDup(sentiments);
         return sentiments;
     }
 
