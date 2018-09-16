@@ -13,10 +13,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.security.PrivilegedExceptionAction;
-import java.util.ArrayList;
-
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import java.util.List;
 
 @Repository
 public class PostingRepositoryImpl implements PostingRepository {
@@ -26,7 +23,7 @@ public class PostingRepositoryImpl implements PostingRepository {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public ArrayList<Posting> getHotSpots(int page, int count) {
+    public List<Posting> getHotSpots(int page, int count) {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("avatar").ne("").ne(null)),
                 Aggregation.sort(new Sort(Sort.Direction.DESC, "attitudes_count", "comments_count", "reposts_count")),
@@ -35,7 +32,7 @@ public class PostingRepositoryImpl implements PostingRepository {
         );
         AggregationResults<Posting> aggRes = mongoTemplate.aggregate(aggregation, "weibos",
                 Posting.class);
-        ArrayList<Posting> res = (ArrayList<Posting>) aggRes.getMappedResults();
+        List<Posting> res = aggRes.getMappedResults();
 //        Query q = new Query();
 //        q.addCriteria(Criteria.where("avatar").ne("").ne(null));
 //        q.with(new Sort(Sort.Direction.DESC, "attitudes_count", "comments_count", "reposts_count"));
