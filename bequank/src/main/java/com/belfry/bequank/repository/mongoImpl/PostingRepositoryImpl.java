@@ -26,6 +26,8 @@ public class PostingRepositoryImpl implements PostingRepository {
     public List<Posting> getHotSpots(int page, int count) {
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.match(Criteria.where("avatar").ne("").ne(null)),
+                Aggregation.match(Criteria.where("clean_text").ne("").ne(null)),
+                Aggregation.match(Criteria.where("username").ne("").ne(null)),
                 Aggregation.sort(new Sort(Sort.Direction.DESC, "attitudes_count", "comments_count", "reposts_count")),
                 Aggregation.skip((page - 1) * count),
                 Aggregation.limit(count)

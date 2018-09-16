@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //author : andi
@@ -31,7 +32,7 @@ public class TestWeibo {
         int i = 0;
         int page = 1;
         int count = 8;
-        ArrayList<Posting> list = postingRepository.getHotSpots(page, count);
+        List<Posting> list = postingRepository.getHotSpots(page, count);
         Assert.notNull(list);
         while (i < count) {
             posting = list.get(i);
