@@ -82,7 +82,7 @@ public class RequestFilter {
             }
         } else {
             System.out.println(request.getMethod()+"here is get method");
-            if(request.getMethod().equals("GET")&&request.getRequestURI().equals("/api/v1/tutorial"));
+            if(request.getMethod().equals("GET")&&request.getRequestURI().startsWith("/api/v1/tutorial"));
             else throw new TokenException();
 
         }

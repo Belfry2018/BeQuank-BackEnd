@@ -25,8 +25,8 @@ public class OpinionController {
      * @param () null
      * @return net.sf.json.JSONArray
      */
-    @GetMapping(value = "gvn/words")
-    public JSONArray getGvnHotWords(HttpServletRequest request) {
+    @GetMapping(value = "/gvn/words")
+    public JSONArray getGvnHotWords() {
         return opinionService.getGvnHotWords();
     }
 
@@ -37,7 +37,7 @@ public class OpinionController {
      * @return net.sf.json.JSONObject
      */
     @GetMapping(value = "/gvn/passage/{page}")
-    public JSONObject findArticlesByPages(HttpServletRequest request, @PathVariable int page) {
+    public JSONObject findArticlesByPages( @PathVariable int page) {
         return opinionService.getArticlesByPages(page);
     }
 
@@ -47,7 +47,7 @@ public class OpinionController {
      * @author Mr.Wang
      */
     @GetMapping(value = "/keywords")
-    public JSONArray getKeywords(HttpServletRequest request) {
+    public JSONArray getKeywords() {
         return opinionService.getKeywords();
     }
 
@@ -57,7 +57,7 @@ public class OpinionController {
      * @return net.sf.json.JSONArray
      */
     @PostMapping(value = "/hotspot")
-    public JSONObject getHotSpots(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    public JSONObject getHotSpots(@RequestBody JSONObject jsonObject) {
         return opinionService.getHotSpots(
                 jsonObject.getInt("page")
         );
@@ -70,7 +70,7 @@ public class OpinionController {
      * @return net.sf.json.JSONArray
      */
     @GetMapping(value = "/sentiment")
-    public JSONArray getSentiment(HttpServletRequest request) {
+    public JSONArray getSentiment() {
         return opinionService.getSentiment();
     }
 
@@ -80,7 +80,7 @@ public class OpinionController {
      * @return net.sf.json.JSONArray
      */
     @PostMapping(value = "/sentiment/trend")
-    public JSONArray getSentimentTrend(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    public JSONArray getSentimentTrend( @RequestBody JSONObject jsonObject) {
         return opinionService.getSentimentTrend(
                 jsonObject.getString("word")
         );
@@ -92,7 +92,7 @@ public class OpinionController {
      * @author andi
      */
     @GetMapping(value = "/sentiment/ratio/{word}")
-    public JSONObject getCommentsInSenti(HttpServletRequest request, @PathVariable String word) {
+    public JSONObject getCommentsInSenti( @PathVariable String word) {
         return opinionService.getCommentsInSenti(word);
     }
 
@@ -102,7 +102,7 @@ public class OpinionController {
      * @author andi
      */
     @GetMapping(value = "/sentiment/ratioTrend/{word}")
-    public JSONArray getCommentsInSentiTrend(HttpServletRequest request, @PathVariable String word) {
+    public JSONArray getCommentsInSentiTrend( @PathVariable String word) {
         return opinionService.getCommentsInSentiTrend(word);
     }
 

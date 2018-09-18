@@ -50,7 +50,7 @@ public class UserController {
 
     @GetMapping("/tutorial")
     public JSONObject getTutorial(HttpServletRequest request,@RequestParam String id){
-        System.out.println("id is "+request.getHeader("Authorization"));
+        System.out.println("id is "+id);
         if(request.getHeader("Authorization")==null||request.getHeader("Authorization").equals("null"))
             return userService.getTutorial((long)0,Long.parseLong(id));
         return userService.getTutorial(
