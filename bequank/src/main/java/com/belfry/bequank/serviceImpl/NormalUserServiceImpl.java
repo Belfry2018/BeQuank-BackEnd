@@ -104,6 +104,10 @@ public class NormalUserServiceImpl implements NormalUserService {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         Page<RealStock> list = realStockRepository.findAll(PageRequest.of((int) (Math.random() * 602), 6));
         List<Stock> res = list.stream().map(x -> Stock.transform(x)).collect(Collectors.toList());
+        if (res == null || res.size() == 0) {
+            return new ArrayList<Stock>();
+        }
+
         double br = 100.0;
         for (int i = 0; i < res.size()-1; i++) {
             double rate = Double.parseDouble(decimalFormat.format(Math.random() * 16));
