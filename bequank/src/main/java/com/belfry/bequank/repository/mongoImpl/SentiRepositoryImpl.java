@@ -1,9 +1,6 @@
 package com.belfry.bequank.repository.mongoImpl;
 
-import com.belfry.bequank.entity.mongo.BadSentiment;
-import com.belfry.bequank.entity.mongo.CommentsInSenti;
-import com.belfry.bequank.entity.mongo.GoodSentiment;
-import com.belfry.bequank.entity.mongo.Sentiment;
+import com.belfry.bequank.entity.mongo.*;
 import com.belfry.bequank.repository.mongo.SentiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -23,14 +20,32 @@ public class SentiRepositoryImpl implements SentiRepository {
     @Override
     public HashMap<String, Integer> getKeywords() {
         HashMap<String, Integer> keyWords = new HashMap<>();
-        ArrayList<Sentiment> goodSentiments = getSentiment(1);
-        ArrayList<Sentiment> badSentiments = getSentiment(0);
-        for (Sentiment sentiment : goodSentiments)
-            generateMap(keyWords, sentiment);
-        for (Sentiment sentiment : badSentiments)
-            generateMap(keyWords, sentiment);
+//        ArrayList<Sentiment> goodSentiments = getSentiment(1);
+//        ArrayList<Sentiment> badSentiments = getSentiment(0);
+//        for (Sentiment sentiment : goodSentiments)
+//            generateMap(keyWords, sentiment);
+//        for (Sentiment sentiment : badSentiments)
+//            generateMap(keyWords, sentiment);
+        List<Word_tf> words = mongoTemplate.find(new Query(),Word_tf.class);
+        for(Word_tf word:  words)
+            generateMap(keyWords,word);
+//        List<Word_tfidf> words = mongoTemplate.find(new Query(),Word_tfidf.class);
+////        for(Word_tfidf word:  words)
+////            generateMap(keyWords,word);
 
         return keyWords;
+    }
+
+    private void generateMap(HashMap<String,Integer> keyWords, Word_tf tf){
+        String text = tf.getWord();
+        int senti = (int)(tf.getTf()*100000);
+        keyWords.put(text,senti);
+    }
+
+    private void generateMap(HashMap<String,Integer> keyWords, Word_tfidf tf){
+        String text = tf.getWord();
+        int senti = (int)(tf.getTfidf()*100000);
+        keyWords.put(text,senti);
     }
 
     private void generateMap(HashMap<String, Integer> keyWords, Sentiment sentiment) {
