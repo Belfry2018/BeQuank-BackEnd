@@ -26,12 +26,14 @@ public class SentiRepositoryImpl implements SentiRepository {
 //            generateMap(keyWords, sentiment);
 //        for (Sentiment sentiment : badSentiments)
 //            generateMap(keyWords, sentiment);
-        List<Word_tf> words = mongoTemplate.find(new Query(),Word_tf.class);
-        for(Word_tf word:  words)
+
+//        List<Word_tf> words = mongoTemplate.find(new Query(),Word_tf.class);
+//        for(Word_tf word:  words)
+//            generateMap(keyWords,word);
+
+        List<Word_tfidf> words = mongoTemplate.find(new Query(),Word_tfidf.class);
+        for(Word_tfidf word:  words)
             generateMap(keyWords,word);
-//        List<Word_tfidf> words = mongoTemplate.find(new Query(),Word_tfidf.class);
-////        for(Word_tfidf word:  words)
-////            generateMap(keyWords,word);
 
         return keyWords;
     }
