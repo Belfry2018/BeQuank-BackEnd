@@ -20,10 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 舆情分析
@@ -224,7 +222,16 @@ public class OpinionServiceImpl implements OpinionService {
             object.put("date", null);
             object.put("sentiment", null);
             array.add(object);
-        } else {
+        } else if(list.size() == 0){
+            List<String> dates = dateToWeek();
+            for(String date: dates){
+                JSONObject obj = new JSONObject();
+                obj.put("date",date);
+                obj.put("sentiment",0);
+                array.add(obj);
+            }
+        }
+        else {
             for (Sentiment sentiment : list) {
                 JSONObject object = new JSONObject();
                 object.put("date", sentiment.getDate());
@@ -265,16 +272,46 @@ public class OpinionServiceImpl implements OpinionService {
     public JSONArray getCommentsInSentiTrend(String word) {
         ArrayList<Sentiment> sentiments = sentiRepository.getSentimentTrend(word);
         JSONArray array = new JSONArray();
-        for (Sentiment sentiment : sentiments) {
-            System.out.println(sentiment.toString());
-            JSONObject object = new JSONObject();
-            object.put("date", sentiment.getDate());
-            object.put("positive", sentiment.getGood());
-            object.put("neutral", sentiment.getMid());
-            object.put("negative", sentiment.getBad());
-            array.add(object);
+        if(sentiments == null || sentiments.size() == 0){
+            List<String> dates = dateToWeek();
+            for(String date: dates){
+                JSONObject obj = new JSONObject();
+                obj.put("date",date);
+                obj.put("positive",0);
+                obj.put("neutral",0);
+                obj.put("negative",0);
+                array.add(obj);
+            }
+        }else {
+            for (Sentiment sentiment : sentiments) {
+                System.out.println(sentiment.toString());
+                JSONObject object = new JSONObject();
+                object.put("date", sentiment.getDate());
+                object.put("positive", sentiment.getGood());
+                object.put("neutral", sentiment.getMid());
+                object.put("negative", sentiment.getBad());
+                array.add(object);
+            }
         }
         return array;
+    }
+
+
+    private List<String> dateToWeek() {
+        List<String> pastDaysList = new ArrayList<>();
+        for (int i = 7; i >= 0; i--) {
+            pastDaysList.add(getPastDate(i));
+        }
+        return pastDaysList;
+    }
+
+    private String getPastDate(int past){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR,calendar.get(Calendar.DAY_OF_YEAR) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String result = format.format(today);
+        return result;
     }
 
 

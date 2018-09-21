@@ -115,10 +115,11 @@ public class SentiRepositoryImpl implements SentiRepository {
         List sentiments = findInSentiment(q);
 
         if (sentiments.size() < 7) {
-            q = getQueryOfAWordForAll(text);
-            sentiments = findInSentiment(q);
-            while (sentiments.size() < 7)
-                sentiments.add(new Sentiment());
+            sentiments = new ArrayList<Sentiment>();
+//            q = getQueryOfAWordForAll(text);
+//            sentiments = findInSentiment(q);
+//            while (sentiments.size() < 7)
+//                sentiments.add(new Sentiment());
         }
         return (ArrayList<Sentiment>) (sentiments);
     }
