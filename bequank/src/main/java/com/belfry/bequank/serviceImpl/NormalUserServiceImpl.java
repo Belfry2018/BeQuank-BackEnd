@@ -167,7 +167,9 @@ public class NormalUserServiceImpl implements NormalUserService {
 
     @Override
     public List<Strategy> getStrategies(HttpServletRequest request) {
-        return strategyRepository.findByUserId(getUserId(request));
+        List<Strategy>res=strategyRepository.findByUserId(getUserId(request));
+        res.stream().forEach(x -> x.getStocks().stream().forEach(y -> y.setStrategy(null)));
+        return res;
     }
 
     @Override
