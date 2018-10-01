@@ -174,7 +174,9 @@ public class NormalUserServiceImpl implements NormalUserService {
 
     @Override
     public Strategy getAStrategy(HttpServletRequest request, long strategyId) {
-        return strategyRepository.findByRecordId(strategyId);
+        Strategy strategy = strategyRepository.findByRecordId(strategyId);
+        strategy.getStocks().stream().forEach(x -> x.setStrategy(null));
+        return strategy;
     }
 
     @Override
