@@ -11,6 +11,7 @@ import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.repository.secondary.SummaryRepository;
 import com.belfry.bequank.repository.secondary.Word_tfRepository;
 import com.belfry.bequank.service.OpinionService;
+import com.belfry.bequank.util.DateHandler;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.data.domain.Page;
@@ -196,13 +197,25 @@ public class OpinionServiceImpl implements OpinionService {
 
         JSONArray array = new JSONArray();
         Random random = new Random();
-        for (int i = 0; i < 3; i++) {
+//        for (int i = 0; i < 3; i++) {
+//            JSONObject object = new JSONObject();
+//            int index = random.nextInt(size) + 1;
+//            Sentiment sentiment = allSentiment.get(index);
+//            object.put("word", sentiment.getText());
+//            object.put("sentiment", sentiment.getSenti());
+//            array.add(object);
+//        }
+        int i = 0;
+        while(i < 3){
             JSONObject object = new JSONObject();
             int index = random.nextInt(size) + 1;
             Sentiment sentiment = allSentiment.get(index);
-            object.put("word", sentiment.getText());
-            object.put("sentiment", sentiment.getSenti());
-            array.add(object);
+            if(sentiment.getSenti() > 20 || sentiment.getSenti() < -20) {
+                object.put("word", sentiment.getText());
+                object.put("sentiment", sentiment.getSenti());
+                array.add(object);
+                i++;
+            }
         }
         return array;
     }
@@ -223,7 +236,7 @@ public class OpinionServiceImpl implements OpinionService {
             object.put("sentiment", null);
             array.add(object);
         } else if(list.size() == 0){
-            List<String> dates = dateToWeek();
+            List<String> dates = DateHandler.dateToWeek();
             for(String date: dates){
                 JSONObject obj = new JSONObject();
                 obj.put("date",date);
@@ -273,7 +286,7 @@ public class OpinionServiceImpl implements OpinionService {
         ArrayList<Sentiment> sentiments = sentiRepository.getSentimentTrend(word);
         JSONArray array = new JSONArray();
         if(sentiments == null || sentiments.size() == 0){
-            List<String> dates = dateToWeek();
+            List<String> dates = DateHandler.dateToWeek();
             for(String date: dates){
                 JSONObject obj = new JSONObject();
                 obj.put("date",date);
@@ -297,22 +310,7 @@ public class OpinionServiceImpl implements OpinionService {
     }
 
 
-    private List<String> dateToWeek() {
-        List<String> pastDaysList = new ArrayList<>();
-        for (int i = 7; i >= 0; i--) {
-            pastDaysList.add(getPastDate(i));
-        }
-        return pastDaysList;
-    }
 
-    private String getPastDate(int past){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_YEAR,calendar.get(Calendar.DAY_OF_YEAR) - past);
-        Date today = calendar.getTime();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String result = format.format(today);
-        return result;
-    }
 
 
 }

@@ -2,6 +2,7 @@ package com.belfry.bequank.repository.mongoImpl;
 
 import com.belfry.bequank.entity.mongo.*;
 import com.belfry.bequank.repository.mongo.SentiRepository;
+import com.belfry.bequank.util.DateHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Repository
@@ -58,9 +60,21 @@ public class SentiRepositoryImpl implements SentiRepository {
 
     private Query getQueryOfAWordForAWeek(String text) {
         Query q = new Query();
-        final int DAYS_NOT_IN_A_WEEK = 1;
-        q.skip(DAYS_NOT_IN_A_WEEK);
-        q.addCriteria(Criteria.where("word").is(text));
+//        final int DAYS_NOT_IN_A_WEEK = 1;
+//        q.skip(DAYS_NOT_IN_A_WEEK);
+        List<String> datesInAWeek = DateHandler.dateToWeek();
+        List<Criteria> criterias = new ArrayList<>();
+        Criteria criteria = Criteria.where("word").is(text).and("created_date").in(datesInAWeek);
+        q.addCriteria(criteria);
+//        for(int i = 0; i <  7 ; i++){
+//            System.out.println(datesInAWeek.get(i));
+//            Criteria criteria = Criteria.where("word").is(text).and("created_date").is(datesInAWeek.get(i));
+////            Criteria criteria = Criteria.where("word").is(text).and("created_date").in(datesInAWeek);
+//            criterias.add(criteria);
+//            System.out.println("Criteria"+criteria.getCriteriaObject());
+//        }
+////
+//       q.addCriteria(new Criteria().orOperator(criterias.get(2), criterias.get(3)));
         return q;
     }
 
@@ -112,24 +126,44 @@ public class SentiRepositoryImpl implements SentiRepository {
         if (text == null || text.length() == 0)
             text = TEXT_IN_DB;
         Query q = getQueryOfAWordForAWeek(text);
-        List sentiments = findInSentiment(q);
-
-        if (sentiments.size() < 7) {
-            sentiments = new ArrayList<Sentiment>();
-//            q = getQueryOfAWordForAll(text);
-//            sentiments = findInSentiment(q);
-//            while (sentiments.size() < 7)
-//                sentiments.add(new Sentiment());
+        ArrayList<Sentiment> sentiments = (ArrayList<Sentiment>)findInSentiment(q);
+        ArrayList<Sentiment> res = new ArrayList<>();
+        for (Sentiment sentiment:sentiments
+             ) {
+            System.out.println(sentiment);
         }
-        return (ArrayList<Sentiment>) (sentiments);
+        for(String date : DateHandler.dateToWeek())
+        {
+            boolean hasSenti = false;
+           for(int i = 0 ; i < sentiments.size() ; i++){
+               Sentiment sentiment = sentiments.get(i);
+               System.out.println("thisdate"+sentiment.getDate());
+               if (sentiment.getDate().equals(date)) {
+                   hasSenti = true;
+                   res.add(sentiment);
+                   break;
+               }
+           }
+            if(!hasSenti)
+            {
+                res.add(new Sentiment());
+            }
+        }
+        return res;
     }
 
     private List<Sentiment> findInSentiment(Query q) {
-        List sentiments;
-        sentiments = mongoTemplate.find(q, GoodSentiment.class);
-        if (sentiments.isEmpty()) {
-            sentiments = mongoTemplate.find(q, BadSentiment.class);
-        }
+        List<GoodSentiment> goodSentiments = mongoTemplate.find(q, GoodSentiment.class);
+        List<BadSentiment> badSentiments = mongoTemplate.find(q, BadSentiment.class);
+        List sentiments = new ArrayList();
+//        sentiments = mongoTemplate.find(q, GoodSentiment.class);
+//        if (sentiments.isEmpty()) {
+//            sentiments = mongoTemplate.find(q, BadSentiment.class);
+//        }
+        if( !goodSentiments.isEmpty())
+            sentiments.addAll(goodSentiments);
+        if(!badSentiments.isEmpty())
+            sentiments.addAll(badSentiments);
         sentiments = noDup(sentiments);
         return sentiments;
     }
@@ -142,7 +176,15 @@ public class SentiRepositoryImpl implements SentiRepository {
         List<Sentiment> sentiments = findInSentiment(q);
         if (sentiments.size() < 1)
             return getCommentsInSenti(TEXT_IN_DB);
-        Sentiment sentiment = sentiments.get(0);
+        Sentiment sentiment;
+        if(sentiments.size() == 2){
+            if(DateHandler.formerEarlier(sentiments.get(0).getDate(), sentiments.get(1).getDate()))
+                sentiment = sentiments.get(1);
+            else
+                sentiment = sentiments.get(0);
+        }else{
+            sentiment = sentiments.get(0);
+        }
         System.out.println(sentiment);
         int good = sentiment.getGood();
         int mid = sentiment.getMid();
