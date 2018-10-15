@@ -208,7 +208,7 @@ public class OpinionServiceImpl implements OpinionService {
         int i = 0;
         while(i < 3){
             JSONObject object = new JSONObject();
-            int index = random.nextInt(size) + 1;
+            int index = random.nextInt(size);
             Sentiment sentiment = allSentiment.get(index);
             if(sentiment.getSenti() > 20 || sentiment.getSenti() < -20) {
                 object.put("word", sentiment.getText());
