@@ -52,7 +52,7 @@ public class TestWeibo {
             System.out.println(e.getKey() + " " + e.getValue() + " " + i);
             i++;
         }
-        System.out.println(map.get("滴滴"));
+        System.out.println(map.get("特朗普"));
     }
 
     @Test

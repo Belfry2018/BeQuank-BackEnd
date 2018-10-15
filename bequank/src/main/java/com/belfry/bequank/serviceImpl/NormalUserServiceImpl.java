@@ -1,9 +1,6 @@
 package com.belfry.bequank.serviceImpl;
 
-import com.belfry.bequank.entity.primary.RealStock;
-import com.belfry.bequank.entity.primary.Stock;
-import com.belfry.bequank.entity.primary.Strategy;
-import com.belfry.bequank.entity.primary.StrategyItem;
+import com.belfry.bequank.entity.primary.*;
 import com.belfry.bequank.repository.primary.RealStockRepository;
 import com.belfry.bequank.repository.primary.StrategyRepository;
 import com.belfry.bequank.service.NormalUserService;
@@ -167,12 +164,16 @@ public class NormalUserServiceImpl implements NormalUserService {
 
     @Override
     public List<Strategy> getStrategies(HttpServletRequest request) {
-        return strategyRepository.findByUserId(getUserId(request));
+        List<Strategy>res=strategyRepository.findByUserId(getUserId(request));
+        res.stream().forEach(x -> x.getStocks().stream().forEach(y -> y.setStrategy(null)));
+        return res;
     }
 
     @Override
     public Strategy getAStrategy(HttpServletRequest request, long strategyId) {
-        return strategyRepository.findByRecordId(strategyId);
+        Strategy strategy = strategyRepository.findByRecordId(strategyId);
+        strategy.setStocks(strategy.getStocks().stream().map(x -> new StrategyVO(x, realStockRepository.getOne(x.getStockId()))).collect(Collectors.toList()));
+        return strategy;
     }
 
     @Override

@@ -180,6 +180,7 @@ public class UserController {
     public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
         return normalUserService.getAStrategy(request, recordId);
     }
+
     @GetMapping("/tutorials/recommendation")
     public JSONArray recommendation(){
         return userService.recommendation();

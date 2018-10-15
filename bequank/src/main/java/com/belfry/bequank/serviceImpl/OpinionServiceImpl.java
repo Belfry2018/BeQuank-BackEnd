@@ -11,6 +11,7 @@ import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.repository.secondary.SummaryRepository;
 import com.belfry.bequank.repository.secondary.Word_tfRepository;
 import com.belfry.bequank.service.OpinionService;
+import com.belfry.bequank.util.DateHandler;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.data.domain.Page;
@@ -20,10 +21,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 舆情分析
@@ -198,13 +197,25 @@ public class OpinionServiceImpl implements OpinionService {
 
         JSONArray array = new JSONArray();
         Random random = new Random();
-        for (int i = 0; i < 3; i++) {
+//        for (int i = 0; i < 3; i++) {
+//            JSONObject object = new JSONObject();
+//            int index = random.nextInt(size) + 1;
+//            Sentiment sentiment = allSentiment.get(index);
+//            object.put("word", sentiment.getText());
+//            object.put("sentiment", sentiment.getSenti());
+//            array.add(object);
+//        }
+        int i = 0;
+        while(i < 3){
             JSONObject object = new JSONObject();
             int index = random.nextInt(size) + 1;
             Sentiment sentiment = allSentiment.get(index);
-            object.put("word", sentiment.getText());
-            object.put("sentiment", sentiment.getSenti());
-            array.add(object);
+            if(sentiment.getSenti() > 20 || sentiment.getSenti() < -20) {
+                object.put("word", sentiment.getText());
+                object.put("sentiment", sentiment.getSenti());
+                array.add(object);
+                i++;
+            }
         }
         return array;
     }
@@ -224,7 +235,16 @@ public class OpinionServiceImpl implements OpinionService {
             object.put("date", null);
             object.put("sentiment", null);
             array.add(object);
-        } else {
+        } else if(list.size() == 0){
+            List<String> dates = DateHandler.dateToWeek();
+            for(String date: dates){
+                JSONObject obj = new JSONObject();
+                obj.put("date",date);
+                obj.put("sentiment",0);
+                array.add(obj);
+            }
+        }
+        else {
             for (Sentiment sentiment : list) {
                 JSONObject object = new JSONObject();
                 object.put("date", sentiment.getDate());
@@ -265,17 +285,32 @@ public class OpinionServiceImpl implements OpinionService {
     public JSONArray getCommentsInSentiTrend(String word) {
         ArrayList<Sentiment> sentiments = sentiRepository.getSentimentTrend(word);
         JSONArray array = new JSONArray();
-        for (Sentiment sentiment : sentiments) {
-            System.out.println(sentiment.toString());
-            JSONObject object = new JSONObject();
-            object.put("date", sentiment.getDate());
-            object.put("positive", sentiment.getGood());
-            object.put("neutral", sentiment.getMid());
-            object.put("negative", sentiment.getBad());
-            array.add(object);
+        if(sentiments == null || sentiments.size() == 0){
+            List<String> dates = DateHandler.dateToWeek();
+            for(String date: dates){
+                JSONObject obj = new JSONObject();
+                obj.put("date",date);
+                obj.put("positive",0);
+                obj.put("neutral",0);
+                obj.put("negative",0);
+                array.add(obj);
+            }
+        }else {
+            for (Sentiment sentiment : sentiments) {
+                System.out.println(sentiment.toString());
+                JSONObject object = new JSONObject();
+                object.put("date", sentiment.getDate());
+                object.put("positive", sentiment.getGood());
+                object.put("neutral", sentiment.getMid());
+                object.put("negative", sentiment.getBad());
+                array.add(object);
+            }
         }
         return array;
     }
+
+
+
 
 
 }
