@@ -102,10 +102,14 @@ public class SentiRepositoryImpl implements SentiRepository {
         final int MAX_SENTIMENTS_A_DAY = 500;
         q.with(new Sort(Sort.Direction.DESC, "_id"));
         q.limit(MAX_SENTIMENTS_A_DAY);
-        if (type == GOOD)
+        if (type == GOOD) {
+            q.addCriteria(Criteria.where("senti").gte(20));
             sentiments = mongoTemplate.find(q, GoodSentiment.class);
-        else
+        }
+        else {
+            q.addCriteria(Criteria.where("senti").lte(-20));
             sentiments = mongoTemplate.find(q, BadSentiment.class);
+        }
         return (ArrayList<Sentiment>) sentiments;
     }
 

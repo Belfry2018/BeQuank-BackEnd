@@ -197,25 +197,13 @@ public class OpinionServiceImpl implements OpinionService {
 
         JSONArray array = new JSONArray();
         Random random = new Random();
-//        for (int i = 0; i < 3; i++) {
-//            JSONObject object = new JSONObject();
-//            int index = random.nextInt(size) + 1;
-//            Sentiment sentiment = allSentiment.get(index);
-//            object.put("word", sentiment.getText());
-//            object.put("sentiment", sentiment.getSenti());
-//            array.add(object);
-//        }
-        int i = 0;
-        while(i < 3){
+        for (int i = 0; i < 3; i++) {
             JSONObject object = new JSONObject();
-            int index = random.nextInt(size) + 1;
+            int index = random.nextInt(size);
             Sentiment sentiment = allSentiment.get(index);
-            if(sentiment.getSenti() > 20 || sentiment.getSenti() < -20) {
-                object.put("word", sentiment.getText());
-                object.put("sentiment", sentiment.getSenti());
-                array.add(object);
-                i++;
-            }
+            object.put("word", sentiment.getText());
+            object.put("sentiment", sentiment.getSenti());
+            array.add(object);
         }
         return array;
     }
