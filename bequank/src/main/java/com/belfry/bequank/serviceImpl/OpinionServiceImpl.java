@@ -218,13 +218,13 @@ public class OpinionServiceImpl implements OpinionService {
     public JSONArray getSentimentTrend(String word) {
         ArrayList<Sentiment> list = sentiRepository.getSentimentTrend(word);
         JSONArray array = new JSONArray();
+        List<String> dates = DateHandler.dateToWeek();
         if (list == null) {
             JSONObject object = new JSONObject();
             object.put("date", null);
             object.put("sentiment", null);
             array.add(object);
         } else if(list.size() == 0){
-            List<String> dates = DateHandler.dateToWeek();
             for(String date: dates){
                 JSONObject obj = new JSONObject();
                 obj.put("date",date);
@@ -233,9 +233,10 @@ public class OpinionServiceImpl implements OpinionService {
             }
         }
         else {
-            for (Sentiment sentiment : list) {
+            for (int i = 0 ; i < list.size() ; i++) {
+                Sentiment sentiment = list.get(i);
                 JSONObject object = new JSONObject();
-                object.put("date", sentiment.getDate());
+                object.put("date", dates.get(i));
                 object.put("sentiment", sentiment.getSenti());
                 array.add(object);
             }
