@@ -273,8 +273,8 @@ public class OpinionServiceImpl implements OpinionService {
     public JSONArray getCommentsInSentiTrend(String word) {
         ArrayList<Sentiment> sentiments = sentiRepository.getSentimentTrend(word);
         JSONArray array = new JSONArray();
+        List<String> dates = DateHandler.dateToWeek();
         if(sentiments == null || sentiments.size() == 0){
-            List<String> dates = DateHandler.dateToWeek();
             for(String date: dates){
                 JSONObject obj = new JSONObject();
                 obj.put("date",date);
@@ -284,10 +284,11 @@ public class OpinionServiceImpl implements OpinionService {
                 array.add(obj);
             }
         }else {
-            for (Sentiment sentiment : sentiments) {
+            for (int i = 0; i < sentiments.size() ; i++) {
+                Sentiment sentiment = sentiments.get(i);
                 System.out.println(sentiment.toString());
                 JSONObject object = new JSONObject();
-                object.put("date", sentiment.getDate());
+                object.put("date", dates.get(i));
                 object.put("positive", sentiment.getGood());
                 object.put("neutral", sentiment.getMid());
                 object.put("negative", sentiment.getBad());
