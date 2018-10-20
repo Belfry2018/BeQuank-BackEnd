@@ -1,0 +1,67 @@
+spring:
+  datasource:
+    primary:
+
+#      jdbc-url: jdbc:mysql://127.0.0.1:3306/beQuank?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+#      username: citi
+#      password: citi
+#      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1:3306/bequank?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 31415926
+      driver-class-name: com.mysql.jdbc.Driver
+    secondary:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://119.29.190.115:3306/gov?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+      username: guest
+      password: njuacmicpc
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    open-in-view: true
+  data:
+    mongodb:
+      uri: mongodb://guest:njuacmicpc@120.79.139.239:27017/weibo
+  cache:
+    type: redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-idle: 0
+        max-active: 0
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+belfry:
+  expiration_time: 10800000
+  secret: "belfry2018"
+  token_prefix: "Bearer "
+  header_string: "Authorization"
+  cache_name: "loginList"
+  key_prefix: "loginList::"
+  oss_endpoint: "http://oss-cn-beijing.aliyuncs.com"
+  oss_id: "LTAI4rfUrxA3Z83r"
+  oss_key: "O5dhvXDdDKxU4nsUKt444UdQ6RXYKq"
+  oss_prefix: "http://bequank.oss-cn-beijing.aliyuncs.com/avatars/"
+  oss_dir: "avatars/"
+  port: 9001
+
+server:
+  port: 9000
+  ssl:
+      key-store: classpath:njuwc.cn.jks
+      key-store-type: JKS
+      key-store-password: 2018citi
+
+
