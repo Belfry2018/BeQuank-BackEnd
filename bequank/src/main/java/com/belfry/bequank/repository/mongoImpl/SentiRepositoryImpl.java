@@ -31,10 +31,10 @@ public class SentiRepositoryImpl implements SentiRepository {
 //        List<Word_tf> words = mongoTemplate.find(new Query(),Word_tf.class);
 //        for(Word_tf word:  words)
 //            generateMap(keyWords,word);
-        int count = getKeywordsCount();
+//        int count = getKeywordsCount();
         Query q = new Query();
         q.with(new Sort(Sort.Direction.DESC, "tfidf"));
-        q.limit(count / 3);
+        q.limit(80);
         List<Word_tfidf> words = mongoTemplate.find(new Query(),Word_tfidf.class);
         for(Word_tfidf word:  words)
             generateMap(keyWords,word);
