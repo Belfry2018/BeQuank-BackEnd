@@ -35,7 +35,7 @@ public class SentiRepositoryImpl implements SentiRepository {
         Query q = new Query();
         q.with(new Sort(Sort.Direction.DESC, "tfidf"));
         q.limit(80);
-        List<Word_tfidf> words = mongoTemplate.find(new Query(),Word_tfidf.class);
+        List<Word_tfidf> words = mongoTemplate.find(q,Word_tfidf.class);
         for(Word_tfidf word:  words)
             generateMap(keyWords,word);
 
