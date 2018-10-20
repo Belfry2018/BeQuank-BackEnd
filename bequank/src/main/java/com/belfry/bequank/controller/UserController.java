@@ -112,24 +112,12 @@ public class UserController {
      * @return
      */
     @GetMapping("/strategy/recommend/profit")
-    public JSONObject recommendStockByProfit(HttpServletRequest request) {
-//        JSONObject object = new JSONObject();
-//        object.put("todayBenefit", 5.6);
-//        object.put("yearBenefit", 0.9);
-//        object.put("risk", 100);
-//        object.put("stocks", new ArrayList<>());
-//        return object;
+    public String recommendStockByProfit(HttpServletRequest request) throws IOException {
         return normalUserService.recommendByProfit(request);
     }
 
     @GetMapping("/strategy/recommend/risk")
-    public JSONObject recommendStockByRisk(HttpServletRequest request) {
-//        JSONObject object = new JSONObject();
-//        object.put("todayBenefit", 5.6);
-//        object.put("yearBenefit", 0.9);
-//        object.put("risk", 100);
-//        object.put("stocks", new ArrayList<>());
-//        return object;
+    public String recommendStockByRisk(HttpServletRequest request) throws IOException {
         return normalUserService.recommendByRisk(request);
     }
 

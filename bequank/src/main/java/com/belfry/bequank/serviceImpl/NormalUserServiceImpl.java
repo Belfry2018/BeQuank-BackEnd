@@ -85,14 +85,15 @@ public class NormalUserServiceImpl implements NormalUserService {
     }
 
     @Override
-    public JSONObject recommendByProfit(HttpServletRequest request) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        JSONObject object = new JSONObject();
-        object.put("todayBenefit", decimalFormat.format(Math.random() * 30));
-        object.put("yearBenefit", decimalFormat.format(Math.random() * 30));
-        object.put("risk", decimalFormat.format(Math.random() * 30));
-        object.put("stocks", getRecommendation());
-        object.put("loopback", getLoopBack());
+    public String recommendByProfit(HttpServletRequest request) throws IOException {
+//        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+//        JSONObject object = new JSONObject();
+//        object.put("todayBenefit", decimalFormat.format(Math.random() * 30));
+//        object.put("yearBenefit", decimalFormat.format(Math.random() * 30));
+//        object.put("risk", decimalFormat.format(Math.random() * 30));
+//        object.put("stocks", getRecommendation());
+//        object.put("loopback", getLoopBack());
+        String object = httpHandler.recommendByProfit();
         logger.info("response = {}", object);
         return object;
     }
@@ -131,8 +132,8 @@ public class NormalUserServiceImpl implements NormalUserService {
     }
 
     @Override
-    public JSONObject recommendByRisk(HttpServletRequest request) {
-        return recommendByProfit(request);
+    public String recommendByRisk(HttpServletRequest request) throws IOException {
+        return httpHandler.recommendByRisk();
     }
 
     @Override

@@ -41,7 +41,7 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration_time))
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
-        template.opsForValue().append(key_prefix + user.getUserName(), jwt);
+//        template.opsForValue().append(key_prefix + user.getUserName(), jwt);
 
         return  jwt;
     }

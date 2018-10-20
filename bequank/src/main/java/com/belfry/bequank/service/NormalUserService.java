@@ -17,9 +17,9 @@ public interface NormalUserService {
 
     JSONObject getQuestionnairResult(HttpServletRequest request, JSONObject answer);
 
-    JSONObject recommendByProfit(HttpServletRequest request);
+    String recommendByProfit(HttpServletRequest request) throws IOException;
 
-    JSONObject recommendByRisk(HttpServletRequest request);
+    String recommendByRisk(HttpServletRequest request) throws IOException;
 
     JSONObject addStrategy(HttpServletRequest request, JSONObject object);
 

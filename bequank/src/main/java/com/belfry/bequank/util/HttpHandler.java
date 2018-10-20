@@ -18,8 +18,23 @@ public class HttpHandler {
 
     public String getAStock(String path) throws IOException {
         URL url=new URL (path);
+        return getResponse(url);
+    }
+
+    public String recommendByProfit() throws IOException {
+        URL url = new URL("http://127.0.0.1:5000/strategy/recommend/profit");
+        return getResponse(url);
+    }
+
+    public String recommendByRisk() throws IOException {
+        URL url = new URL("http://127.0.0.1:5000/strategy/recommend/risk");
+        return getResponse(url);
+    }
+
+    private String getResponse(URL url) {
         HttpURLConnection conn=null;
         StringBuilder builder=new StringBuilder();
+
         try {
             conn=(HttpURLConnection)url.openConnection();
             conn.setRequestMethod("GET");
@@ -33,8 +48,6 @@ public class HttpHandler {
                         builder.append(System.lineSeparator());
                     }
                 }
-            }else{
-                logger.info("request failed : {}", path);
             }
         }finally {
             if (conn!=null)
