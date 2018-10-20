@@ -33,8 +33,9 @@ public class SentiRepositoryImpl implements SentiRepository {
 //            generateMap(keyWords,word);
 //        int count = getKeywordsCount();
         Query q = new Query();
-        q.with(new Sort(Sort.Direction.DESC, "tfidf"));
-        q.limit(80);
+        List<String> pastTwoDays = DateHandler.lastTwoDays();
+        q.addCriteria(Criteria.where("created_date").in(pastTwoDays));
+        q.with(new Sort(Sort.Direction.DESC, "tfidf")).limit(200);
         List<Word_tfidf> words = mongoTemplate.find(q,Word_tfidf.class);
         for(Word_tfidf word:  words)
             generateMap(keyWords,word);
