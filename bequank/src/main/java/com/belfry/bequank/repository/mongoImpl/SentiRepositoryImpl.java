@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.*;
 
 @Repository
@@ -32,12 +31,20 @@ public class SentiRepositoryImpl implements SentiRepository {
 //        List<Word_tf> words = mongoTemplate.find(new Query(),Word_tf.class);
 //        for(Word_tf word:  words)
 //            generateMap(keyWords,word);
-
+        int count = getKeywordsCount();
+        Query q = new Query();
+        q.with(new Sort(Sort.Direction.DESC, "tfidf"));
+        q.limit(count / 3);
         List<Word_tfidf> words = mongoTemplate.find(new Query(),Word_tfidf.class);
         for(Word_tfidf word:  words)
             generateMap(keyWords,word);
 
         return keyWords;
+    }
+
+    private int getKeywordsCount() {
+        Query q = new Query();
+        return (int)mongoTemplate.count(q, Word_tfidf.class);
     }
 
     private void generateMap(HashMap<String,Integer> keyWords, Word_tf tf){
