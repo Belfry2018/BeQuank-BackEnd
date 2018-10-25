@@ -21,6 +21,14 @@ public class DateHandler {
 
         return false;
     }
+
+    public static List<String> lastTwoDays() {
+        List<String> pastTwoDays = new ArrayList<>();
+        pastTwoDays.add(getPastDate(0));
+        pastTwoDays.add(getPastDate(1));
+
+        return pastTwoDays;
+    }
     public static List<String> dateToWeek() {
         List<String> pastDaysList = new ArrayList<>();
         for (int i = 7; i >= 0; i--) {

@@ -62,7 +62,7 @@ public class BaseServiceImpl implements BaseService {
         String nickName = object.getString("nickname");
 
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
-        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0);
+        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0, 0, 0);
         repository.saveAndFlush(user);
         res.put("status", Message.MSG_SUCCESS);
         res.put("message", "注册成功");
@@ -146,9 +146,36 @@ public class BaseServiceImpl implements BaseService {
         return object;
     }
 
+    /**获取用户个人信息
+     * @author YYQ->Mr.Wang
+     * @param userId userId
+     * @return net.sf.json.JSONObject
+     */
     @Override
-    public User getProfile(long userId) {
-        return repository.getById(userId);
+    public JSONObject getProfile(long userId) {
+        //return repository.getById(userId);
+        JSONObject object = new JSONObject();
+        User userModel = repository.getById(userId);
+        if (userModel == null) {
+            object.put("status", Message.MSG_FAILED);
+        } else {
+            object.put("nickname", userModel.getNickname());
+            object.put("id", userModel.getId());
+            object.put("avatar", userModel.getAvatar());
+            object.put("phone", userModel.getPhone());
+            object.put("email", userModel.getEmail());
+            object.put("gender", userModel.getGender());
+            object.put("birthday", userModel.getBirthday());
+            object.put("moneyLevel", userModel.getMoneyLevel());
+            object.put("bio", userModel.getBio());
+            object.put("level", userModel.getLevel());
+            object.put("registerTime", userModel.getRegisterTime());
+            object.put("expectedProfit", userModel.getExpectedProfit());
+            object.put("riskAbility", userModel.getRiskAbility());
+            object.put("coins", userModel.getCoins());
+            object.put("exp", userModel.getExp());
+        }
+        return object;
     }
 
     @Override
