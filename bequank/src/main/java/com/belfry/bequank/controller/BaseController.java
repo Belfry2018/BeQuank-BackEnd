@@ -85,12 +85,20 @@ public class BaseController {
         return "this is unprotected request";
     }
 
-    @GetMapping("/user/profile")
-    public User getProfile(HttpServletRequest request) {
+    @GetMapping("/user/auth")
+    public JSONObject getAuth(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int)map.get("userId"));
-        System.out.println("ss "+baseService.getProfile(userId).getUserName());
+        //TODO 获取用户权限，wny, 18/10/25
+        return null;
+    }
+
+    @GetMapping("/user/profile")
+    public JSONObject getProfile(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int)map.get("userId"));
         return baseService.getProfile(userId);
     }
 
