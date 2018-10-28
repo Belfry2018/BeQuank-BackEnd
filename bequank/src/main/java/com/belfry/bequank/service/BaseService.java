@@ -21,4 +21,12 @@ public interface BaseService {
 
     public JSONObject setPassword(long userId, JSONObject object);
 
+    public JSONObject getAuth(long userId);
+
+    public JSONObject dailySign(long userId);
+
+    public JSONObject unlockInsight(long userId, JSONObject object);
+
+    public JSONObject unlockCourse(long userId, JSONObject object);
+
 }

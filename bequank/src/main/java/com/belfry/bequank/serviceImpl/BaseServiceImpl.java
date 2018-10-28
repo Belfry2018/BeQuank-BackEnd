@@ -8,6 +8,7 @@ import com.belfry.bequank.service.BaseService;
 import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Message;
 import com.belfry.bequank.util.Role;
+import com.belfry.bequank.util.TutorialType;
 import com.sun.mail.util.MailSSLSocketFactory;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -62,7 +63,7 @@ public class BaseServiceImpl implements BaseService {
         String nickName = object.getString("nickname");
 
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
-        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0, 0, 0);
+        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0, 0, 0, false, TutorialType.BEGINNER, false, false);
         repository.saveAndFlush(user);
         res.put("status", Message.MSG_SUCCESS);
         res.put("message", "注册成功");
@@ -146,7 +147,100 @@ public class BaseServiceImpl implements BaseService {
         return object;
     }
 
-    /**获取用户个人信息
+    /**
+     * 获取用户权限列表
+     * @author Mr.Wang
+     * @param userId userId
+     * @return net.sf.json.JSONObject
+     */
+    @Override
+    public JSONObject getAuth(long userId) {
+        JSONObject object = new JSONObject();
+        User userModel = repository.getById(userId);
+        if (userModel == null) {
+            object.put("status", Message.MSG_FAILED);
+        } else {
+            object.put("hasSigned", userModel.isHasSignedToday());
+            object.put("courses", userModel.getTutorialType());
+            object.put("ratioTrend", userModel.isRatioTrend());
+            object.put("trend", userModel.isTrend());
+        }
+        return object;
+    }
+
+    /**
+     * TODO: 需要增加每天把用户设为没签到的状态
+     * 每日签到
+     * @author Mr.Wang
+     * @param userId userId
+     * @return JSONObject
+     */
+    @Override
+    public JSONObject dailySign(long userId) {
+        User userModel = repository.getById(userId);
+        if (userModel != null) {
+            userModel.setHasSignedToday(true);
+            repository.saveAndFlush(userModel);
+        }
+        return new JSONObject();
+    }
+
+    /**
+     * 解锁功能
+     * @author Mr.Wang
+     * @param userId userId
+     * @param object object
+     * @return net.sf.json.JSONObject
+     */
+    @Override
+    public JSONObject unlockInsight(long userId, JSONObject object) {
+        JSONObject result = new JSONObject();
+        User user = repository.getById(userId);
+        if (user != null) {
+            String type = object.getString("type");
+            if (type.equals("ratioTrend")) {
+                user.setRatioTrend(true);
+                repository.saveAndFlush(user);
+                result.put("success", true);
+                return result;
+            }
+            if (type.equals("trend")) {
+                user.setTrend(true);
+                repository.saveAndFlush(user);
+                result.put("success", true);
+                return result;
+            }
+        }
+        result.put("success", false);
+        return result;
+    }
+
+    /**
+     * 金币解锁课程
+     * @author Mr.Wang
+     * @param userId userId
+     * @param object JSONObject
+     * @return net.sf.json.JSONObject
+     */
+    @Override
+    public JSONObject unlockCourse(long userId, JSONObject object) {
+        JSONObject result = new JSONObject();
+        User user = repository.getById(userId);
+        if (user != null) {
+            String type = object.getString("type");
+            if (type.equals("INTERMEDIATE") || type.equals("ADVANCED")) {
+                user.setTutorialType(type);
+                repository.saveAndFlush(user);
+                result.put("success", true);
+                return result;
+            }
+        }
+        result.put("success", false);
+        return result;
+    }
+
+    /**
+     * 获取用户个人信息
      * @author YYQ->Mr.Wang
      * @param userId userId
      * @return net.sf.json.JSONObject

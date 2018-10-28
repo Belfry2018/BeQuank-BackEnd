@@ -90,8 +90,15 @@ public class BaseController {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int)map.get("userId"));
-        //TODO 获取用户权限，wny, 18/10/25
-        return null;
+        return baseService.getAuth(userId);
+    }
+
+    @PostMapping("/user/dailysign")
+    public JSONObject dailySign(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int)map.get("userId"));
+        return baseService.dailySign(userId);
     }
 
     @GetMapping("/user/profile")
@@ -147,5 +154,21 @@ public class BaseController {
         object.put("status", url == null ? Message.MSG_FAILED : Message.MSG_SUCCESS);
 
         return object;
+    }
+
+    @PostMapping("/user/unlock/insight")
+    public JSONObject unlockInsight(HttpServletRequest request, @RequestBody JSONObject object) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        return baseService.unlockInsight(userId, object);
+    }
+
+    @PostMapping("/user/unlock/course")
+    public JSONObject unlockCourse(HttpServletRequest request, @RequestBody JSONObject object) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        return baseService.unlockCourse(userId, object);
     }
 }

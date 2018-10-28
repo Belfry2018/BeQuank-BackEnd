@@ -1,5 +1,6 @@
 package com.belfry.bequank.entity.primary;
 
+import com.belfry.bequank.util.TutorialType;
 import lombok.*;
 import net.sf.json.JSONObject;
 
@@ -34,8 +35,12 @@ public class User implements Serializable {
     private double riskAbility;//风险承受能力
     private int coins;
     private int exp;
+    private boolean hasSignedToday;//今天是否签到
+    private String tutorialType;//可以查看的教程级别
+    private boolean ratioTrend;
+    private boolean trend;
 
-    public User(String userName, String password, String nickname, String avatar, String phone, String email, String gender, String birthday, String moneyLevel, String bio, String level, String role, String registerTime, double expectedProfit, double riskAbility, int coins, int exp) {
+    public User(String userName, String password, String nickname, String avatar, String phone, String email, String gender, String birthday, String moneyLevel, String bio, String level, String role, String registerTime, double expectedProfit, double riskAbility, int coins, int exp, boolean hasSignedToday, String tutorialType, boolean ratioTrend, boolean trend) {
         this.userName = userName;
         this.password = password;
         this.nickname = nickname;
@@ -53,7 +58,12 @@ public class User implements Serializable {
         this.riskAbility = riskAbility;
         this.coins = coins;
         this.exp = exp;
+        this.hasSignedToday = hasSignedToday;
+        this.tutorialType = tutorialType;
+        this.ratioTrend = ratioTrend;
+        this.trend = trend;
     }
+
     public JSONObject toJSONObject(){
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("username",this.userName);
