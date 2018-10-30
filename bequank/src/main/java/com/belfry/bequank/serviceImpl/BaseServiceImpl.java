@@ -18,6 +18,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -31,7 +32,7 @@ import java.util.Properties;
 @Service
 public class BaseServiceImpl implements BaseService {
 
-    @Autowired
+    @Resource
     UserRepository repository;
 
     @Autowired
@@ -161,7 +162,13 @@ public class BaseServiceImpl implements BaseService {
             object.put("status", Message.MSG_FAILED);
         } else {
             object.put("hasSigned", userModel.isHasSignedToday());
-            object.put("courses", userModel.getTutorialType());
+            if (userModel.getTutorialType() == null) {
+                object.put("courses", TutorialType.BEGINNER);
+                userModel.setTutorialType(TutorialType.BEGINNER);
+                repository.saveAndFlush(userModel);
+            } else {
+                object.put("courses", userModel.getTutorialType());
+            }
             object.put("ratioTrend", userModel.isRatioTrend());
             object.put("trend", userModel.isTrend());
         }
