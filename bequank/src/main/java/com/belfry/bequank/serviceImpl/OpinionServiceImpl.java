@@ -52,11 +52,17 @@ public class OpinionServiceImpl implements OpinionService {
     /**
      * 根据页数得到8篇文章
      * @author Mr.Wang
-     * @param page 页号
-     * @return net.sf.json.JSONObject
+     * @param paraObject 参数
+     * @return JSONObject
      */
     @Override
-    public JSONObject getArticlesByPages(int page){
+    public JSONObject getArticlesByPages(JSONObject paraObject){
+        int page = paraObject.getInt("page");
+        String startTimeStr = paraObject.getString("start");
+        String endTimeStr = paraObject.getString("end");
+        String region = paraObject.getString("region");
+        String type = paraObject.getString("type");
+
         Sort sort = new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = PageRequest.of(page, 8, sort);
         Page<Summary> articles = summaryRepository.findAll(pageable);

@@ -31,14 +31,14 @@ public class OpinionController {
     }
 
     /**
-     * 根据页数得到8篇文章
+     * 查看某一页（8篇）的政府文章
      * @author Mr.Wang
-     * @param page 页号
+     * @param object JSONObject
      * @return net.sf.json.JSONObject
      */
-    @GetMapping(value = "/gvn/passage/{page}")
-    public JSONObject findArticlesByPages( @PathVariable int page) {
-        return opinionService.getArticlesByPages(page);
+    @PostMapping(value = "/gvn/passage")
+    public JSONObject findArticlesByPages( @PathVariable JSONObject object) {
+        return null;
     }
 
     /**
