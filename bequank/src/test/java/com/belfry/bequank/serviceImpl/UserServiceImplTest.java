@@ -10,7 +10,10 @@ import com.belfry.bequank.util.Role;
 import net.sf.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @Author: Yang Yuqing
@@ -18,7 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date: Created in 5:48 PM 8/17/18
  * @Modifiedby:
  */
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
 public class UserServiceImplTest {
     @Autowired
     TutorialRepository tutorialRepository;
