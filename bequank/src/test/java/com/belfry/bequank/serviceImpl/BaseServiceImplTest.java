@@ -4,6 +4,7 @@ import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.util.Role;
 import com.belfry.bequank.util.TutorialType;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,5 +38,19 @@ public class BaseServiceImplTest {
     public void testGetAuth() {
         JSONObject object = baseService.getAuth(24);
         System.out.println(object.toString());
+    }
+
+    @Test
+    public void testUnlockFunction() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("key1", "content");
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.add("arrayContent1");
+        jsonArray.add("arrayContent2");
+        jsonObject.put("key2", jsonArray);
+        System.out.println(jsonObject.toString());
+        if (!jsonObject.getString("key2").equals("xxx")) {
+            System.out.println(jsonObject.getString("key2"));
+        }
     }
 }

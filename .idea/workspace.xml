@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4554b784-b202-4373-8edd-1506938fcb8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/service/BaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/service/BaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/UserServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/UserServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bequank/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,14 +34,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="151" />
+          <entry key="java" value="154" />
           <entry key="xml" value="2" />
           <entry key="yml" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="151" />
+          <entry key="JAVA" value="154" />
           <entry key="XML" value="2" />
           <entry key="YAML" value="10" />
         </counts>
@@ -48,13 +49,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="21" />
-          <entry key="java" value="9110" />
+          <entry key="java" value="9494" />
           <entry key="yml" value="83" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="9110" />
+          <entry key="JAVA" value="9494" />
           <entry key="PLAIN_TEXT" value="21" />
           <entry key="YAML" value="83" />
         </counts>
@@ -88,8 +89,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="167" column="51" selection-start-line="167" selection-start-column="51" selection-end-line="167" selection-end-column="51" />
+            <state relative-caret-position="546">
+              <caret line="218" column="26" selection-start-line="218" selection-start-column="26" selection-end-line="218" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -97,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="38" column="46" lean-forward="true" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+            <state relative-caret-position="382">
+              <caret line="52" column="59" selection-start-line="52" selection-start-column="59" selection-end-line="52" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -153,7 +154,6 @@
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/repository/DataTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/primary/User.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/service/BaseService.java" />
-        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/OpinionController.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/service/OpinionService.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java" />
@@ -161,6 +161,7 @@
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java" />
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/UserServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" />
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" />
       </list>
@@ -423,7 +424,7 @@
     <property name="SearchEverywhereHistoryKey" value="ratiotrend&#9;null&#9;null&#10;BEGINNER&#9;PSI&#9;JAVA://com.belfry.bequank.util.TutorialType#BEGINNER&#10;trend&#9;PSI&#9;JAVA://com.belfry.bequank.entity.primary.StrategyVO#trend" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540914708755" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540916928105" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -451,7 +452,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.BaseServiceImplTest.testGetAuth">
+  <component name="RunManager" selected="JUnit.BaseServiceImplTest.testUnlockFunction">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -498,6 +499,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BaseServiceImplTest.testUnlockFunction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bequank" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.belfry.bequank.serviceImpl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.belfry.bequank.serviceImpl" />
+      <option name="MAIN_CLASS_NAME" value="com.belfry.bequank.serviceImpl.BaseServiceImplTest" />
+      <option name="METHOD_NAME" value="testUnlockFunction" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OpinionServiceImplTest.getGvnPassage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="bequank" />
       <extension name="coverage">
@@ -509,23 +527,6 @@
       <option name="PACKAGE_NAME" value="com.belfry.bequank.serviceImpl" />
       <option name="MAIN_CLASS_NAME" value="com.belfry.bequank.serviceImpl.OpinionServiceImplTest" />
       <option name="METHOD_NAME" value="getGvnPassage" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OpinionServiceImplTest.testGetGvnHotWords" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="bequank" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.belfry.bequank.serviceImpl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.belfry.bequank.serviceImpl" />
-      <option name="MAIN_CLASS_NAME" value="com.belfry.bequank.serviceImpl.OpinionServiceImplTest" />
-      <option name="METHOD_NAME" value="testGetGvnHotWords" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
@@ -573,18 +574,18 @@
     <list>
       <item itemvalue="Spring Boot.BequankApplication" />
       <item itemvalue="JUnit.OpinionServiceImplTest.getGvnPassage" />
-      <item itemvalue="JUnit.OpinionServiceImplTest.testGetGvnHotWords" />
       <item itemvalue="JUnit.UserServiceImplTest.filterTutorials" />
       <item itemvalue="JUnit.BaseServiceImplTest.addUser" />
       <item itemvalue="JUnit.BaseServiceImplTest.testGetAuth" />
+      <item itemvalue="JUnit.BaseServiceImplTest.testUnlockFunction" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BaseServiceImplTest.testUnlockFunction" />
         <item itemvalue="JUnit.BaseServiceImplTest.testGetAuth" />
         <item itemvalue="JUnit.BaseServiceImplTest.addUser" />
         <item itemvalue="JUnit.UserServiceImplTest.filterTutorials" />
         <item itemvalue="JUnit.OpinionServiceImplTest.getGvnPassage" />
-        <item itemvalue="JUnit.OpinionServiceImplTest.testGetGvnHotWords" />
       </list>
     </recent_temporary>
   </component>
@@ -620,20 +621,11 @@
       <workItem from="1540780757601" duration="148000" />
       <workItem from="1540790229488" duration="418000" />
       <workItem from="1540814944453" duration="32000" />
-      <workItem from="1540911354736" duration="3426000" />
+      <workItem from="1540911354736" duration="5915000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="OpinionServiceImplTest_getGvnPassage - 2018.10.28 at 20h 27m 29s.xml">
-      <configuration name="OpinionServiceImplTest.getGvnPassage" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OpinionServiceImplTest_getGvnPassage - 2018.10.28 at 20h 30m 22s.xml">
-      <configuration name="OpinionServiceImplTest.getGvnPassage" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OpinionServiceImplTest_getGvnPassage - 2018.10.28 at 20h 31m 38s.xml">
-      <configuration name="OpinionServiceImplTest.getGvnPassage" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="OpinionServiceImplTest_getGvnPassage - 2018.10.28 at 20h 35m 28s.xml">
       <configuration name="OpinionServiceImplTest.getGvnPassage" configurationId="JUnit" />
     </history-entry>
@@ -655,9 +647,18 @@
     <history-entry file="BaseServiceImplTest_testGetAuth - 2018.10.30 at 23h 47m 23s.xml">
       <configuration name="BaseServiceImplTest.testGetAuth" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="BaseServiceImplTest_testUnlockFunction - 2018.10.31 at 00h 25m 55s.xml">
+      <configuration name="BaseServiceImplTest.testUnlockFunction" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BaseServiceImplTest_testUnlockFunction - 2018.10.31 at 00h 27m 10s.xml">
+      <configuration name="BaseServiceImplTest.testUnlockFunction" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BaseServiceImplTest_testUnlockFunction - 2018.10.31 at 00h 27m 42s.xml">
+      <configuration name="BaseServiceImplTest.testUnlockFunction" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78601000" />
+    <option name="totallyTimeSpent" value="81090000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
@@ -970,24 +971,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="67" column="50" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="17" column="67" selection-start-line="17" selection-start-column="67" selection-end-line="17" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3718">
-          <caret line="171" column="56" selection-start-line="171" selection-start-column="56" selection-end-line="171" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -1037,13 +1024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1690">
-          <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/primary/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -1051,10 +1031,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="163" column="41" selection-start-line="163" selection-start-column="41" selection-end-line="163" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1534">
+          <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="167" column="17" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="38" column="46" lean-forward="true" selection-start-line="38" selection-start-column="46" selection-end-line="38" selection-end-column="46" />
+        <state relative-caret-position="382">
+          <caret line="52" column="59" selection-start-line="52" selection-start-column="59" selection-end-line="52" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1063,8 +1064,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="167" column="51" selection-start-line="167" selection-start-column="51" selection-end-line="167" selection-end-column="51" />
+        <state relative-caret-position="546">
+          <caret line="218" column="26" selection-start-line="218" selection-start-column="26" selection-end-line="218" selection-end-column="26" />
         </state>
       </provider>
     </entry>
