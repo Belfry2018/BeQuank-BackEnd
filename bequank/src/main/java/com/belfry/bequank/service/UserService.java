@@ -15,4 +15,8 @@ public interface UserService {
     JSONObject likeTutorial(Long likerid,Long tutorialid);
     JSONObject likeComment(Long likeerid,Long commentid);
     JSONArray recommendation();
+    JSONObject getUnreadMessage(Long userid);
+    void readMessage(Long userid,Long responseid);
+    JSONArray getDalaos();
+
 }

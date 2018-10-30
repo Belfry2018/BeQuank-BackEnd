@@ -28,12 +28,14 @@ public class Comment implements Serializable {
     private User writer;         // 这个也准备换成User对象
     private String content,time,nickname;
     private boolean alreadyLiked;
+    private boolean alreadyread=false;
 
     @ManyToOne(targetEntity = Tutorial.class, cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
     private Tutorial tutorial;
 
     @ManyToOne(targetEntity = Comment.class, cascade = {CascadeType.MERGE})
     private Comment replyTarget;
+    private Long replyTargetUserid;
     @OneToMany(targetEntity = Comment.class, cascade = {CascadeType.MERGE,CascadeType.REMOVE},mappedBy = "replyTarget")
     private List<Comment> comments;
     private ArrayList<Long> likedusers;
