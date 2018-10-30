@@ -30,6 +30,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("update User set password=:password where userName=:userName")
     void setPassword(@Param("userName") String userName, @Param("password") String password);
-    @Query(nativeQuery = true,value = "select u from User u where u.role=:role limit 6")
+    @Query(nativeQuery = true,value = "select * from User u where u.role=:role limit 6")
     List<User> getDalaos(@Param("role")String role);
 }

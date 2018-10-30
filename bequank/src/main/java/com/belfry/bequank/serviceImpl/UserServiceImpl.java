@@ -142,7 +142,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JSONArray getDalaos() {
+
         List<User> list=userRepository.getDalaos(Role.ADVANCED);
+        if(list.size()==0){
+            return new JSONArray();
+        }
         JSONArray jsonArray=new JSONArray();
         for (User u : list){
             JSONObject jsonObject=new JSONObject();

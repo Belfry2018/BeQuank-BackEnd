@@ -19,5 +19,5 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     @Query("select m from Comment m")
     List<Comment> getAll();
     @Query("select m from Comment m where m.replyTargetUserid=:userid and m.alreadyread=0")
-    List<Comment> getUnreadReplies(@Param("uesrid")Long userid);
+    List<Comment> getUnreadReplies(@Param("userid")Long userid);
 }

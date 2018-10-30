@@ -37,8 +37,8 @@ public class OpinionController {
      * @return net.sf.json.JSONObject
      */
     @PostMapping(value = "/gvn/passage")
-    public JSONObject findArticlesByPages( @PathVariable JSONObject object) {
-        return null;
+    public JSONObject findArticlesByPages( @RequestBody JSONObject object) {
+        return new JSONObject();
     }
 
     /**
