@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional(rollbackOn = Exception.class)
-    @Query("update User set nickname=:nickname,avatar=:avatar,phone=:phone,email=:email,gender=:gender,birthday=:birthday,moneyLevel=:moneyLevel,bio=:bio where userName=:userName")
+    @Query("update User u set u.nickname=:nickname,u.avatar=:avatar,u.phone=:phone,u.email=:email,u.gender=:gender,u.birthday=:birthday,u.moneyLevel=:moneyLevel,u.bio=:bio where userName=:userName")
     void setProfile(@Param("userName") String userName,
                     @Param("nickname") String nickname,
                     @Param("avatar") String avatar,
