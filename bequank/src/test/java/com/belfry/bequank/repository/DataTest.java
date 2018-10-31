@@ -8,6 +8,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
@@ -55,7 +58,10 @@ public class DataTest {
     public void getPolicy() {
         //Assert.assertNotNull(policyRepository.findByDate("2018"));
         //Summary jbw = jbwRepository.findByDate("2018").get(0);
-        System.out.println(summaryRepository.findByDateStartingWith("2018").get(0).getTitle());
+        int page = 0;
+        Sort sort = new Sort(Sort.Direction.DESC, "date");
+        Pageable pageable = PageRequest.of(page, 8, sort);
+        System.out.println(summaryRepository.findByDateStartingWith(pageable,"2018").getContent().get(0).getTitle());
     }
 
     @Test
