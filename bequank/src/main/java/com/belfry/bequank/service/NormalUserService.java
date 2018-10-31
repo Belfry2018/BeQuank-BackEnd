@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public interface NormalUserService {
 
     List<Strategy> getStrategies(HttpServletRequest request);
 
-    Strategy getAStrategy(HttpServletRequest request, long strategyId);
+    String getAStrategy(HttpServletRequest request, long strategyId) throws MalformedURLException;
 
     String getAStock(HttpServletRequest request, String code) throws IOException;
 

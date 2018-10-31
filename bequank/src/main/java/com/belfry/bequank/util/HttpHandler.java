@@ -31,6 +31,11 @@ public class HttpHandler {
         return getResponse(url);
     }
 
+    public String getAStrategy(long sid) throws MalformedURLException {
+        URL url = new URL("http://127.0.0.1:5000/strategy/record/" + sid);
+        return getResponse(url);
+    }
+
     private String getResponse(URL url) {
         HttpURLConnection conn=null;
         StringBuilder builder=new StringBuilder();

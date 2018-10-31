@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -165,7 +166,7 @@ public class UserController {
     }
 
     @GetMapping("/strategy/record/{recordId}")
-    public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
+    public String getAStrategy(HttpServletRequest request, @PathVariable long recordId) throws MalformedURLException {
         return normalUserService.getAStrategy(request, recordId);
     }
 
