@@ -187,6 +187,9 @@ public class BaseServiceImpl implements BaseService {
         User userModel = repository.getById(userId);
         if (userModel != null) {
             userModel.setHasSignedToday(true);
+            int oldExp = userModel.getExp();
+            oldExp += 2;
+            userModel.setExp(oldExp);
             repository.saveAndFlush(userModel);
         }
         return new JSONObject();
