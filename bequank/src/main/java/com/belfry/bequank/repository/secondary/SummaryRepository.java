@@ -9,6 +9,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Mr.Wang
  * @version 2018/9/6
@@ -24,6 +26,6 @@ public interface SummaryRepository extends JpaRepository<Summary, String>, Pagin
     @Query("select s from Summary s where s.date >=:fromStr and s.date <=:toStr")
     Page<Summary> findByDateBetween(Pageable pageable, @Param("fromStr") String from, @Param("toStr") String to);
 
-//    @Query("select s from Summary s where s.date >=:fromStr and s.date <=:toStr and s.pos =:region and s.origin")
-//    List<Summary> findComprehensive();
+    @Query("select s from Summary s where s.date >=:fromStr and s.date <=:toStr and s.pos =:region and s.type =:typeStr")
+    Page<Summary> findComprehensive(Pageable pageable, @Param("fromStr") String from, @Param("toStr") String to, @Param("region") String pos, @Param("typeStr") String typeStr);
 }
