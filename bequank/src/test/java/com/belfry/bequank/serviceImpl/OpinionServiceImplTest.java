@@ -51,14 +51,15 @@ public class OpinionServiceImplTest {
         int page = 0;
         Sort sort = new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = PageRequest.of(page, 8, sort);
-        Page<Summary> articles  = summaryRepository.findByDateBetween(pageable, "2017-07-01", "2018-10-01");
+        Page<Summary> articles  = summaryRepository.findComprehensive(pageable, "2017-07-01", "2018-10-01", "china", "ZCFB");
         List<Summary> summaryList = articles.getContent();
+        System.out.println(summaryList.size());
 
 //        Page<HYPX> hypxes = HYPXRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china");
-        List<HYPX> hypxes = HYPXRepository.findAll();
-        List<HYPX> HYPXList = hypxes.stream().collect(Collectors.toList());
-        System.out.println(HYPXList.size());
-        HYPXList.forEach(HYPX -> System.out.println(HYPX.getDate() + " " + HYPX.getPos()));
+//        hypxes = HYPXRepository.findAll(pageable);
+//        List<HYPX> HYPXList = hypxes.getContent();
+//        System.out.println(HYPXList.size());
+//        HYPXList.forEach(HYPX -> System.out.println(HYPX.getDate() + " " + HYPX.getPos()));
 
 //        summaryList = summaryRepository.findByDateStartingWith("2018-07-01");
 //        summaryList = summaryRepository.findByDateBetween("2018-07-01", "2018-10-01");

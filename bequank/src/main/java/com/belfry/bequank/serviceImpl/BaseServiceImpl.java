@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +28,7 @@ import javax.mail.internet.MimeMultipart;
 import java.security.GeneralSecurityException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 @Service
@@ -193,6 +195,20 @@ public class BaseServiceImpl implements BaseService {
             repository.saveAndFlush(userModel);
         }
         return new JSONObject();
+    }
+
+    /**
+     * 每天0:01触发, 消除已经签到
+     * @author Mr.Wang
+     * @param () null
+     */
+    @Scheduled(cron = "0 01 0 ? * *")
+    public void signRecover() {
+        List<User> list = repository.findAll();
+        list.forEach(user -> {
+            user.setHasSignedToday(false);
+            repository.saveAndFlush(user);
+        });
     }
 
     /**

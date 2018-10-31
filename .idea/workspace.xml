@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="4554b784-b202-4373-8edd-1506938fcb8e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" afterDir="false" />
@@ -11,6 +12,17 @@
     </list>
 =======
     <list default="true" id="4554b784-b202-4373-8edd-1506938fcb8e" name="Default Changelist" comment="" />
+>>>>>>> wny
+=======
+    <list default="true" id="4554b784-b202-4373-8edd-1506938fcb8e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/BequankApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/BequankApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Summary.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Summary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java" afterDir="false" />
+    </list>
 >>>>>>> wny
     <ignored path="$PROJECT_DIR$/bequank/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,23 +36,23 @@
     <session id="1391052546">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="22" />
+          <entry key="project.closed" value="24" />
           <entry key="project.open.time.1" value="4" />
-          <entry key="project.open.time.10" value="2" />
-          <entry key="project.open.time.11" value="3" />
+          <entry key="project.open.time.10" value="3" />
+          <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="2" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.8" value="6" />
-          <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="24" />
+          <entry key="project.open.time.9" value="4" />
+          <entry key="project.opened" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="196" />
+          <entry key="java" value="205" />
           <entry key="sql" value="2" />
           <entry key="xml" value="2" />
           <entry key="yml" value="11" />
@@ -48,7 +60,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="196" />
+          <entry key="JAVA" value="205" />
           <entry key="Scratch" value="2" />
           <entry key="XML" value="2" />
           <entry key="YAML" value="11" />
@@ -57,14 +69,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="21" />
-          <entry key="java" value="10399" />
+          <entry key="java" value="10811" />
           <entry key="txt" value="7" />
           <entry key="yml" value="83" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10399" />
+          <entry key="JAVA" value="10811" />
           <entry key="PLAIN_TEXT" value="28" />
           <entry key="YAML" value="83" />
         </counts>
@@ -87,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="26" column="70" selection-start-line="26" selection-start-column="70" selection-end-line="26" selection-end-column="70" />
+            <state relative-caret-position="364">
+              <caret line="29" column="171" selection-start-line="29" selection-start-column="171" selection-end-line="29" selection-end-column="171" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -113,6 +125,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -145,20 +158,13 @@
               </folding>
 >>>>>>> wny
 =======
+=======
+>>>>>>> wny
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="191" column="37" lean-forward="true" selection-start-line="191" selection-start-column="37" selection-end-line="191" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            <state relative-caret-position="208">
+              <caret line="52" column="118" selection-start-line="52" selection-start-column="118" selection-end-line="52" selection-end-column="118" />
             </state>
           </provider>
         </entry>
@@ -166,8 +172,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="3770">
               <caret line="167" column="17" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="17" />
+>>>>>>> wny
+=======
+            <state relative-caret-position="292">
+              <caret line="60" column="58" lean-forward="true" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
 >>>>>>> wny
             </state>
           </provider>
@@ -219,9 +230,12 @@
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Word_tf.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/mongoImpl/PostingRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Jbw.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Summary.java" />
 <<<<<<< HEAD
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/service/OpinionService.java" />
+=======
+>>>>>>> wny
 =======
 >>>>>>> wny
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/Word_tfRepository.java" />
@@ -231,28 +245,37 @@
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/OpinionController.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/service/OpinionService.java" />
-        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java" />
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/UserServiceImplTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/controller/BaseController.java" />
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/BaseServiceImplTest.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" />
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> wny
         <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/repository/DataTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsTZGG.java" />
-        <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsYWDD.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsZCFB.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsZCJD.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsZFSJ.java" />
-        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/NewsHYPXRepository.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsHYPX.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/HYPXRepository.java" />
         <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/HYPX.java" />
+<<<<<<< HEAD
+>>>>>>> wny
+=======
+        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/BequankApplication.java" />
+        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Summary.java" />
+        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java" />
+        <option value="$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java" />
+        <option value="$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java" />
 >>>>>>> wny
       </list>
     </option>
@@ -289,8 +312,13 @@
     </navigator>
     <panes>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <pane id="AndroidView" />
 =======
+>>>>>>> wny
+=======
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
 >>>>>>> wny
       <pane id="ProjectPane">
         <subPane>
@@ -449,8 +477,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -463,9 +489,13 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540916928105" />
 =======
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540956249417" />
+>>>>>>> wny
+=======
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540994052872" />
 >>>>>>> wny
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
@@ -726,6 +756,13 @@
 =======
       <workItem from="1540911354736" duration="7125000" />
       <workItem from="1540945340927" duration="10411000" />
+<<<<<<< HEAD
+>>>>>>> wny
+=======
+      <workItem from="1540962792244" duration="881000" />
+      <workItem from="1540965878179" duration="7097000" />
+      <workItem from="1540991992686" duration="77000" />
+      <workItem from="1540992097826" duration="1745000" />
 >>>>>>> wny
     </task>
     <servers />
@@ -772,17 +809,21 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92711000" />
+    <option name="totallyTimeSpent" value="102511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1513" height="973" extended-state="6" />
     <editor active="true" />
     <layout>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21443298" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
 =======
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4993954" visible="true" weight="0.21443298" />
+=======
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4993954" visible="true" weight="0.21443298" />
+>>>>>>> wny
       <window_info id="Structure" order="1" sideWeight="0.50060457" side_tool="true" weight="0.21443298" />
 >>>>>>> wny
       <window_info id="Capture Tool" order="2" />
@@ -800,7 +841,11 @@
       <window_info anchor="bottom" id="Database Changes" order="0" weight="0.32889965" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Find" order="2" weight="0.29642445" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="3" weight="0.2853688" />
+=======
+      <window_info anchor="bottom" id="Run" order="3" weight="0.2974607" />
+>>>>>>> wny
       <window_info anchor="bottom" id="Debug" order="4" weight="0.32285368" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -1157,13 +1202,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/BequankApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/primary/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -1219,20 +1257,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4810">
-          <caret line="238" column="39" selection-start-line="238" selection-start-column="39" selection-end-line="238" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/primary/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-26">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/repository/DataTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
@@ -1244,9 +1268,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1254,19 +1275,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsZCFB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1274,9 +1282,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1284,9 +1289,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1304,39 +1306,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java">
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/NewsZCFB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="26" column="70" selection-start-line="26" selection-start-column="70" selection-end-line="26" selection-end-column="70" />
+        <state relative-caret-position="312">
+          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/HYPX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/HYPXRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/primary/UserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3614">
-          <caret line="167" column="17" selection-start-line="167" selection-start-column="12" selection-end-line="167" selection-end-column="17" />
+        <state relative-caret-position="26">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/BaseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="209" column="42" selection-start-line="209" selection-start-column="42" selection-end-line="209" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/BequankApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="14" column="33" lean-forward="true" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/Summary.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-304">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/HYPXRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
 <<<<<<< HEAD
         <state relative-caret-position="546">
           <caret line="218" column="26" selection-start-line="218" selection-start-column="26" selection-end-line="218" selection-end-column="26" />
@@ -1347,16 +1364,34 @@
             <element signature="imports" expanded="true" />
           </folding>
 >>>>>>> wny
+=======
+        <state relative-caret-position="442">
+          <caret line="27" column="50" lean-forward="true" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
+>>>>>>> wny
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/entity/secondary/HYPX.java">
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/repository/secondary/SummaryRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="21" column="43" lean-forward="true" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+        <state relative-caret-position="364">
+          <caret line="29" column="171" selection-start-line="29" selection-start-column="171" selection-end-line="29" selection-end-column="171" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/main/java/com/belfry/bequank/serviceImpl/OpinionServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="60" column="58" lean-forward="true" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bequank/src/test/java/com/belfry/bequank/serviceImpl/OpinionServiceImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="52" column="118" selection-start-line="52" selection-start-column="118" selection-end-line="52" selection-end-column="118" />
         </state>
       </provider>
     </entry>

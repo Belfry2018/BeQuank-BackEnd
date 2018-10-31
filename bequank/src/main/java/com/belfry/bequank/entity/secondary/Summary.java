@@ -25,6 +25,6 @@ public class Summary implements Serializable {
     @Id
     private String link;
 
-    private String pos, title, date, origin;
+    private String pos, title, date, origin, type;
 
 }
