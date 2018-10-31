@@ -2,10 +2,12 @@ package com.belfry.bequank.repository.primary;
 
 import com.belfry.bequank.entity.primary.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -15,8 +17,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.id=:id")
     User getById(@Param("id") Long id);
+
     @Query("select u from User u where u.nickname=:nickname")
     User findByNickname(@Param("nickname")String nickname);
+
     @Query("update User set nickname=:nickname,avatar=:avatar,phone=:phone,email=:email,gender=:gender,birthday=:birthday,moneyLevel=:moneyLevel,bio=:bio where userName=:userName")
     void setProfile(@Param("userName") String userName,
                     @Param("nickname") String nickname,
@@ -30,6 +34,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("update User set password=:password where userName=:userName")
     void setPassword(@Param("userName") String userName, @Param("password") String password);
-    @Query(nativeQuery = true,value = "select * from User u where u.role=:role limit 6")
-    List<User> getDalaos(@Param("role")String role);
+
+    @Query(nativeQuery = true, value = "select * from User u where u.role=:role limit 6")
+    List<User> getDalaos(@Param("role") String role);
+
+    @Modifying
+    @Transactional(rollbackOn = Exception.class)
+    @Query("update User u set u.level=?2 where u.id=?1")
+    void updateLevel(long userId, String level);
 }

@@ -3,6 +3,7 @@ package com.belfry.bequank.serviceImpl;
 import com.belfry.bequank.entity.primary.*;
 import com.belfry.bequank.repository.primary.RealStockRepository;
 import com.belfry.bequank.repository.primary.StrategyRepository;
+import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.NormalUserService;
 import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.HttpHandler;
@@ -12,6 +13,7 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import sun.security.x509.CRLDistributionPointsExtension;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,6 +47,10 @@ public class NormalUserServiceImpl implements NormalUserService {
     HttpHandler httpHandler;
     @Autowired
     RealStockRepository realStockRepository;
+    @Value("${belfry.header_string}")
+    String HEADER;
+    @Autowired
+    UserRepository userRepository;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -62,77 +69,49 @@ public class NormalUserServiceImpl implements NormalUserService {
             score += points[i - 1][op - 'A'];
         }
         res.put("score", score);
+        String type = null;
         if (score < 39) {
-            res.put("type", "不建议投资");
+            type = "不建议投资";
         }
         if (score >= 39) {
-            res.put("type", "保守型");
+            type = "保守型";
         }
         if (score >= 46) {
-            res.put("type", "中度保守型");
+            type = "中度保守型";
         }
         if (score >= 54) {
-            res.put("type", "平稳型");
+            type = "平稳型";
         }
         if (score >= 62) {
-            res.put("type", "中度进取型");
+            type = "中度进取型";
         }
         if (score >= 70) {
-            res.put("type", "进取型");
+            type = "进取型";
         }
-
+        res.put("type", type);
+        int userid = (int) jwtUtil.parseToken(request.getHeader(HEADER)).get("userId");
+        userRepository.updateLevel(userid, type);
         return res;
     }
 
     @Override
     public String recommendByProfit(HttpServletRequest request) throws IOException {
-//        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-//        JSONObject object = new JSONObject();
-//        object.put("todayBenefit", decimalFormat.format(Math.random() * 30));
-//        object.put("yearBenefit", decimalFormat.format(Math.random() * 30));
-//        object.put("risk", decimalFormat.format(Math.random() * 30));
-//        object.put("stocks", getRecommendation());
-//        object.put("loopback", getLoopBack());
+        int userid = (int) jwtUtil.parseToken(request.getHeader(HEADER)).get("userId");
+        User user = userRepository.getById((long) userid);
+        if (user.getLevel() == null || user.getLevel().equals("")) {
+            return "{\"stocks\":[]}";
+        }
         String object = httpHandler.recommendByProfit();
-        logger.info("response = {}", object);
         return object;
-    }
-
-    private List<Stock>getRecommendation(){
-        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        Page<RealStock> list = realStockRepository.findAll(PageRequest.of((int) (Math.random() * 602), 6));
-        List<Stock> res = list.stream().map(x -> Stock.transform(x)).collect(Collectors.toList());
-        if (res == null || res.size() == 0) {
-            return new ArrayList<Stock>();
-        }
-
-        double br = 100.0;
-        for (int i = 0; i < res.size()-1; i++) {
-            double rate = Double.parseDouble(decimalFormat.format(Math.random() * 16));
-            br -= rate;
-            res.get(i).setBuyRate(rate);
-        }
-        res.get(res.size() - 1).setBuyRate(Double.parseDouble(decimalFormat.format(br)));
-        return res;
-    }
-
-    private List<JSONObject>getLoopBack(){
-        double[] sz = new double[]{0.024612, -0.00377, 0.016401, -0.02018, -0.00213, 0.049266, -0.09724, -0.02464, -0.02381, 0.005474, -0.082, 0.011214, -0.0453};
-        String[] dates = new String[]{"2017-08-31", "2017-09-29", "2017-10-31", "2017-11-30", "2017-12-29", "2018-01-31", "2018-02-28", "2018-03-30", "2018-04-27", "2018-05-31", "2018-06-29", "2018-07-31", "2018-08-31"};
-        List<JSONObject> list = new ArrayList<>();
-        for (int i = 0; i < sz.length; i++) {
-            JSONObject object = new JSONObject();
-            object.put("date", dates[i]);
-            object.put("上证指数", sz[i]*100);
-            object.put("自选股", (Math.random()*2.4+0.1)*sz[i]*100);
-            list.add(object);
-        }
-        logger.info("loopback = {}", list);
-        return list;
     }
 
     @Override
     public String recommendByRisk(HttpServletRequest request) throws IOException {
+        int userid = (int) jwtUtil.parseToken(request.getHeader(HEADER)).get("userId");
+        User user = userRepository.getById((long) userid);
+        if (user.getLevel() == null || user.getLevel().equals("")) {
+            return "{\"stocks\":[]}";
+        }
         return httpHandler.recommendByRisk();
     }
 
@@ -171,10 +150,13 @@ public class NormalUserServiceImpl implements NormalUserService {
     }
 
     @Override
-    public Strategy getAStrategy(HttpServletRequest request, long strategyId) {
-        Strategy strategy = strategyRepository.findByRecordId(strategyId);
-        strategy.setStocks(strategy.getStocks().stream().map(x -> new StrategyVO(x, realStockRepository.getOne(x.getStockId()))).collect(Collectors.toList()));
-        return strategy;
+    public String getAStrategy(HttpServletRequest request, long strategyId) throws MalformedURLException {
+//        原来是java直接从数据库获取自选股信息，现在交给python
+
+//        Strategy strategy = strategyRepository.findByRecordId(strategyId);
+//        strategy.setStocks(strategy.getStocks().stream().map(x -> new StrategyVO(x, realStockRepository.getOne(x.getStockId()))).collect(Collectors.toList()));
+//        return strategy;
+        return httpHandler.getAStrategy(strategyId);
     }
 
     @Override
@@ -183,8 +165,9 @@ public class NormalUserServiceImpl implements NormalUserService {
     }
 
     @Override
-    public Page<RealStock> getStocks(HttpServletRequest request, int page) {
-        return realStockRepository.findAll(PageRequest.of(page, 20));
+    public Page<RealStock> getStocks(HttpServletRequest request, String pattern, int page) {
+//        return realStockRepository.findAll(PageRequest.of(page, 20));
+        return realStockRepository.findAllByStockIdContainingOrStockNameContaining(pattern, pattern, PageRequest.of(page, 20));
     }
 
     private long getUserId(HttpServletRequest request) {

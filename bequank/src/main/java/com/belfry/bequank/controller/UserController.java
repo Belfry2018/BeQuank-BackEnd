@@ -12,10 +12,13 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +38,8 @@ public class UserController {
     NormalUserService normalUserService;
     @Autowired
     JwtUtil util;
+    @Value("${belfry.header_string}")
+    String HEADER;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -144,9 +149,12 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping("/stocks/{page}")
-    public List<RealStock> viewStocks(HttpServletRequest request, @PathVariable int page) {
-        return normalUserService.getStocks(request,page).stream().collect(Collectors.toList());
+    @PostMapping("/stocks")
+    public List<RealStock> viewStocks(HttpServletRequest request, @RequestBody JSONObject object) {
+        String pattern = object.getString("pattern");
+        int page = object.getInt("page");
+        logger.info("pattern = {}", pattern);
+        return normalUserService.getStocks(request, pattern, page).stream().collect(Collectors.toList());
     }
 
     @PostMapping("/strategy/record")
@@ -165,13 +173,14 @@ public class UserController {
     }
 
     @GetMapping("/strategy/record/{recordId}")
-    public Strategy getAStrategy(HttpServletRequest request, @PathVariable long recordId) {
+    public String getAStrategy(HttpServletRequest request, @PathVariable long recordId) throws MalformedURLException {
         return normalUserService.getAStrategy(request, recordId);
     }
 
     @GetMapping("/tutorials/recommendation")
-    public JSONArray recommendation(){
-        return userService.recommendation();
+    public JSONArray recommendation(HttpServletRequest request) {
+        int userId = (int) util.parseToken(request.getHeader(HEADER)).get("userId");
+        return userService.recommendation(userId);
     }
 
     @GetMapping("/user/message")

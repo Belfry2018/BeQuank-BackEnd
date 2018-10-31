@@ -6,25 +6,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * 政府网站数据
  * @author Mr.Wang
- * @version 2018/9/6
+ * @version 2018/10/31
  */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Summary implements Serializable {
+@Table(name = "YWDD")
+public class NewsYWDD implements Serializable {
 
     @Id
     private String link;
 
-    private String pos, title, date, origin, type;
-
+    private String pos, title, date, origin;
 }

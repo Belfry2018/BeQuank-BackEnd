@@ -7,7 +7,6 @@ import com.belfry.bequank.entity.secondary.Summary;
 import com.belfry.bequank.entity.secondary.Word_tf;
 import com.belfry.bequank.repository.mongo.PostingRepository;
 import com.belfry.bequank.repository.mongo.SentiRepository;
-import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.repository.secondary.SummaryRepository;
 import com.belfry.bequank.repository.secondary.Word_tfRepository;
 import com.belfry.bequank.service.OpinionService;
@@ -21,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -44,9 +42,6 @@ public class OpinionServiceImpl implements OpinionService {
     @Resource
     private PostingRepository postingRepository;
 
-    @Resource
-    private UserRepository userRepository;
-
     private final int MULTI = 1;
 
     /**
@@ -65,7 +60,7 @@ public class OpinionServiceImpl implements OpinionService {
 
         Sort sort = new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = PageRequest.of(page, 8, sort);
-        Page<Summary> articles = summaryRepository.findAll(pageable);
+        Page<Summary> articles = summaryRepository.findComprehensive(pageable, startTimeStr, endTimeStr, region, type);
         int totalPages = articles.getTotalPages();
         int currentPage = pageable.getPageNumber();
 

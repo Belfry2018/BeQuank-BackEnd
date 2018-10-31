@@ -10,6 +10,7 @@ import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.HttpHandler;
 import com.belfry.bequank.util.Message;
 import com.belfry.bequank.util.Role;
+import com.belfry.bequank.util.TutorialType;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Yang Yuqing
@@ -94,25 +96,42 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println("result of tutorials is "+resultarray);
 
-
-
         return resultarray;
     }
+
+    /**
+     * 判断用户是否有权限看文章
+     * @param pre
+     * @param req
+     * @return
+     */
+    private boolean hasPrevilege(String pre, String req) {
+        if (pre.equals(TutorialType.ADVANCED)) {
+            return true;
+        } else if (pre.equals(TutorialType.INTERMEDIATE)) {
+            return req.equals(TutorialType.INTERMEDIATE) || req.equals(TutorialType.BEGINNER);
+        } else return req.equals(TutorialType.BEGINNER);
+    }
+
     @Override
-    public JSONArray recommendation(){
-        List<Tutorial> list=tutorialRepository.getAll();
+    public JSONArray recommendation(long userId) {
+
+        String pre = userRepository.getById(userId).getTutorialType();
+
+        List<Tutorial> list = tutorialRepository.getAll().stream().filter(x -> hasPrevilege(pre, x.getType())).collect(Collectors.toList());
         Collections.sort(list);
-        JSONArray resultarray=new JSONArray();
-        for(Tutorial t:list){
-            JSONObject object=new JSONObject();
-            object.put("tutorialId",t.getId());
-            object.put("title",t.getTitle());
-            object.put("authorNickname",t.getNickname());
-            object.put("publishTime",t.getTime());
-            object.put("abstract",t.getDescription());
-            object.put("cover",t.getCover());
-            object.put("tutorialType",t.getType());
-            resultarray.add(object);        }
+        JSONArray resultarray = new JSONArray();
+        for (Tutorial t : list) {
+            JSONObject object = new JSONObject();
+            object.put("tutorialId", t.getId());
+            object.put("title", t.getTitle());
+            object.put("authorNickname", t.getNickname());
+            object.put("publishTime", t.getTime());
+            object.put("abstract", t.getDescription());
+            object.put("cover", t.getCover());
+            object.put("tutorialType", t.getType());
+            resultarray.add(object);
+        }
         return resultarray;
     }
 
