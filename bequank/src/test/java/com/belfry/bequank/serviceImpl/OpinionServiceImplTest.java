@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -53,9 +54,9 @@ public class OpinionServiceImplTest {
         Page<Summary> articles  = summaryRepository.findByDateBetween(pageable, "2017-07-01", "2018-10-01");
         List<Summary> summaryList = articles.getContent();
 
-        Page<HYPX> hypxes = HYPXRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china");
-        hypxes = HYPXRepository.findAll(pageable);
-        List<HYPX> HYPXList = hypxes.getContent();
+//        Page<HYPX> hypxes = HYPXRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china");
+        List<HYPX> hypxes = HYPXRepository.findAll();
+        List<HYPX> HYPXList = hypxes.stream().collect(Collectors.toList());
         System.out.println(HYPXList.size());
         HYPXList.forEach(HYPX -> System.out.println(HYPX.getDate() + " " + HYPX.getPos()));
 

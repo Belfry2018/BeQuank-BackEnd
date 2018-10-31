@@ -165,8 +165,9 @@ public class NormalUserServiceImpl implements NormalUserService {
     }
 
     @Override
-    public Page<RealStock> getStocks(HttpServletRequest request, int page) {
-        return realStockRepository.findAll(PageRequest.of(page, 20));
+    public Page<RealStock> getStocks(HttpServletRequest request, String pattern, int page) {
+//        return realStockRepository.findAll(PageRequest.of(page, 20));
+        return realStockRepository.findAllByStockIdContainingOrStockNameContaining(pattern, pattern, PageRequest.of(page, 20));
     }
 
     private long getUserId(HttpServletRequest request) {

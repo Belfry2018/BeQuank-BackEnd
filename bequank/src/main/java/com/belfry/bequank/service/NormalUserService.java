@@ -32,5 +32,5 @@ public interface NormalUserService {
 
     String getAStock(HttpServletRequest request, String code) throws IOException;
 
-    Page<RealStock> getStocks(HttpServletRequest request, int page);
+    Page<RealStock> getStocks(HttpServletRequest request, String pattern, int page);
 }

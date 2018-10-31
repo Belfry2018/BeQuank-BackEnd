@@ -24,19 +24,19 @@ public class AuthorityManager {
     JwtUtil jwtUtil;
 
     //普通用户专有方法权限验证
-    @Around(value = "execution(* com.belfry.bequank.service.NormalUserService.*(..))&&args(request,..)")
-    public Object authorizeNormalUser(ProceedingJoinPoint point, HttpServletRequest request) throws Throwable {
-        String token = request.getHeader("Authorization");
-        String role = getRole(token);
-
-        Object res = null;
-        if (!role.equals(Role.NORMAL)&&!role.equals(Role.SYSTEM)) {
-            throw new AuthorityException();
-        }
-
-        res = point.proceed();
-        return res;
-    }
+//    @Around(value = "execution(* com.belfry.bequank.service.NormalUserService.*(..))&&args(request,..)")
+//    public Object authorizeNormalUser(ProceedingJoinPoint point, HttpServletRequest request) throws Throwable {
+//        String token = request.getHeader("Authorization");
+//        String role = getRole(token);
+//
+//        Object res = null;
+//        if (!role.equals(Role.NORMAL)&&!role.equals(Role.SYSTEM)) {
+//            throw new AuthorityException();
+//        }
+//
+//        res = point.proceed();
+//        return res;
+//    }
 
     //系统用户专有方法权限验证
     @Around(value = "execution(* com.belfry.bequank.service.SystemUserService.*(..))&&args(request,..)")
