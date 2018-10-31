@@ -1,10 +1,11 @@
 package com.belfry.bequank.serviceImpl;
 
+import com.belfry.bequank.entity.secondary.HYPX;
 import com.belfry.bequank.entity.secondary.Summary;
 import com.belfry.bequank.entity.secondary.Word_tf;
+import com.belfry.bequank.repository.secondary.HYPXRepository;
 import com.belfry.bequank.repository.secondary.SummaryRepository;
 import com.belfry.bequank.repository.secondary.Word_tfRepository;
-import com.jayway.jsonpath.internal.function.numeric.Sum;
 import io.jsonwebtoken.lang.Assert;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -19,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,7 +31,10 @@ public class OpinionServiceImplTest {
 
     @Resource
     Word_tfRepository wordsRepository;
+    @Resource
     SummaryRepository summaryRepository;
+    @Resource
+    HYPXRepository HYPXRepository;
 
     @Test
     public void getGvnPassage() {
@@ -47,15 +50,24 @@ public class OpinionServiceImplTest {
         int page = 0;
         Sort sort = new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = PageRequest.of(page, 8, sort);
-        Page<Summary> articles = summaryRepository.findAll(pageable);
+        Page<Summary> articles  = summaryRepository.findByDateBetween(pageable, "2017-07-01", "2018-10-01");
         List<Summary> summaryList = articles.getContent();
-//        summaries = summaryRepository.findByDateBetween("2018-03-01", "2018-10-01");
-//        for (Summary summary:summaries) {
+
+        Page<HYPX> hypxes = HYPXRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china");
+        hypxes = HYPXRepository.findAll(pageable);
+        List<HYPX> HYPXList = hypxes.getContent();
+        System.out.println(HYPXList.size());
+        HYPXList.forEach(HYPX -> System.out.println(HYPX.getDate() + " " + HYPX.getPos()));
+
+//        summaryList = summaryRepository.findByDateStartingWith("2018-07-01");
+//        summaryList = summaryRepository.findByDateBetween("2018-07-01", "2018-10-01");
+//        for (Summary summary:summaryList) {
 //            System.out.println(summary.getTitle());
 //            System.out.println(summary.getPos());
 //            System.out.println(summary.getOrigin());
+//            System.out.println(summary.getDate());
 //        }
-        System.out.println(summaryList.size());
+//        System.out.println(summaryList.size());
     }
 
     @Test
