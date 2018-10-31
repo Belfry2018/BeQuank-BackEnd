@@ -25,7 +25,7 @@ public interface BaseService {
 
     public JSONObject dailySign(long userId);
 
-    public JSONObject unlockInsight(long userId, JSONObject object);
+    public JSONObject unlockFunction(long userId, JSONObject object);
 
     public JSONObject unlockCourse(long userId, JSONObject object);
 

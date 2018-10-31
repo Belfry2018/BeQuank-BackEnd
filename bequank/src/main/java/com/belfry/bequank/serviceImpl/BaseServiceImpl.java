@@ -200,23 +200,23 @@ public class BaseServiceImpl implements BaseService {
      * @return net.sf.json.JSONObject
      */
     @Override
-    public JSONObject unlockInsight(long userId, JSONObject object) {
+    public JSONObject unlockFunction(long userId, JSONObject object) {
         JSONObject result = new JSONObject();
         User user = repository.getById(userId);
         if (user != null) {
             String type = object.getString("type");
-            if (type.equals("ratioTrend")) {
+            if (type.equals("premium")) {
                 user.setRatioTrend(true);
-                repository.saveAndFlush(user);
-                result.put("success", true);
-                return result;
-            }
-            if (type.equals("trend")) {
+                user.setTrend(false);
+                user.setTutorialType(TutorialType.INTERMEDIATE);
+            } else {
+                user.setRatioTrend(true);
                 user.setTrend(true);
-                repository.saveAndFlush(user);
-                result.put("success", true);
-                return result;
+                user.setTutorialType(TutorialType.ADVANCED);
             }
+            repository.saveAndFlush(user);
+            result.put("success", true);
+            return result;
         }
         result.put("success", false);
         return result;

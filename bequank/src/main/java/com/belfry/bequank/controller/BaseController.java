@@ -156,12 +156,12 @@ public class BaseController {
         return object;
     }
 
-    @PostMapping("/user/unlock/insight")
-    public JSONObject unlockInsight(HttpServletRequest request, @RequestBody JSONObject object) {
+    @PostMapping("/user/unlock")
+    public JSONObject unlockFunction(HttpServletRequest request, @RequestBody JSONObject object) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int) map.get("userId"));
-        return baseService.unlockInsight(userId, object);
+        return baseService.unlockFunction(userId, object);
     }
 
     @PostMapping("/user/unlock/course")
