@@ -33,8 +33,6 @@ public class OpinionServiceImplTest {
     Word_tfRepository wordsRepository;
     @Resource
     SummaryRepository summaryRepository;
-    @Resource
-    HYPXRepository HYPXRepository;
 
     @Test
     public void getGvnPassage() {
@@ -50,25 +48,20 @@ public class OpinionServiceImplTest {
         int page = 0;
         Sort sort = new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = PageRequest.of(page, 8, sort);
-        Page<Summary> articles  = summaryRepository.findComprehensive(pageable, "2017-07-01", "2018-10-01", "china", "ZCFB");
+        Page<Summary> articles  = summaryRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china", "ZCFB");
         List<Summary> summaryList = articles.getContent();
         System.out.println(summaryList.size());
+        summaryList.forEach(summary -> System.out.println(summary.getTitle() + " " + summary.getDate() + " " + summary.getType()));
 
-//        Page<HYPX> hypxes = HYPXRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china");
-//        hypxes = HYPXRepository.findAll(pageable);
-//        List<HYPX> HYPXList = hypxes.getContent();
-//        System.out.println(HYPXList.size());
-//        HYPXList.forEach(HYPX -> System.out.println(HYPX.getDate() + " " + HYPX.getPos()));
+        JSONObject paraObject = new JSONObject();
+        paraObject.put("page", 1);
+        paraObject.put("start", "2018-08-01");
+        paraObject.put("end", "2018-10-19");
+        paraObject.put("region", "zhejiang");
+        paraObject.put("type", "TZGG");
 
-//        summaryList = summaryRepository.findByDateStartingWith("2018-07-01");
-//        summaryList = summaryRepository.findByDateBetween("2018-07-01", "2018-10-01");
-//        for (Summary summary:summaryList) {
-//            System.out.println(summary.getTitle());
-//            System.out.println(summary.getPos());
-//            System.out.println(summary.getOrigin());
-//            System.out.println(summary.getDate());
-//        }
-//        System.out.println(summaryList.size());
+        JSONObject resultObject = service.getArticlesByPages(paraObject);
+        System.out.println(resultObject.toString());
     }
 
     @Test
