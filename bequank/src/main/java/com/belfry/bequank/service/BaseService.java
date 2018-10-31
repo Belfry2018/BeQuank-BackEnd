@@ -15,10 +15,18 @@ public interface BaseService {
 
     public JSONObject sendVerificationCode(String email) throws GeneralSecurityException, MessagingException;
 
-    public User getProfile(long userId);
+    public JSONObject getProfile(long userId);
 
     public JSONObject setProfile(long userId, JSONObject user);
 
     public JSONObject setPassword(long userId, JSONObject object);
+
+    public JSONObject getAuth(long userId);
+
+    public JSONObject dailySign(long userId);
+
+    public JSONObject unlockFunction(long userId, JSONObject object);
+
+    public JSONObject unlockCourse(long userId, JSONObject object);
 
 }

@@ -173,4 +173,24 @@ public class UserController {
     public JSONArray recommendation(){
         return userService.recommendation();
     }
+
+    @GetMapping("/user/message")
+    public JSONObject getUnreadMessage(HttpServletRequest request){
+        return userService.getUnreadMessage(
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString())
+        );
+    }
+    @PostMapping("user/message")
+    public void readMessage(HttpServletRequest request,@RequestBody JSONObject jsonObject){
+        userService.readMessage(
+                Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
+                jsonObject.getLong("responseId")
+        );
+
+    }
+    @GetMapping("user/dalaos")
+    public JSONArray getDalaos(){
+        return userService.getDalaos();
+    }
+
 }

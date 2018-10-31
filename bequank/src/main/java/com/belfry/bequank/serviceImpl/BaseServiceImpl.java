@@ -8,6 +8,7 @@ import com.belfry.bequank.service.BaseService;
 import com.belfry.bequank.util.JwtUtil;
 import com.belfry.bequank.util.Message;
 import com.belfry.bequank.util.Role;
+import com.belfry.bequank.util.TutorialType;
 import com.sun.mail.util.MailSSLSocketFactory;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -30,7 +32,7 @@ import java.util.Properties;
 @Service
 public class BaseServiceImpl implements BaseService {
 
-    @Autowired
+    @Resource
     UserRepository repository;
 
     @Autowired
@@ -62,7 +64,7 @@ public class BaseServiceImpl implements BaseService {
         String nickName = object.getString("nickname");
 
         SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd");
-        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0);
+        User user = new User(userName, password, nickName, null, null, null, null, null, null, null, null, Role.NORMAL, time.format(new Date()), 0.0, 0.0, 0, 0, false, TutorialType.BEGINNER, false, false);
         repository.saveAndFlush(user);
         res.put("status", Message.MSG_SUCCESS);
         res.put("message", "注册成功");
@@ -146,9 +148,135 @@ public class BaseServiceImpl implements BaseService {
         return object;
     }
 
+    /**
+     * 获取用户权限列表
+     * @author Mr.Wang
+     * @param userId userId
+     * @return net.sf.json.JSONObject
+     */
     @Override
-    public User getProfile(long userId) {
-        return repository.getById(userId);
+    public JSONObject getAuth(long userId) {
+        JSONObject object = new JSONObject();
+        User userModel = repository.getById(userId);
+        if (userModel == null) {
+            object.put("status", Message.MSG_FAILED);
+        } else {
+            object.put("hasSigned", userModel.isHasSignedToday());
+            if (userModel.getTutorialType() == null) {
+                object.put("courses", TutorialType.BEGINNER);
+                userModel.setTutorialType(TutorialType.BEGINNER);
+                repository.saveAndFlush(userModel);
+            } else {
+                object.put("courses", userModel.getTutorialType());
+            }
+            object.put("ratioTrend", userModel.isRatioTrend());
+            object.put("trend", userModel.isTrend());
+        }
+        return object;
+    }
+
+    /**
+     * TODO: 需要增加每天把用户设为没签到的状态
+     * 每日签到
+     * @author Mr.Wang
+     * @param userId userId
+     * @return JSONObject
+     */
+    @Override
+    public JSONObject dailySign(long userId) {
+        User userModel = repository.getById(userId);
+        if (userModel != null) {
+            userModel.setHasSignedToday(true);
+            repository.saveAndFlush(userModel);
+        }
+        return new JSONObject();
+    }
+
+    /**
+     * 解锁功能
+     * @author Mr.Wang
+     * @param userId userId
+     * @param object object
+     * @return net.sf.json.JSONObject
+     */
+    @Override
+    public JSONObject unlockFunction(long userId, JSONObject object) {
+        JSONObject result = new JSONObject();
+        User user = repository.getById(userId);
+        if (user != null) {
+            String type = object.getString("type");
+            if (type.equals("premium")) {
+                user.setRatioTrend(true);
+                user.setTrend(false);
+                user.setTutorialType(TutorialType.INTERMEDIATE);
+            } else {
+                user.setRatioTrend(true);
+                user.setTrend(true);
+                user.setTutorialType(TutorialType.ADVANCED);
+            }
+            repository.saveAndFlush(user);
+            result.put("success", true);
+            return result;
+        }
+        result.put("success", false);
+        return result;
+    }
+
+    /**
+     * 金币解锁课程
+     * @author Mr.Wang
+     * @param userId userId
+     * @param object JSONObject
+     * @return net.sf.json.JSONObject
+     */
+    @Override
+    public JSONObject unlockCourse(long userId, JSONObject object) {
+        JSONObject result = new JSONObject();
+        User user = repository.getById(userId);
+        if (user != null) {
+            String type = object.getString("type");
+            if (type.equals("INTERMEDIATE") || type.equals("ADVANCED")) {
+                user.setTutorialType(type);
+                repository.saveAndFlush(user);
+                result.put("success", true);
+                return result;
+            }
+        }
+        result.put("success", false);
+        return result;
+    }
+
+    /**
+     * 获取用户个人信息
+     * @author YYQ->Mr.Wang
+     * @param userId userId
+     * @return net.sf.json.JSONObject
+     */
+    @Override
+    public JSONObject getProfile(long userId) {
+        //return repository.getById(userId);
+        JSONObject object = new JSONObject();
+        User userModel = repository.getById(userId);
+        if (userModel == null) {
+            object.put("status", Message.MSG_FAILED);
+        } else {
+            object.put("nickname", userModel.getNickname());
+            object.put("id", userModel.getId());
+            object.put("avatar", userModel.getAvatar());
+            object.put("phone", userModel.getPhone());
+            object.put("email", userModel.getEmail());
+            object.put("gender", userModel.getGender());
+            object.put("birthday", userModel.getBirthday());
+            object.put("moneyLevel", userModel.getMoneyLevel());
+            object.put("bio", userModel.getBio());
+            object.put("level", userModel.getLevel());
+            object.put("registerTime", userModel.getRegisterTime());
+            object.put("expectedProfit", userModel.getExpectedProfit());
+            object.put("riskAbility", userModel.getRiskAbility());
+            object.put("coins", userModel.getCoins());
+            object.put("exp", userModel.getExp());
+        }
+        return object;
     }
 
     @Override

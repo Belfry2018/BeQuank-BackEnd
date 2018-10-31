@@ -85,12 +85,27 @@ public class BaseController {
         return "this is unprotected request";
     }
 
-    @GetMapping("/user/profile")
-    public User getProfile(HttpServletRequest request) {
+    @GetMapping("/user/auth")
+    public JSONObject getAuth(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         Map<String, Object> map = jwtUtil.parseToken(token);
         long userId = Integer.toUnsignedLong((int)map.get("userId"));
-        System.out.println("ss "+baseService.getProfile(userId).getUserName());
+        return baseService.getAuth(userId);
+    }
+
+    @PostMapping("/user/dailysign")
+    public JSONObject dailySign(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int)map.get("userId"));
+        return baseService.dailySign(userId);
+    }
+
+    @GetMapping("/user/profile")
+    public JSONObject getProfile(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int)map.get("userId"));
         return baseService.getProfile(userId);
     }
 
@@ -139,5 +154,21 @@ public class BaseController {
         object.put("status", url == null ? Message.MSG_FAILED : Message.MSG_SUCCESS);
 
         return object;
+    }
+
+    @PostMapping("/user/unlock")
+    public JSONObject unlockFunction(HttpServletRequest request, @RequestBody JSONObject object) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        return baseService.unlockFunction(userId, object);
+    }
+
+    @PostMapping("/user/unlock/course")
+    public JSONObject unlockCourse(HttpServletRequest request, @RequestBody JSONObject object) {
+        String token = request.getHeader("Authorization");
+        Map<String, Object> map = jwtUtil.parseToken(token);
+        long userId = Integer.toUnsignedLong((int) map.get("userId"));
+        return baseService.unlockCourse(userId, object);
     }
 }

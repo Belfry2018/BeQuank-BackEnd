@@ -13,10 +13,10 @@ public interface OpinionService {
     /**
      * 根据页数得到8篇文章
      * @author Mr.Wang
-     * @param page 页号
-     * @return net.sf.json.JSONObject
+     * @param paraObject JSONObject
+     * @return SONObject
      */
-    JSONObject getArticlesByPages(int page);
+    JSONObject getArticlesByPages(JSONObject paraObject);
 
     /**
      * 政府热点词汇
@@ -61,7 +61,7 @@ public interface OpinionService {
     /**
      * 展示一个词好中坏的评论次数
      *
-     * @param word
+     * @param word word
      * @return net.sf.json.JSONObject
      * @author andi
      */
@@ -70,7 +70,7 @@ public interface OpinionService {
     /**
      * 展示一个词好中坏评论次数的舆情走势
      *
-     * @param word
+     * @param word word
      * @return net.sf.json.JSONArray
      * @author andi
      */

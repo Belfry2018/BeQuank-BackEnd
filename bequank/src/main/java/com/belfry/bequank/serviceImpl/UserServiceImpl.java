@@ -2,15 +2,18 @@ package com.belfry.bequank.serviceImpl;
 
 import com.belfry.bequank.entity.primary.Comment;
 import com.belfry.bequank.entity.primary.Tutorial;
+import com.belfry.bequank.entity.primary.User;
 import com.belfry.bequank.repository.primary.CommentRepository;
 import com.belfry.bequank.repository.primary.TutorialRepository;
 import com.belfry.bequank.repository.primary.UserRepository;
 import com.belfry.bequank.service.UserService;
 import com.belfry.bequank.util.HttpHandler;
 import com.belfry.bequank.util.Message;
+import com.belfry.bequank.util.Role;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -112,6 +115,49 @@ public class UserServiceImpl implements UserService {
             resultarray.add(object);        }
         return resultarray;
     }
+
+    @Override
+    public JSONObject getUnreadMessage(Long userid) {
+        List<Comment> list=commentRepository.getUnreadReplies(userid);
+        JSONArray jsonArray=new JSONArray();
+        for(Comment c:list){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("responseId",c.getId());
+            jsonObject.put("courseId",c.getTutorial().getId());
+            jsonObject.put("nickname",c.getWriter().getNickname());
+            jsonObject.put("comment",c.getContent());
+            jsonArray.add(jsonObject);
+        }
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("list",jsonArray);
+        return jsonObject;
+    }
+
+    @Override
+    public void readMessage(Long userid, Long responseid) {
+        Comment c=commentRepository.getOne(responseid);
+        c.setAlreadyread(true);
+        commentRepository.save(c);
+    }
+
+    @Override
+    public JSONArray getDalaos() {
+
+        List<User> list=userRepository.getDalaos(Role.ADVANCED);
+        if(list.size()==0){
+            return new JSONArray();
+        }
+        JSONArray jsonArray=new JSONArray();
+        for (User u : list){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("avatar",u.getAvatar());
+            jsonObject.put("username",u.getUserName());
+            jsonObject.put("bio",u.getBio());
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
+    }
+
     @Override
     public JSONObject getTutorial(Long userid,Long id) {
 
@@ -186,12 +232,13 @@ public class UserServiceImpl implements UserService {
         reply.setNickname(userRepository.getById(commenterid).getNickname());
         reply.setReplyTarget(origin);
         reply.setTutorial(origin.getTutorial());
+        reply.setReplyTargetUserid(origin.getWriter().getId());
         origin.getComments().add(reply);
 //        commentRepository.save(origin);
         commentRepository.save(reply);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("commentId",reply.getId());
-        jsonObject.put("tutorialId",reply.getId());
+        jsonObject.put("tutorialId",reply.getTutorial().getId());
         jsonObject.put("fatherComment",null);
         jsonObject.put("writer",userRepository.getById(commenterid));
         jsonObject.put("content",content);

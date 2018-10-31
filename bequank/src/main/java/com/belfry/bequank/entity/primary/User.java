@@ -1,5 +1,6 @@
 package com.belfry.bequank.entity.primary;
 
+import com.belfry.bequank.util.TutorialType;
 import lombok.*;
 import net.sf.json.JSONObject;
 
@@ -27,12 +28,19 @@ public class User implements Serializable {
     private String birthday;//生日
     private String moneyLevel;//……
     private String bio;//自我介绍
+    private String level;// + 通过做问卷得出的结果
     private String role;//权限
     private String registerTime;//注册时间
     private double expectedProfit;//预期收益
     private double riskAbility;//风险承受能力
+    private int coins;
+    private int exp;
+    private boolean hasSignedToday;//今天是否签到
+    private String tutorialType;//可以查看的教程级别
+    private boolean ratioTrend;
+    private boolean trend;
 
-    public User(String userName, String password, String nickname, String avatar, String phone, String email, String gender, String birthday, String moneyLevel, String bio, String role, String registerTime, double expectedProfit, double riskAbility) {
+    public User(String userName, String password, String nickname, String avatar, String phone, String email, String gender, String birthday, String moneyLevel, String bio, String level, String role, String registerTime, double expectedProfit, double riskAbility, int coins, int exp, boolean hasSignedToday, String tutorialType, boolean ratioTrend, boolean trend) {
         this.userName = userName;
         this.password = password;
         this.nickname = nickname;
@@ -43,11 +51,19 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.moneyLevel = moneyLevel;
         this.bio = bio;
+        this.level = level;
         this.role = role;
         this.registerTime = registerTime;
         this.expectedProfit = expectedProfit;
         this.riskAbility = riskAbility;
+        this.coins = coins;
+        this.exp = exp;
+        this.hasSignedToday = hasSignedToday;
+        this.tutorialType = tutorialType;
+        this.ratioTrend = ratioTrend;
+        this.trend = trend;
     }
+
     public JSONObject toJSONObject(){
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("username",this.userName);
