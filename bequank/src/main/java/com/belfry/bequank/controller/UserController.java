@@ -179,7 +179,7 @@ public class UserController {
 
     @GetMapping("/tutorials/recommendation")
     public JSONArray recommendation(HttpServletRequest request) {
-        int userId = (int) util.parseToken(request.getHeader(HEADER)).get("userId");
+        long userId = Long.parseLong(util.parseToken(request.getHeader(HEADER)).get("userId").toString());
         return userService.recommendation(userId);
     }
 
