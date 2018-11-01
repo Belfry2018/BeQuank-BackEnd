@@ -137,9 +137,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JSONObject getUnreadMessage(Long userid) {
+        System.out.println("id:"+userid);
         List<Comment> list=commentRepository.getUnreadReplies(userid);
         JSONArray jsonArray=new JSONArray();
+        System.out.println("comment bl invoked");
         for(Comment c:list){
+            System.out.println("c: "+c.getContent());
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("responseId",c.getId());
             jsonObject.put("courseId",c.getTutorial().getId());
@@ -153,10 +156,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void readMessage(Long userid, Long responseid) {
+    public JSONObject readMessage(Long userid, Long responseid) {
         Comment c=commentRepository.getOne(responseid);
-        c.setAlreadyread(true);
+        c.setAlreadyread(1);
         commentRepository.save(c);
+        return new JSONObject();
     }
 
     @Override
@@ -216,6 +220,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public JSONObject postComment(Long writerid,Long tutorialid,String content,String time) {
         Comment c=new Comment();
+        System.out.println("writerid"+writerid);
         c.setContent(content);
         c.setWriter(userRepository.getById(writerid));
         c.setNickname(userRepository.getById(writerid).getNickname());
@@ -252,6 +257,7 @@ public class UserServiceImpl implements UserService {
         reply.setReplyTarget(origin);
         reply.setTutorial(origin.getTutorial());
         reply.setReplyTargetUserid(origin.getWriter().getId());
+        System.out.println("origin writerid"+origin.getWriter());
         origin.getComments().add(reply);
 //        commentRepository.save(origin);
         commentRepository.save(reply);

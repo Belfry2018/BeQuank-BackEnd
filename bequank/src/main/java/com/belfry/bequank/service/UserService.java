@@ -24,7 +24,7 @@ public interface UserService {
 
     JSONObject getUnreadMessage(Long userid);
 
-    void readMessage(Long userid,Long responseid);
+    JSONObject readMessage(Long userid,Long responseid);
 
     JSONArray getDalaos();
 

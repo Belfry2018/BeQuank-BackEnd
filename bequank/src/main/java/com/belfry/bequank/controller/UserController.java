@@ -185,13 +185,14 @@ public class UserController {
 
     @GetMapping("/user/message")
     public JSONObject getUnreadMessage(HttpServletRequest request){
+        System.out.println("message controller invoked");
         return userService.getUnreadMessage(
                 Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString())
         );
     }
     @PostMapping("user/message")
-    public void readMessage(HttpServletRequest request,@RequestBody JSONObject jsonObject){
-        userService.readMessage(
+    public JSONObject readMessage(HttpServletRequest request,@RequestBody JSONObject jsonObject){
+        return userService.readMessage(
                 Long.parseLong(util.parseToken(request.getHeader("Authorization")).get("userId").toString()),
                 jsonObject.getLong("responseId")
         );
