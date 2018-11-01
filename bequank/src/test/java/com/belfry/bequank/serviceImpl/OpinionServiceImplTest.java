@@ -34,8 +34,6 @@ public class OpinionServiceImplTest {
     Word_tfRepository wordsRepository;
     @Resource
     SummaryRepository summaryRepository;
-    @Resource
-    HYPXRepository HYPXRepository;
 
     @Test
     public void getGvnPassage() {
@@ -51,15 +49,16 @@ public class OpinionServiceImplTest {
         int page = 0;
         Sort sort = new Sort(Sort.Direction.DESC, "date");
         Pageable pageable = PageRequest.of(page, 8, sort);
-        Page<Summary> articles  = summaryRepository.findComprehensive(pageable, "2017-07-01", "2018-10-01", "china", "ZCFB");
+        Page<Summary> articles  = summaryRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china", "ZCFB");
         List<Summary> summaryList = articles.getContent();
         System.out.println(summaryList.size());
+        summaryList.forEach(summary -> System.out.println(summary.getTitle() + " " + summary.getDate() + " " + summary.getType()));
 
         JSONObject paraObject = new JSONObject();
-        paraObject.put("page", 0);
-        paraObject.put("start", "2018-01-01");
-        paraObject.put("end", "2018-10-01");
-        paraObject.put("region", "china");
+        paraObject.put("page", 1);
+        paraObject.put("start", "2018-08-01");
+        paraObject.put("end", "2018-10-19");
+        paraObject.put("region", "zhejiang");
         paraObject.put("type", "TZGG");
 
         JSONObject resultObject = service.getArticlesByPages(paraObject);
