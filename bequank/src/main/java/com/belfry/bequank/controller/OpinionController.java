@@ -38,7 +38,7 @@ public class OpinionController {
      */
     @PostMapping(value = "/gvn/passage")
     public JSONObject findArticlesByPages( @RequestBody JSONObject object) {
-        return new JSONObject();
+        return opinionService.getArticlesByPages(object);
     }
 
     /**
