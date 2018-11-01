@@ -55,21 +55,15 @@ public class OpinionServiceImplTest {
         List<Summary> summaryList = articles.getContent();
         System.out.println(summaryList.size());
 
-//        Page<HYPX> hypxes = HYPXRepository.findComprehensive(pageable, "2018-07-01", "2018-10-01", "china");
-//        hypxes = HYPXRepository.findAll(pageable);
-//        List<HYPX> HYPXList = hypxes.getContent();
-//        System.out.println(HYPXList.size());
-//        HYPXList.forEach(HYPX -> System.out.println(HYPX.getDate() + " " + HYPX.getPos()));
+        JSONObject paraObject = new JSONObject();
+        paraObject.put("page", 0);
+        paraObject.put("start", "2018-01-01");
+        paraObject.put("end", "2018-10-01");
+        paraObject.put("region", "china");
+        paraObject.put("type", "TZGG");
 
-//        summaryList = summaryRepository.findByDateStartingWith("2018-07-01");
-//        summaryList = summaryRepository.findByDateBetween("2018-07-01", "2018-10-01");
-//        for (Summary summary:summaryList) {
-//            System.out.println(summary.getTitle());
-//            System.out.println(summary.getPos());
-//            System.out.println(summary.getOrigin());
-//            System.out.println(summary.getDate());
-//        }
-//        System.out.println(summaryList.size());
+        JSONObject resultObject = service.getArticlesByPages(paraObject);
+        System.out.println(resultObject.toString());
     }
 
     @Test

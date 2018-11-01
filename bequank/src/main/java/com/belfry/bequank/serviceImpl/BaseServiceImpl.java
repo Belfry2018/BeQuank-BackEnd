@@ -224,14 +224,28 @@ public class BaseServiceImpl implements BaseService {
         User user = repository.getById(userId);
         if (user != null) {
             String type = object.getString("type");
-            if (type.equals("premium")) {
+            if (type.equals("Premium")) {
                 user.setRatioTrend(true);
                 user.setTrend(false);
                 user.setTutorialType(TutorialType.INTERMEDIATE);
+                int coins = user.getCoins();
+                if (coins < 49) {
+                    result.put("success", false);
+                    return result;
+                }
+                coins -= 49;
+                user.setCoins(coins);
             } else {
                 user.setRatioTrend(true);
                 user.setTrend(true);
                 user.setTutorialType(TutorialType.ADVANCED);
+                int coins = user.getCoins();
+                if (coins < 99) {
+                    result.put("success", false);
+                    return result;
+                }
+                coins -= 99;
+                user.setCoins(coins);
             }
             repository.saveAndFlush(user);
             result.put("success", true);
